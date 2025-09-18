@@ -143,8 +143,8 @@ This report documents the refactoring of the Figma Rebuild WordPress theme to al
 ## Build Process Integrity
 
 ### Tailwind CSS
-✅ **Source preserved:** `/src/css/tailwind.css` unchanged  
-✅ **Output untouched:** `/dist/app.css` only regenerated, not manually edited  
+✅ **Source preserved:** `/assets/css/tailwind.css` unchanged
+✅ **Output untouched:** `/assets/css/app.css` only regenerated, not manually edited
 ✅ **Config optimized:** Extended content paths for better purging  
 ✅ **Custom styles separate:** No global Tailwind overrides
 

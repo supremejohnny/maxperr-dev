@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "TAILWIND_MODE=watch npx postcss src/css/tailwind.css -o dist/app.css --watch",
-    "build": "cross-env NODE_ENV=production npx postcss src/css/tailwind.css -o dist/app.css && npx esbuild src/js/app.js --bundle --minify --outfile=dist/app.js",
-    "watch:js": "npx esbuild src/js/app.js --bundle --outfile=dist/app.js --watch"
+    "dev": "TAILWIND_MODE=watch npx postcss assets/css/tailwind.css -o assets/css/app.css --watch",
+    "build": "cross-env NODE_ENV=production npx postcss assets/css/tailwind.css -o assets/css/app.css && npx esbuild src/js/app.js --bundle --minify --outfile=assets/js/app.js",
+    "watch:js": "npx esbuild src/js/app.js --bundle --outfile=assets/js/app.js --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
