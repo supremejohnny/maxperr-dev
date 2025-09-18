@@ -1,0 +1,27 @@
+/*
+Theme Name: Figma Rebuild
+Theme URI: https://example.com
+Author: You
+Description: Minimal custom theme scaffold for Figma → WordPress with Tailwind.
+Version: 1.0
+Text Domain: figma-rebuild
+*/
+
+/* =================================================================
+   CUSTOM STYLES - Post-Tailwind Overrides
+   ================================================================= */
+
+
+
+/* (moved to src/css/maxperr_kit.css) */
+
+/* Footer logo styling */
+.footer-logo {
+  display: flex;
+  width: 254.578px;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  aspect-ratio: 254.58/44.00;
+}
