@@ -1,0 +1,135 @@
+/* Hero Section */
+.hero-section {
+  height: 1117px;
+  flex-shrink: 0;
+  position: relative;
+  padding-top: 140px;
+}
+
+.hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.hero-bg-layer.is-active {
+  opacity: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%);
+  pointer-events: none;
+}
+
+/* Hero slider controls */
+.hero-nav {
+  position: absolute;
+  top: auto;
+  bottom: 10px;
+  color: #fff;
+  border-radius: 9999px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  z-index: 30;
+  pointer-events: auto;
+}
+
+.hero-nav:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-nav--prev {
+  left: 8px;
+}
+
+.hero-nav--next {
+  right: 8px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .hero-nav--prev {
+    left: 16px;
+  }
+
+  .hero-nav--next {
+    right: 16px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .hero-nav--prev {
+    left: 24px;
+  }
+
+  .hero-nav--next {
+    right: 24px;
+  }
+}
+
+.hero-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.hero-pagination {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  gap: 8px;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.hero-dot--active {
+  background: #fff;
+  transform: scale(1.1);
+}
+
+.Hero-H1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 100px;
+  line-height: 100%;
+  letter-spacing: -0.05em;
+  color: #fff;
+  text-align: left;
+  margin-left: 0;
+}
+
+.Hero-Body {
+  max-width: 755px;
+  width: 100%;
+  text-align: left;
+  font-family: 'Manrope', sans-serif;
+  margin-left: 5px;
+  margin-right: 0;
+  line-height: 1.2;
+}
