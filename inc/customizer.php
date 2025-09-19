@@ -50,7 +50,7 @@ add_action('customize_register', function ($wp_customize) {
 add_action('customize_preview_init', function () {
   wp_enqueue_script(
     'figma-rebuild-customizer-preview',
-    get_template_directory_uri() . '/dist/customizer-preview.js',
+    get_template_directory_uri() . '/assets/js/customizer-preview.js',
     ['customize-preview'],
     null,
     true

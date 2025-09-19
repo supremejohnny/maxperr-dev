@@ -3,9 +3,8 @@ module.exports = {
     "./*.php",
     "./*.html",
     "./inc/**/*.php",
-    "./template-parts/**/*.php",
-    "./templates/**/*.html",
-    "./parts/**/*.html", 
+    "./parts/**/*.php",
+    "./templates/**/*.php", 
     "./patterns/**/*.php",
     "./src/js/**/*.js"
   ],
