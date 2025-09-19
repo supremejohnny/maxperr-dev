@@ -1,0 +1,119 @@
+/* ===== Monitor from Afar ===== */
+.monitor {
+  background: #fff;
+  padding: 48px 0 80px;
+}
+
+.monitor__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 顶部：左文案 + 右上按钮 */
+.monitor__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.monitor__copy {
+  width: min(720px, 100%);
+}
+
+.monitor__title {
+  margin: 0 0 10px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #0F0F0F;
+}
+
+.monitor__desc {
+  margin: 0;
+  color: #374151;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* 两条图文行 */
+.monitor-row {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 56px;
+  margin: 56px 0;
+}
+
+.monitor-media {
+  position: relative;
+  min-height: 360px;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+  background: #111;
+}
+
+.monitor-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.monitor-copy h3 {
+  margin: 0 0 10px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  color: #2970A7;
+}
+
+.monitor-copy p {
+  margin: 0 0 18px;
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* 响应式 */
+@media (max-width: 1200px) {
+  .monitor-row {
+    gap: 40px;
+  }
+
+  .monitor__title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .monitor__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .monitor__title {
+    font-size: 34px;
+  }
+
+  .monitor__desc {
+    font-size: 16px;
+  }
+
+  .monitor-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin: 40px 0;
+  }
+
+  .monitor-media {
+    min-height: 300px;
+  }
+}
