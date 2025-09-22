@@ -7,6 +7,27 @@
   if ($services_bg_image) {
     $services_section_style = sprintf(' style="background-image:url(%s);"', esc_url($services_bg_image));
   }
+
+  $services_defaults = [
+    'ev'   => [
+      'title' => __('EV Charger', 'figma-rebuild'),
+      'image' => get_template_directory_uri() . '/src/images/maxperr_smart_30kW.png',
+      'link'  => '/products/ev-charger',
+    ],
+    'home' => [
+      'title' => __('Home Energy', 'figma-rebuild'),
+      'image' => get_template_directory_uri() . '/src/images/maxperr_home_10kW.png',
+      'link'  => '/products/home-energy',
+    ],
+  ];
+
+  $services_ev_title = get_theme_mod('services_ev_title', $services_defaults['ev']['title']);
+  $services_ev_image = get_theme_mod('services_ev_image', $services_defaults['ev']['image']);
+  $services_home_title = get_theme_mod('services_home_title', $services_defaults['home']['title']);
+  $services_home_image = get_theme_mod('services_home_image', $services_defaults['home']['image']);
+
+  $services_ev_image = $services_ev_image ?: $services_defaults['ev']['image'];
+  $services_home_image = $services_home_image ?: $services_defaults['home']['image'];
 ?>
 
 <section class="catalog" id="service"<?php echo $services_section_style; ?>>
@@ -31,20 +52,28 @@
     <div class="catalog__grid">
       <!-- EV Charger -->
       <article class="catalog-card">
-        <img class="catalog-card__img"
-             src="<?php echo get_template_directory_uri(); ?>/src/images/maxperr_smart_30kW.png"
-             alt="EV Charger">
-        <h3 class="catalog-card__title">EV Charger</h3>
-        <a href="/products/ev-charger" class="catalog-card__btn">Learn More</a>
+        <?php if ($services_ev_image) : ?>
+          <img class="catalog-card__img"
+               src="<?php echo esc_url($services_ev_image); ?>"
+               alt="<?php echo esc_attr($services_ev_title ?: $services_defaults['ev']['title']); ?>">
+        <?php endif; ?>
+        <?php if ($services_ev_title) : ?>
+          <h3 class="catalog-card__title"><?php echo esc_html($services_ev_title); ?></h3>
+        <?php endif; ?>
+        <a href="<?php echo esc_url($services_defaults['ev']['link']); ?>" class="catalog-card__btn">Learn More</a>
       </article>
 
       <!-- Home Energy -->
       <article class="catalog-card">
-        <img class="catalog-card__img"
-             src="<?php echo get_template_directory_uri(); ?>/src/images/maxperr_home_10kW.png"
-             alt="Home Energy">
-        <h3 class="catalog-card__title">Home Energy</h3>
-        <a href="/products/home-energy" class="catalog-card__btn">Learn More</a>
+        <?php if ($services_home_image) : ?>
+          <img class="catalog-card__img"
+               src="<?php echo esc_url($services_home_image); ?>"
+               alt="<?php echo esc_attr($services_home_title ?: $services_defaults['home']['title']); ?>">
+        <?php endif; ?>
+        <?php if ($services_home_title) : ?>
+          <h3 class="catalog-card__title"><?php echo esc_html($services_home_title); ?></h3>
+        <?php endif; ?>
+        <a href="<?php echo esc_url($services_defaults['home']['link']); ?>" class="catalog-card__btn">Learn More</a>
       </article>
     </div>
 

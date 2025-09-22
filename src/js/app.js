@@ -157,19 +157,55 @@ document.addEventListener('DOMContentLoaded', () => {
     let back  = stack.querySelector('[data-role="back"]');
     const nextBtn = stack.querySelector('[data-next], .testimony-next') || document.querySelector('[data-next], .testimony-next');
 
-    const slides = [
-      { heading: 'Amazing ROI!', body: 'Installation was seamless and support is outstanding. We track usage remotely and save every month.', author: 'Mia L. / Studio Élan' },
-      { heading: '-50% Charging Cost!', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', author: 'Josh Q. / JQ Builder' },
-      { heading: 'Best Support Team', body: 'Quick response and clear dashboards. Integrates perfectly with our property portfolio.', author: 'Oliver T. / NorthBay' }
-    ];
+    const dataNode = stack.querySelector('[data-testimony-source]');
+    let slides = [];
+
+    if (dataNode) {
+      try {
+        const parsed = JSON.parse(dataNode.textContent || '[]');
+        if (Array.isArray(parsed)) {
+          slides = parsed
+            .map(item => ({
+              heading: typeof item?.title === 'string' ? item.title : '',
+              body: typeof item?.body === 'string' ? item.body : '',
+              author: typeof item?.author === 'string' ? item.author : '',
+            }))
+            .filter(item => item.heading || item.body || item.author);
+        }
+      } catch (err) {
+        console.error('[testimony] failed to parse data:', err);
+      }
+
+      if (typeof dataNode.remove === 'function') {
+        dataNode.remove();
+      }
+    }
+
+    if (!slides.length) {
+      return;
+    }
     let i = 0;                    // 当前 front 的索引
     let busy = false;             // 动画防抖
 
+    const formatAuthor = (value) => {
+      if (!value) return '';
+      const parts = String(value).split('/');
+      const name = (parts.shift() || '').trim();
+      const org = parts.join('/').trim();
+      if (!org) {
+        return name;
+      }
+      return `${name} <span style="color:#94A3B8;font-weight:700;">/ ${org}</span>`;
+    };
+
     const render = (card, data) => {
-      card.querySelector('.testimony-heading').textContent = data.heading;
-      card.querySelector('.testimony-body').textContent = data.body;
-      card.querySelector('.testimony-author').innerHTML =
-        data.author.replace('/', '<span style="color:#94A3B8;font-weight:700;"> / </span>');
+      const heading = card.querySelector('.testimony-heading');
+      const body = card.querySelector('.testimony-body');
+      const author = card.querySelector('.testimony-author');
+
+      if (heading) heading.textContent = data.heading || '';
+      if (body) body.textContent = data.body || '';
+      if (author) author.innerHTML = formatAuthor(data.author); // eslint-disable-line no-param-reassign
     };
 
     // 关键：后卡预渲染“下一条”
@@ -213,16 +249,24 @@ document.addEventListener('DOMContentLoaded', () => {
       back.addEventListener('transitionend', onDone);
     };
 
+    const allowAdvance = slides.length > 1;
+
     if (nextBtn && typeof nextBtn.addEventListener === 'function') {
-      nextBtn.addEventListener('click', goNext);
+      if (!allowAdvance) {
+        nextBtn.setAttribute('disabled', 'true');
+      } else {
+        nextBtn.addEventListener('click', goNext);
+      }
     }
     // 支持点整个卡片上的 “下一页” 热区（可选）
-    stack.addEventListener('click', (ev) => {
-      const hit = ev.target && typeof ev.target.closest === 'function'
-        ? ev.target.closest('[data-next], .testimony-next')
-        : null;
-      if (hit) goNext();
-    });
+    if (allowAdvance) {
+      stack.addEventListener('click', (ev) => {
+        const hit = ev.target && typeof ev.target.closest === 'function'
+          ? ev.target.closest('[data-next], .testimony-next')
+          : null;
+        if (hit) goNext();
+      });
+    }
   } catch (err) {
     console.error('[testimony] init failed:', err);
   }

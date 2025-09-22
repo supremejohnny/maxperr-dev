@@ -7,6 +7,24 @@
   if ($news_bg_image) {
     $news_section_style = sprintf(' style="background-image:url(%s);"', esc_url($news_bg_image));
   }
+
+  $news_defaults = figma_rebuild_get_default_news_items();
+  $news_items_raw = get_theme_mod('news_items', wp_json_encode($news_defaults));
+  $news_items = json_decode($news_items_raw, true);
+  if (!is_array($news_items) || empty($news_items)) {
+    $news_items = $news_defaults;
+  }
+
+  $news_items = array_values(array_filter($news_items, function ($item) {
+    if (!is_array($item)) {
+      return false;
+    }
+
+    $title = isset($item['title']) ? trim((string) $item['title']) : '';
+    $image = isset($item['image']) ? trim((string) $item['image']) : '';
+
+    return $title !== '' || $image !== '';
+  }));
 ?>
 
 <!-- News Section -->
@@ -27,61 +45,38 @@
 
     <div class="news-viewport">
       <div class="news-track">
-        <!-- 复制 article 以增加卡片数量 -->
-        <article class="news-card">
-          <div class="news-card__image">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=2069&q=80" alt="News article" class="w-full h-full object-cover">
-            <time class="news-date" datetime="2025-07-11">2025-07-11</time>
-          </div>
-          <div class="p-6">
-            <h3 class="news-title">[2025 Edition] Home EV Charger Installation Tips</h3>
-            <span class="news-card__tag">Knowledge</span>
-          </div>
-        </article>
+        <?php foreach ($news_items as $item) :
+          $title = isset($item['title']) ? trim((string) $item['title']) : '';
+          $tag = isset($item['tag']) ? trim((string) $item['tag']) : '';
+          $date = isset($item['date']) ? trim((string) $item['date']) : '';
+          $image = isset($item['image']) ? trim((string) $item['image']) : '';
+          $link = isset($item['link']) ? trim((string) $item['link']) : '';
 
-        <article class="news-card">
-          <div class="news-card__image">
-            <img src="https://images.unsplash.com/photo-1593941707882-a5bac6861d75?auto=format&fit=crop&w=2072&q=80" alt="News article" class="w-full h-full object-cover">
-            <time class="news-date" datetime="2025-06-25">2025-06-25</time>
-          </div>
-          <div class="p-6">
-            <h3 class="news-title">10+ Public Charging Stations Launched downtown Toronto</h3>
-            <span class="news-card__tag">Knowledge</span>
-          </div>
-        </article>
-
-        <article class="news-card">
-          <div class="news-card__image">
-            <img src="<?php echo get_template_directory_uri(); ?>/src/images/bg_house.jpg" alt="News article" class="w-full h-full object-cover">
-            <time class="news-date" datetime="2025-06-10">2025-06-10</time>
-          </div>
-          <div class="p-6">
-            <h3 class="news-title">Maxperr Energy Unveils Powerful EV Charging Solutions at Canada's Largest Expo</h3>
-            <span class="news-card__tag">News</span>
-          </div>
-        </article>
-
-        <article class="news-card">
-          <div class="news-card__image">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" alt="News article" class="w-full h-full object-cover">
-            <time class="news-date" datetime="2025-05-30">2025-05-30</time>
-          </div>
-          <div class="p-6">
-            <h3 class="news-title">Grid-Friendly Charging Strategies for Commercial Sites</h3>
-            <span class="news-card__tag">News</span>
-          </div>
-        </article>
-
-        <article class="news-card">
-          <div class="news-card__image">
-            <img src="https://images.unsplash.com/photo-1611880984806-a0a7d48b8c67?q=80&w=2070&auto=format&fit=crop" alt="News article" class="w-full h-full object-cover">
-            <time class="news-date" datetime="2025-05-12">2025-05-12</time>
-          </div>
-          <div class="p-6">
-            <h3 class="news-title">Smart O&amp;M: Lowering TCO of EV Charging Assets</h3>
-            <span class="news-card__tag">Knowledge</span>
-          </div>
-        </article>
+          if ($title === '' && $image === '') {
+            continue;
+          }
+        ?>
+          <article class="news-card">
+            <?php if ($link) : ?><a href="<?php echo esc_url($link); ?>" class="news-card__link" aria-label="<?php echo esc_attr($title ?: __('News article', 'figma-rebuild')); ?>"><?php endif; ?>
+              <div class="news-card__image">
+                <?php if ($image) : ?>
+                  <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($title ?: __('News article', 'figma-rebuild')); ?>" class="w-full h-full object-cover">
+                <?php endif; ?>
+                <?php if ($date) : ?>
+                  <time class="news-date" datetime="<?php echo esc_attr($date); ?>"><?php echo esc_html($date); ?></time>
+                <?php endif; ?>
+              </div>
+              <div class="p-6">
+                <?php if ($title) : ?>
+                  <h3 class="news-title"><?php echo esc_html($title); ?></h3>
+                <?php endif; ?>
+                <?php if ($tag) : ?>
+                  <span class="news-card__tag"><?php echo esc_html($tag); ?></span>
+                <?php endif; ?>
+              </div>
+            <?php if ($link) : ?></a><?php endif; ?>
+          </article>
+        <?php endforeach; ?>
       </div>
     </div>
 

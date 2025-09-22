@@ -1,0 +1,60 @@
+.figma-repeater {
+  border: 1px solid #dadada;
+  border-radius: 4px;
+  padding: 16px;
+  background: #fff;
+  margin-bottom: 24px;
+}
+
+.figma-repeater__items {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.figma-repeater__item {
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  padding: 12px;
+  background: #f9f9f9;
+}
+
+.figma-repeater__item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.figma-repeater__item-title {
+  font-weight: 600;
+}
+
+.figma-repeater__remove {
+  color: #b52727;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.figma-repeater__field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.figma-repeater__field-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #555;
+}
+
+.figma-repeater__input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.figma-repeater__add {
+  width: 100%;
+  justify-content: center;
+}

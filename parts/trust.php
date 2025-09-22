@@ -2,12 +2,34 @@
   $trust_title = get_theme_mod('trust_title', __('Trusted by 3000+', 'figma-rebuild'));
   $trust_paragraph = get_theme_mod('trust_paragraph', __('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.', 'figma-rebuild'));
   $trust_bg_image = get_theme_mod('trust_bg_image', 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=2070&q=80');
-  $trust_back_title = get_theme_mod('trust_back_title', __('-50% Charging Cost!', 'figma-rebuild'));
-  $trust_back_paragraph = get_theme_mod('trust_back_paragraph', __('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'figma-rebuild'));
-  $trust_back_author = get_theme_mod('trust_back_author', __('Josh Q. / JQ Builder', 'figma-rebuild'));
-  $trust_front_title = get_theme_mod('trust_front_title', __('Amazing ROI!', 'figma-rebuild'));
-  $trust_front_paragraph = get_theme_mod('trust_front_paragraph', __('Installation was seamless and support is outstanding. We track usage remotely and save every month.', 'figma-rebuild'));
-  $trust_front_author = get_theme_mod('trust_front_author', __('Mia L. / Studio Élan', 'figma-rebuild'));
+
+  $testimonials_default = figma_rebuild_get_default_testimonials();
+  $testimonials_raw = get_theme_mod('trust_testimonials', wp_json_encode($testimonials_default));
+  $trust_testimonials = json_decode($testimonials_raw, true);
+  if (!is_array($trust_testimonials) || empty($trust_testimonials)) {
+    $trust_testimonials = $testimonials_default;
+  }
+
+  $partners_default = figma_rebuild_get_default_partners();
+  $partners_raw = get_theme_mod('trust_partners', wp_json_encode($partners_default));
+  $trust_partners = json_decode($partners_raw, true);
+  if (!is_array($trust_partners)) {
+    $trust_partners = $partners_default;
+  }
+
+  $trust_partners = array_values(array_filter($trust_partners, function ($partner) {
+    if (!is_array($partner)) {
+      return false;
+    }
+
+    $label = isset($partner['label']) ? trim((string) $partner['label']) : '';
+    $logo = isset($partner['logo']) ? trim((string) $partner['logo']) : '';
+
+    return $label !== '' || $logo !== '';
+  }));
+
+  $front_testimonial = isset($trust_testimonials[0]) && is_array($trust_testimonials[0]) ? $trust_testimonials[0] : [];
+  $back_testimonial = isset($trust_testimonials[1]) && is_array($trust_testimonials[1]) ? $trust_testimonials[1] : $front_testimonial;
 
   $format_author = function ($author_string) {
     if (empty($author_string)) {
@@ -52,17 +74,18 @@
         <!-- Back (上一张的预览) -->
         <article class="testimony-card is-back" data-role="back">
           <div class="testimony-quote">“</div>
-          <?php if ($trust_back_title) : ?>
-            <div class="testimony-heading"><?php echo esc_html($trust_back_title); ?></div>
-          <?php endif; ?>
-          <?php if ($trust_back_paragraph) : ?>
-            <p class="testimony-body"><?php echo wp_kses_post($trust_back_paragraph); ?></p>
-          <?php endif; ?>
-          <?php if ($trust_back_author) : ?>
-            <div class="testimony-author" style="text-align: right;">
-              <?php echo $format_author($trust_back_author); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            </div>
-          <?php endif; ?>
+          <div class="testimony-heading">
+            <?php echo isset($back_testimonial['title']) ? esc_html($back_testimonial['title']) : ''; ?>
+          </div>
+          <p class="testimony-body">
+            <?php echo isset($back_testimonial['body']) ? wp_kses_post($back_testimonial['body']) : ''; ?>
+          </p>
+          <div class="testimony-author" style="text-align: right;">
+            <?php
+              $author_value = isset($back_testimonial['author']) ? $back_testimonial['author'] : '';
+              echo $author_value ? $format_author($author_value) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            ?>
+          </div>
         </article>
 
         <!-- Front (当前显示) -->
@@ -73,18 +96,22 @@
                  stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
           </button>
           <div class="testimony-quote">”</div>
-          <?php if ($trust_front_title) : ?>
-            <div class="testimony-heading"><?php echo esc_html($trust_front_title); ?></div>
-          <?php endif; ?>
-          <?php if ($trust_front_paragraph) : ?>
-            <p class="testimony-body"><?php echo wp_kses_post($trust_front_paragraph); ?></p>
-          <?php endif; ?>
-          <?php if ($trust_front_author) : ?>
-            <div class="testimony-author" style="text-align: right;">
-              <?php echo $format_author($trust_front_author); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            </div>
-          <?php endif; ?>
+          <div class="testimony-heading">
+            <?php echo isset($front_testimonial['title']) ? esc_html($front_testimonial['title']) : ''; ?>
+          </div>
+          <p class="testimony-body">
+            <?php echo isset($front_testimonial['body']) ? wp_kses_post($front_testimonial['body']) : ''; ?>
+          </p>
+          <div class="testimony-author" style="text-align: right;">
+            <?php
+              $author_value = isset($front_testimonial['author']) ? $front_testimonial['author'] : '';
+              echo $author_value ? $format_author($author_value) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            ?>
+          </div>
         </article>
+        <script type="application/json" data-testimony-source>
+          <?php echo wp_json_encode($trust_testimonials); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+        </script>
       </div>
     </div>
   </div>
@@ -96,19 +123,27 @@
     <div class="testimony-marquee">
       <!-- 轨道内重复两遍以实现无缝滚动 -->
       <div class="testimony-track">
-        <div class="testimony-logo">Partner 1</div>
-        <div class="testimony-logo">Partner 2</div>
-        <div class="testimony-logo">Partner 3</div>
-        <div class="testimony-logo">Partner 4</div>
-        <div class="testimony-logo">Partner 5</div>
-        <div class="testimony-logo">Partner 6</div>
+        <?php if (!empty($trust_partners)) : ?>
+          <?php for ($i = 0; $i < 2; $i++) : ?>
+            <?php foreach ($trust_partners as $partner) :
+              $partner_label = isset($partner['label']) ? trim((string) $partner['label']) : '';
+              $partner_logo = isset($partner['logo']) ? trim((string) $partner['logo']) : '';
 
-        <div class="testimony-logo">Partner 1</div>
-        <div class="testimony-logo">Partner 2</div>
-        <div class="testimony-logo">Partner 3</div>
-        <div class="testimony-logo">Partner 4</div>
-        <div class="testimony-logo">Partner 5</div>
-        <div class="testimony-logo">Partner 6</div>
+              if ($partner_logo === '' && $partner_label === '') {
+                continue;
+              }
+            ?>
+              <div class="testimony-logo">
+                <?php if ($partner_logo) : ?>
+                  <img src="<?php echo esc_url($partner_logo); ?>"
+                       alt="<?php echo esc_attr($partner_label ?: __('Partner logo', 'figma-rebuild')); ?>">
+                <?php elseif ($partner_label) : ?>
+                  <?php echo esc_html($partner_label); ?>
+                <?php endif; ?>
+              </div>
+            <?php endforeach; ?>
+          <?php endfor; ?>
+        <?php endif; ?>
       </div>
     </div>
   </div>
