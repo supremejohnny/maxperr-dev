@@ -1,10 +1,25 @@
+<?php
+  $news_title = get_theme_mod('news_title', __('What\'s New?', 'figma-rebuild'));
+  $news_subtitle = get_theme_mod('news_subtitle', __('All about our company and the EV Charging Industry.', 'figma-rebuild'));
+  $news_bg_image = get_theme_mod('news_bg_image', '');
+  $news_section_style = '';
+
+  if ($news_bg_image) {
+    $news_section_style = sprintf(' style="background-image:url(%s);"', esc_url($news_bg_image));
+  }
+?>
+
 <!-- News Section -->
-<section class="py-24" id="news" data-news-slider>
+<section class="py-24" id="news" data-news-slider<?php echo $news_section_style; ?>>
   <div class="container mx-auto px-6 relative">
   <div class="news-head">
     <div class="news-heading">
-      <h2 class="text-section text-gray-900">What's New?</h2>
-      <p class="news-sub">All about our company and the EV Charging Industry.</p>
+      <?php if ($news_title) : ?>
+        <h2 class="text-section text-gray-900"><?php echo esc_html($news_title); ?></h2>
+      <?php endif; ?>
+      <?php if ($news_subtitle) : ?>
+        <p class="news-sub"><?php echo wp_kses_post($news_subtitle); ?></p>
+      <?php endif; ?>
     </div>
     <button class="CTA-medium">View All</button>
   </div>
