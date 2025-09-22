@@ -1,21 +1,26 @@
+<?php
+  $hero_title = get_theme_mod('hero_title', __('EV Fast Charging', 'figma-rebuild'));
+  $hero_subtitle = get_theme_mod('hero_subtitle', '');
+  $hero_paragraph = get_theme_mod('hero_paragraph', __('Experience the future of electric vehicle charging with our advanced solar-powered solutions. Clean energy, fast charging, sustainable future.', 'figma-rebuild'));
+
+  $hero_backgrounds = array_values(array_filter([
+    get_theme_mod('hero_bg_image_1', get_template_directory_uri() . '/src/images/bg_house.jpg'),
+    get_theme_mod('hero_bg_image_2', get_template_directory_uri() . '/src/images/bg_house2.jpg'),
+    get_theme_mod('hero_bg_image_3', get_template_directory_uri() . '/src/images/bg_forest.jpg'),
+  ]));
+
+  $hero_bg_primary = !empty($hero_backgrounds) ? $hero_backgrounds[0] : '';
+?>
+
 <section class="hero-section relative flex items-center overflow-hidden w-full"
-  data-hero-images='[
-    "<?php echo esc_url( get_template_directory_uri() ); ?>/src/images/bg_house.jpg",
-    "<?php echo esc_url( get_template_directory_uri() ); ?>/src/images/bg_house2.jpg",
-    "<?php echo esc_url( get_template_directory_uri() ); ?>/src/images/bg_forest.jpg"
-  ]'>
+  data-hero-images='<?php echo esc_attr(wp_json_encode(array_map('esc_url', $hero_backgrounds))); ?>'>
     <!-- Background layers for crossfade -->
-    <div class="hero-bg-layer" data-layer="a"></div>
+    <div class="hero-bg-layer" data-layer="a"<?php echo $hero_bg_primary ? ' style="background-image:url(' . esc_url($hero_bg_primary) . ');"' : ''; ?>></div>
     <div class="hero-bg-layer" data-layer="b"></div>
     <!-- Gradient overlay above images -->
     <div class="hero-overlay"></div>
     <div class="w-full px-4 md:px-6 relative z-40 max-w-7xl mx-auto">
       <div class="max-w-full md:max-w-[775px] text-left">
-        <?php 
-          $hero_title = get_theme_mod('hero_title', __('EV Fast Charging', 'figma-rebuild'));
-          $hero_subtitle = get_theme_mod('hero_subtitle', '');
-          $hero_paragraph = get_theme_mod('hero_paragraph', __('Experience the future of electric vehicle charging with our advanced solar-powered solutions. Clean energy, fast charging, sustainable future.', 'figma-rebuild'));
-        ?>
         <?php if ($hero_title) : ?>
           <h1 class="text-white Hero-H1 mb-3 leading-tight">
             <?php echo esc_html($hero_title); ?>

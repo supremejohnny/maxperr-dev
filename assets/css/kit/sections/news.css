@@ -28,6 +28,12 @@
   margin-bottom: 1.25rem;
 }
 
+#news .news-card__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
 /* 图像区域：让图片满宽贴边；上圆角跟卡片一致 */
 #news .news-card__image {
   position: relative;
