@@ -1,6 +1,10 @@
 <?php
 
-if (!class_exists('Figma_Rebuild_Repeater_Control')) {
+if (!class_exists('WP_Customize_Control') && defined('ABSPATH')) {
+  require_once ABSPATH . WPINC . '/class-wp-customize-control.php';
+}
+
+if (class_exists('WP_Customize_Control') && !class_exists('Figma_Rebuild_Repeater_Control')) {
   /**
    * Simple repeater control for the Customizer.
    */
