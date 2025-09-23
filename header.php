@@ -22,7 +22,7 @@
     
     <!-- Navigation - Centered -->
     <nav class="main-navigation" role="navigation" aria-label="<?php esc_attr_e('Primary Menu', 'figma-rebuild'); ?>">
-      <a href="#solutions" class="nav-link"><?php esc_html_e('Solutions', 'figma-rebuild'); ?></a>
+      <a href="<?php echo esc_url($solutions_page_url); ?>" class="nav-link"><?php esc_html_e('Solutions', 'figma-rebuild'); ?></a>
       <a href="#products" class="nav-link"><?php esc_html_e('Products', 'figma-rebuild'); ?></a>
       <a href="#partnership" class="nav-link"><?php esc_html_e('Partnership', 'figma-rebuild'); ?></a>
       <a href="#about" class="nav-link"><?php esc_html_e('About', 'figma-rebuild'); ?></a>

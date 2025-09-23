@@ -211,11 +211,19 @@ if (!function_exists('figma_rebuild_get_solutions_page_url')) {
     }
 
     if (!$solutions_page instanceof WP_Post) {
-      $solutions_page = get_page_by_path('solutions');
+      $candidate_page = get_page_by_path('solutions');
+
+      if ($candidate_page instanceof WP_Post && 'publish' === get_post_status($candidate_page->ID)) {
+        $solutions_page = $candidate_page;
+      }
     }
 
     if (!$solutions_page instanceof WP_Post) {
-      $solutions_page = get_page_by_title('Solutions');
+      $candidate_page = get_page_by_title('Solutions');
+
+      if ($candidate_page instanceof WP_Post && 'publish' === get_post_status($candidate_page->ID)) {
+        $solutions_page = $candidate_page;
+      }
     }
 
     if ($solutions_page instanceof WP_Post) {
@@ -228,8 +236,6 @@ if (!function_exists('figma_rebuild_get_solutions_page_url')) {
       }
     }
 
-    $cached_url = '#solutions';
-
-    return $cached_url;
+    return home_url('/solutions/');
   }
 }
