@@ -8,8 +8,7 @@
 <body <?php body_class('antialiased text-gray-900 bg-white'); ?>>
 <header class="site-header">
   <?php
-  $solutions_page     = get_page_by_path('solutions');
-  $solutions_page_url = $solutions_page ? get_permalink($solutions_page) : '#solutions';
+  $solutions_page_url = figma_rebuild_get_solutions_page_url();
   ?>
 
   <div class="header-container">
