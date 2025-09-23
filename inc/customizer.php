@@ -269,6 +269,7 @@ if (!function_exists('figma_rebuild_get_default_news_items')) {
 
 add_action('customize_register', function ($wp_customize) {
   $template_uri = get_template_directory_uri();
+  $solutions_defaults = function_exists('figma_rebuild_get_solutions_defaults') ? figma_rebuild_get_solutions_defaults() : [];
 
   /* ------------------------------------------------------------------------ */
   /* Hero Section                                                             */
@@ -733,6 +734,409 @@ add_action('customize_register', function ($wp_customize) {
       'item_label'       => __('新闻', 'figma-rebuild'),
     ]
   ));
+
+  if (!empty($solutions_defaults)) {
+    $wp_customize->add_panel('solutions_panel', [
+      'title'       => __('Solutions Page', 'figma-rebuild'),
+      'priority'    => 75,
+      'description' => __('Configure the dedicated Solutions landing page sections.', 'figma-rebuild'),
+    ]);
+
+    /* -------------------------------------------------------------------- */
+    /* Solutions Hero                                                       */
+    /* -------------------------------------------------------------------- */
+    $hero_defaults = isset($solutions_defaults['hero']) ? $solutions_defaults['hero'] : [];
+
+    $wp_customize->add_section('solutions_hero_section', [
+      'title' => __('Hero', 'figma-rebuild'),
+      'panel' => 'solutions_panel',
+    ]);
+
+    $wp_customize->add_setting('solutions_hero_title', [
+      'default'           => isset($hero_defaults['title']) ? $hero_defaults['title'] : '',
+      'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('solutions_hero_title', [
+      'label'   => __('Section label', 'figma-rebuild'),
+      'section' => 'solutions_hero_section',
+      'type'    => 'text',
+    ]);
+
+    $wp_customize->add_setting('solutions_hero_headline', [
+      'default'           => isset($hero_defaults['headline']) ? $hero_defaults['headline'] : '',
+      'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('solutions_hero_headline', [
+      'label'   => __('Headline', 'figma-rebuild'),
+      'section' => 'solutions_hero_section',
+      'type'    => 'text',
+    ]);
+
+    $wp_customize->add_setting('solutions_hero_description', [
+      'default'           => isset($hero_defaults['description']) ? $hero_defaults['description'] : '',
+      'sanitize_callback' => 'wp_kses_post',
+    ]);
+    $wp_customize->add_control('solutions_hero_description', [
+      'label'   => __('Description', 'figma-rebuild'),
+      'section' => 'solutions_hero_section',
+      'type'    => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('solutions_hero_background', [
+      'default'           => isset($hero_defaults['background']) ? $hero_defaults['background'] : '',
+      'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+      $wp_customize,
+      'solutions_hero_background',
+      [
+        'label'   => __('Background image', 'figma-rebuild'),
+        'section' => 'solutions_hero_section',
+      ]
+    ));
+
+    /* -------------------------------------------------------------------- */
+    /* Service Chooser                                                      */
+    /* -------------------------------------------------------------------- */
+    $services_defaults = isset($solutions_defaults['services']) ? $solutions_defaults['services'] : [];
+
+    $wp_customize->add_section('solutions_services_section', [
+      'title' => __('Service Navigator', 'figma-rebuild'),
+      'panel' => 'solutions_panel',
+    ]);
+
+    $wp_customize->add_setting('solutions_services_title', [
+      'default'           => isset($services_defaults['title']) ? $services_defaults['title'] : '',
+      'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('solutions_services_title', [
+      'label'   => __('Section title', 'figma-rebuild'),
+      'section' => 'solutions_services_section',
+      'type'    => 'text',
+    ]);
+
+    $wp_customize->add_setting('solutions_services_description', [
+      'default'           => isset($services_defaults['description']) ? $services_defaults['description'] : '',
+      'sanitize_callback' => 'wp_kses_post',
+    ]);
+    $wp_customize->add_control('solutions_services_description', [
+      'label'   => __('Section description', 'figma-rebuild'),
+      'section' => 'solutions_services_section',
+      'type'    => 'textarea',
+    ]);
+
+    $service_fields = [
+      ['id' => 'label', 'label' => __('Badge label', 'figma-rebuild'), 'type' => 'text'],
+      ['id' => 'title', 'label' => __('Card title', 'figma-rebuild'), 'type' => 'text'],
+      ['id' => 'description', 'label' => __('Description', 'figma-rebuild'), 'type' => 'textarea'],
+      ['id' => 'image', 'label' => __('Image URL', 'figma-rebuild'), 'type' => 'url'],
+      ['id' => 'link_label', 'label' => __('Link label', 'figma-rebuild'), 'type' => 'text'],
+      ['id' => 'link_url', 'label' => __('Link URL', 'figma-rebuild'), 'type' => 'url'],
+    ];
+
+    $wp_customize->add_setting('solutions_services_items', [
+      'default'           => isset($services_defaults['items']) ? wp_json_encode($services_defaults['items']) : wp_json_encode([]),
+      'sanitize_callback' => function ($input) use ($service_fields) {
+        return figma_rebuild_sanitize_repeater($input, $service_fields);
+      },
+    ]);
+
+    $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+      $wp_customize,
+      'solutions_services_items',
+      [
+        'label'            => __('Service cards', 'figma-rebuild'),
+        'section'          => 'solutions_services_section',
+        'fields'           => $service_fields,
+        'add_button_label' => __('Add service', 'figma-rebuild'),
+        'item_label'       => __('Service', 'figma-rebuild'),
+      ]
+    ));
+
+    /* -------------------------------------------------------------------- */
+    /* Detail Sections (Home, Commercial, Fleet)                             */
+    /* -------------------------------------------------------------------- */
+    $solutions_detail_sections = [
+      'home'        => __('Home Section', 'figma-rebuild'),
+      'commercial'  => __('Commercial Section', 'figma-rebuild'),
+      'fleet'       => __('Fleet Section', 'figma-rebuild'),
+    ];
+
+    $feature_fields = [
+      ['id' => 'text', 'label' => __('Feature text', 'figma-rebuild'), 'type' => 'text'],
+    ];
+
+    foreach ($solutions_detail_sections as $key => $label) {
+      $defaults = isset($solutions_defaults[$key]) ? $solutions_defaults[$key] : [];
+      $section_id = 'solutions_' . $key . '_section';
+
+      $wp_customize->add_section($section_id, [
+        'title' => $label,
+        'panel' => 'solutions_panel',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_heading', [
+        'default'           => isset($defaults['heading']) ? $defaults['heading'] : '',
+        'sanitize_callback' => 'sanitize_text_field',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_heading', [
+        'label'   => __('Section heading', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'text',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_intro', [
+        'default'           => isset($defaults['intro']) ? $defaults['intro'] : '',
+        'sanitize_callback' => 'wp_kses_post',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_intro', [
+        'label'   => __('Intro paragraph', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'textarea',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_badge', [
+        'default'           => isset($defaults['badge']) ? $defaults['badge'] : '',
+        'sanitize_callback' => 'sanitize_text_field',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_badge', [
+        'label'   => __('Card badge', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'text',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_card_title', [
+        'default'           => isset($defaults['card_title']) ? $defaults['card_title'] : '',
+        'sanitize_callback' => 'sanitize_text_field',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_card_title', [
+        'label'   => __('Card title', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'text',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_card_body', [
+        'default'           => isset($defaults['card_body']) ? $defaults['card_body'] : '',
+        'sanitize_callback' => 'wp_kses_post',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_card_body', [
+        'label'   => __('Card description', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'textarea',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_features', [
+        'default'           => isset($defaults['features']) ? wp_json_encode($defaults['features']) : wp_json_encode([]),
+        'sanitize_callback' => function ($input) use ($feature_fields) {
+          return figma_rebuild_sanitize_repeater($input, $feature_fields);
+        },
+      ]);
+      $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+        $wp_customize,
+        'solutions_' . $key . '_features',
+        [
+          'label'            => __('Key highlights', 'figma-rebuild'),
+          'section'          => $section_id,
+          'fields'           => $feature_fields,
+          'add_button_label' => __('Add highlight', 'figma-rebuild'),
+          'item_label'       => __('Highlight', 'figma-rebuild'),
+        ]
+      ));
+
+      $wp_customize->add_setting('solutions_' . $key . '_note', [
+        'default'           => isset($defaults['note']) ? $defaults['note'] : '',
+        'sanitize_callback' => 'wp_kses_post',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_note', [
+        'label'   => __('Supporting note', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'textarea',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_button_text', [
+        'default'           => isset($defaults['button_text']) ? $defaults['button_text'] : '',
+        'sanitize_callback' => 'sanitize_text_field',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_button_text', [
+        'label'   => __('Button label', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'text',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_button_link', [
+        'default'           => isset($defaults['button_link']) ? $defaults['button_link'] : '',
+        'sanitize_callback' => 'esc_url_raw',
+      ]);
+      $wp_customize->add_control('solutions_' . $key . '_button_link', [
+        'label'   => __('Button link', 'figma-rebuild'),
+        'section' => $section_id,
+        'type'    => 'url',
+      ]);
+
+      $wp_customize->add_setting('solutions_' . $key . '_image', [
+        'default'           => isset($defaults['image']) ? $defaults['image'] : '',
+        'sanitize_callback' => 'esc_url_raw',
+      ]);
+      $wp_customize->add_control(new WP_Customize_Image_Control(
+        $wp_customize,
+        'solutions_' . $key . '_image',
+        [
+          'label'   => __('Feature image', 'figma-rebuild'),
+          'section' => $section_id,
+        ]
+      ));
+    }
+
+    /* -------------------------------------------------------------------- */
+    /* ZEVIP Program                                                         */
+    /* -------------------------------------------------------------------- */
+    $zevip_defaults = isset($solutions_defaults['zevip']) ? $solutions_defaults['zevip'] : [];
+
+    $wp_customize->add_section('solutions_zevip_section', [
+      'title' => __('ZEVIP Program', 'figma-rebuild'),
+      'panel' => 'solutions_panel',
+    ]);
+
+    $wp_customize->add_setting('solutions_zevip_heading', [
+      'default'           => isset($zevip_defaults['heading']) ? $zevip_defaults['heading'] : '',
+      'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('solutions_zevip_heading', [
+      'label'   => __('Section heading', 'figma-rebuild'),
+      'section' => 'solutions_zevip_section',
+      'type'    => 'text',
+    ]);
+
+    $wp_customize->add_setting('solutions_zevip_intro', [
+      'default'           => isset($zevip_defaults['intro']) ? $zevip_defaults['intro'] : '',
+      'sanitize_callback' => 'wp_kses_post',
+    ]);
+    $wp_customize->add_control('solutions_zevip_intro', [
+      'label'   => __('Intro paragraph', 'figma-rebuild'),
+      'section' => 'solutions_zevip_section',
+      'type'    => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('solutions_zevip_features', [
+      'default'           => isset($zevip_defaults['features']) ? wp_json_encode($zevip_defaults['features']) : wp_json_encode([]),
+      'sanitize_callback' => function ($input) use ($feature_fields) {
+        return figma_rebuild_sanitize_repeater($input, $feature_fields);
+      },
+    ]);
+    $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+      $wp_customize,
+      'solutions_zevip_features',
+      [
+        'label'            => __('Program services', 'figma-rebuild'),
+        'section'          => 'solutions_zevip_section',
+        'fields'           => $feature_fields,
+        'add_button_label' => __('Add service', 'figma-rebuild'),
+        'item_label'       => __('Service', 'figma-rebuild'),
+      ]
+    ));
+
+    $wp_customize->add_setting('solutions_zevip_button_text', [
+      'default'           => isset($zevip_defaults['button_text']) ? $zevip_defaults['button_text'] : '',
+      'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('solutions_zevip_button_text', [
+      'label'   => __('Button label', 'figma-rebuild'),
+      'section' => 'solutions_zevip_section',
+      'type'    => 'text',
+    ]);
+
+    $wp_customize->add_setting('solutions_zevip_button_link', [
+      'default'           => isset($zevip_defaults['button_link']) ? $zevip_defaults['button_link'] : '',
+      'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('solutions_zevip_button_link', [
+      'label'   => __('Button link', 'figma-rebuild'),
+      'section' => 'solutions_zevip_section',
+      'type'    => 'url',
+    ]);
+
+    $wp_customize->add_setting('solutions_zevip_image', [
+      'default'           => isset($zevip_defaults['image']) ? $zevip_defaults['image'] : '',
+      'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+      $wp_customize,
+      'solutions_zevip_image',
+      [
+        'label'   => __('Feature image', 'figma-rebuild'),
+        'section' => 'solutions_zevip_section',
+      ]
+    ));
+
+    /* -------------------------------------------------------------------- */
+    /* Contact / Book Section                                               */
+    /* -------------------------------------------------------------------- */
+    $book_defaults = isset($solutions_defaults['book']) ? $solutions_defaults['book'] : [];
+
+    $wp_customize->add_section('solutions_book_section', [
+      'title' => __('Book a Consultation', 'figma-rebuild'),
+      'panel' => 'solutions_panel',
+    ]);
+
+    $wp_customize->add_setting('solutions_book_title', [
+      'default'           => isset($book_defaults['title']) ? $book_defaults['title'] : '',
+      'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('solutions_book_title', [
+      'label'   => __('Section heading', 'figma-rebuild'),
+      'section' => 'solutions_book_section',
+      'type'    => 'text',
+    ]);
+
+    $wp_customize->add_setting('solutions_book_description', [
+      'default'           => isset($book_defaults['description']) ? $book_defaults['description'] : '',
+      'sanitize_callback' => 'wp_kses_post',
+    ]);
+    $wp_customize->add_control('solutions_book_description', [
+      'label'   => __('Section description', 'figma-rebuild'),
+      'section' => 'solutions_book_section',
+      'type'    => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('solutions_book_background', [
+      'default'           => isset($book_defaults['background']) ? $book_defaults['background'] : '',
+      'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+      $wp_customize,
+      'solutions_book_background',
+      [
+        'label'   => __('Background image', 'figma-rebuild'),
+        'section' => 'solutions_book_section',
+      ]
+    ));
+
+    $book_fields = [
+      ['id' => 'title', 'label' => __('Card title', 'figma-rebuild'), 'type' => 'text'],
+      ['id' => 'description', 'label' => __('Card description', 'figma-rebuild'), 'type' => 'textarea'],
+      ['id' => 'cta_label', 'label' => __('CTA label', 'figma-rebuild'), 'type' => 'text'],
+      ['id' => 'cta_url', 'label' => __('CTA URL', 'figma-rebuild'), 'type' => 'url'],
+    ];
+
+    $wp_customize->add_setting('solutions_book_cards', [
+      'default'           => isset($book_defaults['cards']) ? wp_json_encode($book_defaults['cards']) : wp_json_encode([]),
+      'sanitize_callback' => function ($input) use ($book_fields) {
+        return figma_rebuild_sanitize_repeater($input, $book_fields);
+      },
+    ]);
+
+    $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+      $wp_customize,
+      'solutions_book_cards',
+      [
+        'label'            => __('Contact cards', 'figma-rebuild'),
+        'section'          => 'solutions_book_section',
+        'fields'           => $book_fields,
+        'add_button_label' => __('Add card', 'figma-rebuild'),
+        'item_label'       => __('Card', 'figma-rebuild'),
+      ]
+    ));
+  }
 });
 
 // Live preview partial refresh if needed (fallback to full refresh)

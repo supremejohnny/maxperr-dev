@@ -1,0 +1,181 @@
+<?php
+/**
+ * Solutions page helper defaults and utilities.
+ */
+
+if (!function_exists('figma_rebuild_get_solutions_defaults')) {
+  /**
+   * Provide default content for the Solutions page sections.
+   *
+   * @return array
+   */
+  function figma_rebuild_get_solutions_defaults() {
+    $template_uri = get_template_directory_uri();
+
+    return [
+      'hero'      => [
+        'title'       => __('Solutions', 'figma-rebuild'),
+        'headline'    => __('Maxperr, Canada\'s EV specialists.', 'figma-rebuild'),
+        'description' => __('Discover tailored charging solutions for every application—from single family homes to complex multi-site fleets. Our experts design, install, and maintain EV infrastructure that keeps you powered and compliant.', 'figma-rebuild'),
+        'background'  => $template_uri . '/src/images/bg_house2.jpg',
+      ],
+      'services'  => [
+        'title'       => __('What service do I need?', 'figma-rebuild'),
+        'description' => __('Select the path that matches your project and see how Maxperr delivers safe, reliable charging across residential, commercial, and funded deployments.', 'figma-rebuild'),
+        'items'       => [
+          [
+            'label'       => __('Home Charging', 'figma-rebuild'),
+            'title'       => __('Residential solutions', 'figma-rebuild'),
+            'description' => __('Level 2 chargers, permitting, and white-glove installation services made for Canadian homes.', 'figma-rebuild'),
+            'image'       => 'https://images.unsplash.com/photo-1617813489478-62d083d70a75?auto=format&fit=crop&w=800&q=80',
+            'link_label'  => __('Explore home', 'figma-rebuild'),
+            'link_url'    => '#solutions-home',
+          ],
+          [
+            'label'       => __('Commercial', 'figma-rebuild'),
+            'title'       => __('Workplace & retail', 'figma-rebuild'),
+            'description' => __('Turn-key charging programs for offices, mixed-use buildings, and public destinations.', 'figma-rebuild'),
+            'image'       => 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
+            'link_label'  => __('Explore commercial', 'figma-rebuild'),
+            'link_url'    => '#solutions-commercial',
+          ],
+          [
+            'label'       => __('Fleet', 'figma-rebuild'),
+            'title'       => __('Fleet electrification', 'figma-rebuild'),
+            'description' => __('Scalable AC/DC infrastructure, depot design, and energy management for fleet operators.', 'figma-rebuild'),
+            'image'       => 'https://images.unsplash.com/photo-1625480864588-23a57dc3884b?auto=format&fit=crop&w=800&q=80',
+            'link_label'  => __('Explore fleet', 'figma-rebuild'),
+            'link_url'    => '#solutions-fleet',
+          ],
+          [
+            'label'       => __('ZEVIP Funding', 'figma-rebuild'),
+            'title'       => __('Funding guidance', 'figma-rebuild'),
+            'description' => __('Strategic support to navigate Natural Resources Canada\'s incentive program and secure rebates.', 'figma-rebuild'),
+            'image'       => 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
+            'link_label'  => __('Explore ZEVIP', 'figma-rebuild'),
+            'link_url'    => '#solutions-zevip',
+          ],
+        ],
+      ],
+      'home'      => [
+        'heading'     => __('Home', 'figma-rebuild'),
+        'intro'       => __('Perfect for homeowners seeking reliable, code-compliant Level 2 charging with professional installation and monitoring.', 'figma-rebuild'),
+        'badge'       => __('Home', 'figma-rebuild'),
+        'card_title'  => __('Eco Home EV Charger', 'figma-rebuild'),
+        'card_body'   => __('Maxperr bundles hardware, permitting, and support so you never have to worry about charging at home.', 'figma-rebuild'),
+        'features'    => [
+          ['text' => __('Home Power Bundle', 'figma-rebuild')],
+          ['text' => __('Smart monitoring app', 'figma-rebuild')],
+          ['text' => __('CSA & ESA certified installers', 'figma-rebuild')],
+        ],
+        'note'        => __('Best for detached and semi-detached homes across Canada.', 'figma-rebuild'),
+        'button_text' => __('Book a home visit', 'figma-rebuild'),
+        'button_link' => '#contact',
+        'image'       => 'https://images.unsplash.com/photo-1617813489264-6a508a403ef2?auto=format&fit=crop&w=900&q=80',
+      ],
+      'commercial' => [
+        'heading'     => __('Commercial', 'figma-rebuild'),
+        'intro'       => __('Support tenant retention, attract EV drivers, and monetize charging across mixed-use properties.', 'figma-rebuild'),
+        'badge'       => __('Commercial', 'figma-rebuild'),
+        'card_title'  => __('Smart 30kW DC Charger', 'figma-rebuild'),
+        'card_body'   => __('Designed for multi-unit residential buildings, workplaces, and retail locations needing fast turnaround.', 'figma-rebuild'),
+        'features'    => [
+          ['text' => __('Load balancing & demand response', 'figma-rebuild')],
+          ['text' => __('Revenue-grade energy metering', 'figma-rebuild')],
+          ['text' => __('24/7 remote operations center', 'figma-rebuild')],
+        ],
+        'note'        => __('Ideal for property managers and developers planning mixed-access charging.', 'figma-rebuild'),
+        'button_text' => __('Plan your site', 'figma-rebuild'),
+        'button_link' => '#contact',
+        'image'       => 'https://images.unsplash.com/photo-1529429617124-aee711f6a1c9?auto=format&fit=crop&w=900&q=80',
+      ],
+      'fleet'     => [
+        'heading'     => __('Fleet', 'figma-rebuild'),
+        'intro'       => __('Engineer dependable depot charging with smart scheduling, peak shaving, and lifecycle support.', 'figma-rebuild'),
+        'badge'       => __('Fleet', 'figma-rebuild'),
+        'card_title'  => __('Pro 180kW DC Charger', 'figma-rebuild'),
+        'card_body'   => __('Transition light-, medium-, and heavy-duty vehicles with modular DC fast charging and software integrations.', 'figma-rebuild'),
+        'features'    => [
+          ['text' => __('Depot energy modelling', 'figma-rebuild')],
+          ['text' => __('Charging management platform', 'figma-rebuild')],
+          ['text' => __('Preventive maintenance programs', 'figma-rebuild')],
+        ],
+        'note'        => __('Supports fleet yards, logistics hubs, and municipal operations.', 'figma-rebuild'),
+        'button_text' => __('Talk to fleet experts', 'figma-rebuild'),
+        'button_link' => '#contact',
+        'image'       => 'https://images.unsplash.com/photo-1617813489622-95823483363d?auto=format&fit=crop&w=900&q=80',
+      ],
+      'zevip'     => [
+        'heading'     => __('Zero Emission Vehicle Infrastructure Program (ZEVIP)', 'figma-rebuild'),
+        'intro'       => __('Maxperr helps Canadian businesses maximize Natural Resources Canada rebates with turnkey project development and grant writing support.', 'figma-rebuild'),
+        'features'    => [
+          ['text' => __('Grant intake strategy & application support', 'figma-rebuild')],
+          ['text' => __('Engineering drawings & budgetary planning', 'figma-rebuild')],
+          ['text' => __('Measurement & verification reporting', 'figma-rebuild')],
+        ],
+        'button_text' => __('Download the ZEVIP guide', 'figma-rebuild'),
+        'button_link' => '#',
+        'image'       => 'https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=1000&q=80',
+      ],
+      'book'      => [
+        'title'       => __('Want more details?', 'figma-rebuild'),
+        'description' => __('Connect with our specialists to scope your project, secure incentives, and schedule installation timelines.', 'figma-rebuild'),
+        'background'  => $template_uri . '/src/images/bg_forest.jpg',
+        'cards'       => [
+          [
+            'title'       => __('Sales Inquiries', 'figma-rebuild'),
+            'description' => __('Work with our consultants to scope equipment, installation, and funding options tailored to your site.', 'figma-rebuild'),
+            'cta_label'   => __('sales@maxperr.com', 'figma-rebuild'),
+            'cta_url'     => 'mailto:sales@maxperr.com',
+          ],
+          [
+            'title'       => __('Technical Support', 'figma-rebuild'),
+            'description' => __('Get help with commissioning, software onboarding, and preventative maintenance scheduling.', 'figma-rebuild'),
+            'cta_label'   => __('1-800-000-0000', 'figma-rebuild'),
+            'cta_url'     => 'tel:18000000000',
+          ],
+        ],
+      ],
+    ];
+  }
+}
+
+if (!function_exists('figma_rebuild_get_repeater_mod')) {
+  /**
+   * Retrieve and decode a JSON repeater theme mod.
+   *
+   * @param string $setting Setting key.
+   * @param array  $default Default array of values.
+   *
+   * @return array
+   */
+  function figma_rebuild_get_repeater_mod($setting, $default = []) {
+    $raw = get_theme_mod($setting, wp_json_encode($default));
+
+    if (is_array($raw)) {
+      $decoded = $raw;
+    } elseif (is_string($raw)) {
+      $decoded = json_decode($raw, true);
+    } else {
+      $decoded = [];
+    }
+
+    if (!is_array($decoded)) {
+      return [];
+    }
+
+    return array_values(array_filter($decoded, function ($item) {
+      if (!is_array($item)) {
+        return false;
+      }
+
+      foreach ($item as $value) {
+        if ('' !== trim((string) $value)) {
+          return true;
+        }
+      }
+
+      return false;
+    }));
+  }
+}
