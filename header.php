@@ -8,7 +8,8 @@
 <body <?php body_class('antialiased text-gray-900 bg-white'); ?>>
 <header class="site-header">
   <?php
-  $solutions_page_url = figma_rebuild_get_solutions_page_url();
+  $solutions_page     = get_page_by_path('solutions');
+  $solutions_page_url = $solutions_page ? get_permalink($solutions_page) : '#solutions';
   ?>
 
   <div class="header-container">
@@ -21,7 +22,7 @@
     
     <!-- Navigation - Centered -->
     <nav class="main-navigation" role="navigation" aria-label="<?php esc_attr_e('Primary Menu', 'figma-rebuild'); ?>">
-      <a href="<?php echo esc_url($solutions_page_url); ?>" class="nav-link"><?php esc_html_e('Solutions', 'figma-rebuild'); ?></a>
+      <a href="#solutions" class="nav-link"><?php esc_html_e('Solutions', 'figma-rebuild'); ?></a>
       <a href="#products" class="nav-link"><?php esc_html_e('Products', 'figma-rebuild'); ?></a>
       <a href="#partnership" class="nav-link"><?php esc_html_e('Partnership', 'figma-rebuild'); ?></a>
       <a href="#about" class="nav-link"><?php esc_html_e('About', 'figma-rebuild'); ?></a>
@@ -43,7 +44,7 @@
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobile-menu">
     <div class="px-6 py-4 space-y-4 max-w-7xl mx-auto">
-      <a href="<?php echo esc_url($solutions_page_url); ?>" class="nav-link">Solutions</a>
+      <a href="#solutions" class="nav-link">Solutions</a>
       <a href="#products" class="nav-link">Products</a>
       <a href="#partnership" class="nav-link">Partnership</a>
       <a href="#about" class="nav-link">About</a>
