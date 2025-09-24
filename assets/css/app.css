@@ -590,15 +590,6 @@ video {
   inset: 0px;
 }
 
-.inset-x-0{
-  left: 0px;
-  right: 0px;
-}
-
-.bottom-0{
-  bottom: 0px;
-}
-
 .isolate{
   isolation: isolate;
 }
@@ -678,10 +669,6 @@ video {
 
 .h-4{
   height: 1rem;
-}
-
-.h-40{
-  height: 10rem;
 }
 
 .h-5{
@@ -968,10 +955,6 @@ video {
   background-color: rgb(15 23 42 / var(--tw-bg-opacity, 1));
 }
 
-.bg-slate-900\/70{
-  background-color: rgb(15 23 42 / 0.7);
-}
-
 .bg-slate-900\/80{
   background-color: rgb(15 23 42 / 0.8);
 }
@@ -995,16 +978,6 @@ video {
 
 .bg-white\/95{
   background-color: rgb(255 255 255 / 0.95);
-}
-
-.bg-gradient-to-t{
-  background-image: linear-gradient(to top, var(--tw-gradient-stops));
-}
-
-.from-slate-900{
-  --tw-gradient-from: #0f172a var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(15 23 42 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .object-contain{
@@ -1121,11 +1094,6 @@ video {
 .text-3xl{
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .text-8xl{
@@ -1272,10 +1240,6 @@ video {
 
 .opacity-60{
   opacity: 0.6;
-}
-
-.mix-blend-multiply{
-  mix-blend-mode: multiply;
 }
 
 .shadow-\[0_20px_60px_-30px_rgba\(15\2c 23\2c 42\2c 0\.3\)\]{
@@ -1454,11 +1418,6 @@ video {
     padding-bottom: 4rem;
   }
 
-  .md\:py-28{
-    padding-top: 7rem;
-    padding-bottom: 7rem;
-  }
-
   .md\:pt-8{
     padding-top: 2rem;
   }
@@ -1466,11 +1425,6 @@ video {
   .md\:text-4xl{
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .md\:text-5xl{
-    font-size: 3rem;
-    line-height: 1;
   }
 }
 
@@ -1502,19 +1456,6 @@ video {
 
   .lg\:gap-16{
     gap: 4rem;
-  }
-
-  .lg\:py-32{
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-  }
-
-  .lg\:text-\[56px\]{
-    font-size: 56px;
-  }
-
-  .lg\:leading-\[1\.05\]{
-    line-height: 1.05;
   }
 }
 
