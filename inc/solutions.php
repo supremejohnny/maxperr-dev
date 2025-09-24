@@ -140,6 +140,44 @@ if (!function_exists('figma_rebuild_get_solutions_defaults')) {
   }
 }
 
+if (!function_exists('figma_rebuild_get_solutions_section_data')) {
+  /**
+   * Collect the display data for a Solutions content section.
+   *
+   * @param string $section_key Section slug (home, commercial, fleet).
+   *
+   * @return array
+   */
+  function figma_rebuild_get_solutions_section_data($section_key) {
+    if (empty($section_key)) {
+      return [];
+    }
+
+    $defaults = function_exists('figma_rebuild_get_solutions_defaults') ? figma_rebuild_get_solutions_defaults() : [];
+    $section_defaults = isset($defaults[$section_key]) ? $defaults[$section_key] : [];
+
+    $data = [
+      'key'         => $section_key,
+      'heading'     => get_theme_mod('solutions_' . $section_key . '_heading', isset($section_defaults['heading']) ? $section_defaults['heading'] : ''),
+      'intro'       => get_theme_mod('solutions_' . $section_key . '_intro', isset($section_defaults['intro']) ? $section_defaults['intro'] : ''),
+      'badge'       => get_theme_mod('solutions_' . $section_key . '_badge', isset($section_defaults['badge']) ? $section_defaults['badge'] : ''),
+      'card_title'  => get_theme_mod('solutions_' . $section_key . '_card_title', isset($section_defaults['card_title']) ? $section_defaults['card_title'] : ''),
+      'card_body'   => get_theme_mod('solutions_' . $section_key . '_card_body', isset($section_defaults['card_body']) ? $section_defaults['card_body'] : ''),
+      'note'        => get_theme_mod('solutions_' . $section_key . '_note', isset($section_defaults['note']) ? $section_defaults['note'] : ''),
+      'button_text' => get_theme_mod('solutions_' . $section_key . '_button_text', isset($section_defaults['button_text']) ? $section_defaults['button_text'] : ''),
+      'button_link' => get_theme_mod('solutions_' . $section_key . '_button_link', isset($section_defaults['button_link']) ? $section_defaults['button_link'] : ''),
+      'image'       => get_theme_mod('solutions_' . $section_key . '_image', isset($section_defaults['image']) ? $section_defaults['image'] : ''),
+      'features'    => function_exists('figma_rebuild_get_repeater_mod')
+        ? figma_rebuild_get_repeater_mod('solutions_' . $section_key . '_features', isset($section_defaults['features']) ? $section_defaults['features'] : [])
+        : [],
+    ];
+
+    $data['section_id'] = 'solutions-' . sanitize_title(isset($data['heading']) && $data['heading'] ? $data['heading'] : $section_key);
+
+    return $data;
+  }
+}
+
 if (!function_exists('figma_rebuild_get_repeater_mod')) {
   /**
    * Retrieve and decode a JSON repeater theme mod.

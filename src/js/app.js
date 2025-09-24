@@ -64,6 +64,50 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Solutions accordion controls
+  const accordionGroups = document.querySelectorAll('[data-accordion-group]');
+  accordionGroups.forEach(group => {
+    const items = Array.from(group.querySelectorAll('[data-accordion-item]'));
+
+    items.forEach(item => {
+      const trigger = item.querySelector('[data-accordion-trigger]');
+      const panel = item.querySelector('[data-accordion-panel]');
+
+      if (!trigger || !panel) {
+        return;
+      }
+
+      trigger.addEventListener('click', () => {
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        items.forEach(currentItem => {
+          const currentTrigger = currentItem.querySelector('[data-accordion-trigger]');
+          const currentPanel = currentItem.querySelector('[data-accordion-panel]');
+          const currentIcon = currentItem.querySelector('[data-accordion-icon]');
+
+          if (!currentTrigger || !currentPanel) {
+            return;
+          }
+
+          const shouldOpen = currentItem === item ? !isExpanded : false;
+          currentTrigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+
+          if (shouldOpen) {
+            currentPanel.removeAttribute('hidden');
+          } else {
+            currentPanel.setAttribute('hidden', '');
+          }
+
+          currentItem.classList.toggle('is-open', shouldOpen);
+
+          if (currentIcon) {
+            currentIcon.classList.toggle('rotate-180', shouldOpen);
+          }
+        });
+      });
+    });
+  });
 });
 
 // ========== Hero slider (robust & multi-instance) ==========
