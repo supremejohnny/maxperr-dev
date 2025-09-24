@@ -2,23 +2,31 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Tablet header positioning
   const siteHeader = document.querySelector('.site-header');
-  
+  const skipTabletCorner = siteHeader?.classList.contains('site-header--subpage');
+
   function checkTabletSize() {
-    if (siteHeader) {
-      const width = window.innerWidth;
-      if (width >= 768 && width <= 1023) {
-        siteHeader.classList.add('tablet-corner');
-        console.log('Tablet mode: Header moved to corner');
-      } else {
-        siteHeader.classList.remove('tablet-corner');
-        console.log('Non-tablet mode: Header in normal position');
-      }
+    if (!siteHeader || skipTabletCorner) {
+      siteHeader?.classList.remove('tablet-corner');
+      return;
+    }
+
+    const width = window.innerWidth;
+    if (width >= 768 && width <= 1023) {
+      siteHeader.classList.add('tablet-corner');
+      console.log('Tablet mode: Header moved to corner');
+    } else {
+      siteHeader.classList.remove('tablet-corner');
+      console.log('Non-tablet mode: Header in normal position');
     }
   }
-  
+
   // Check on load and resize
-  checkTabletSize();
-  window.addEventListener('resize', checkTabletSize);
+  if (!skipTabletCorner) {
+    checkTabletSize();
+    window.addEventListener('resize', checkTabletSize);
+  } else {
+    siteHeader?.classList.remove('tablet-corner');
+  }
 
   // Mobile menu toggle
   const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -62,6 +70,50 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         el.scrollIntoView({ behavior: 'smooth' });
       }
+    });
+  });
+
+  // Solutions accordion controls
+  const accordionGroups = document.querySelectorAll('[data-accordion-group]');
+  accordionGroups.forEach(group => {
+    const items = Array.from(group.querySelectorAll('[data-accordion-item]'));
+
+    items.forEach(item => {
+      const trigger = item.querySelector('[data-accordion-trigger]');
+      const panel = item.querySelector('[data-accordion-panel]');
+
+      if (!trigger || !panel) {
+        return;
+      }
+
+      trigger.addEventListener('click', () => {
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        items.forEach(currentItem => {
+          const currentTrigger = currentItem.querySelector('[data-accordion-trigger]');
+          const currentPanel = currentItem.querySelector('[data-accordion-panel]');
+          const currentIcon = currentItem.querySelector('[data-accordion-icon]');
+
+          if (!currentTrigger || !currentPanel) {
+            return;
+          }
+
+          const shouldOpen = currentItem === item ? !isExpanded : false;
+          currentTrigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+
+          if (shouldOpen) {
+            currentPanel.removeAttribute('hidden');
+          } else {
+            currentPanel.setAttribute('hidden', '');
+          }
+
+          currentItem.classList.toggle('is-open', shouldOpen);
+
+          if (currentIcon) {
+            currentIcon.classList.toggle('rotate-180', shouldOpen);
+          }
+        });
+      });
     });
   });
 });
