@@ -73,6 +73,84 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Dropdown menu functionality
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+  let activeDropdown = null;
+
+  const isTouchDevice = () => (
+    typeof window !== 'undefined' && (
+      'ontouchstart' in window ||
+      (navigator && (navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0))
+    )
+  );
+
+  dropdowns.forEach(dropdown => {
+    const trigger = dropdown.querySelector('[data-dropdown]');
+    const menu = dropdown.querySelector('.dropdown-menu');
+    
+    if (!trigger || !menu) return;
+
+    // Handle mouse events for desktop
+    dropdown.addEventListener('mouseenter', () => {
+      if (activeDropdown && activeDropdown !== dropdown) {
+        activeDropdown.classList.remove('is-active');
+      }
+      dropdown.classList.add('is-active');
+      activeDropdown = dropdown;
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      dropdown.classList.remove('is-active');
+      if (activeDropdown === dropdown) {
+        activeDropdown = null;
+      }
+    });
+
+    // Handle click events: only block on touch devices to toggle menu
+    trigger.addEventListener('click', (e) => {
+      // Allow normal navigation for non-touch (desktop)
+      if (!isTouchDevice()) {
+        return; // do not preventDefault; follow the link
+      }
+
+      // On touch devices, toggle dropdown instead of navigate
+      e.preventDefault();
+      
+      if (dropdown.classList.contains('is-active')) {
+        dropdown.classList.remove('is-active');
+        activeDropdown = null;
+      } else {
+        // Close other dropdowns
+        dropdowns.forEach(other => {
+          if (other !== dropdown) {
+            other.classList.remove('is-active');
+          }
+        });
+        
+        dropdown.classList.add('is-active');
+        activeDropdown = dropdown;
+      }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('is-active');
+        if (activeDropdown === dropdown) {
+          activeDropdown = null;
+        }
+      }
+    });
+  });
+
+  // Close dropdowns on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && activeDropdown) {
+      activeDropdown.classList.remove('is-active');
+      activeDropdown = null;
+    }
+  });
+
   // Solutions accordion controls
   const accordionGroups = document.querySelectorAll('[data-accordion-group]');
   accordionGroups.forEach(group => {

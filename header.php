@@ -9,6 +9,8 @@
 <?php
   $solutions_page     = get_page_by_path('solutions');
   $solutions_page_url = $solutions_page ? get_permalink($solutions_page) : '#solutions';
+  $about_page         = get_page_by_path('about');
+  $about_page_url     = $about_page ? get_permalink($about_page) : '#about';
   $nav_items          = [
     [
       'label' => __('Solutions', 'figma-rebuild'),
@@ -24,7 +26,7 @@
     ],
     [
       'label' => __('About', 'figma-rebuild'),
-      'url'   => '#about',
+      'url'   => $about_page_url,
     ],
     [
       'label' => __('Contact', 'figma-rebuild'),
@@ -45,10 +47,76 @@
       </a>
 
       <nav class="subpage-header__nav" role="navigation" aria-label="<?php esc_attr_e('Primary Menu', 'figma-rebuild'); ?>">
-        <?php foreach ($nav_items as $item) : ?>
-          <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link">
-            <?php echo esc_html($item['label']); ?>
-          </a>
+        <?php foreach ($nav_items as $index => $item) : ?>
+          <?php if ($item['label'] === 'Solutions') : ?>
+            <div class="nav-dropdown">
+              <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link nav-link--dropdown" data-dropdown="solutions">
+                <?php echo esc_html($item['label']); ?>
+              </a>
+              <div class="dropdown-menu dropdown-menu--solutions" id="dropdown-solutions">
+                <div class="dropdown-content">
+                  <div class="dropdown-section">
+                    <h3 class="dropdown-title">What's Right for Me?</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#residential" class="dropdown-link">Residential</a></li>
+                      <li><a href="#fleet" class="dropdown-link">Fleet</a></li>
+                      <li><a href="#commercial" class="dropdown-link">Commercial</a></li>
+                    </ul>
+                  </div>
+                  <div class="dropdown-images">
+                    <div class="dropdown-image-placeholder">
+                      <span class="placeholder-text">Image Placeholder</span>
+                    </div>
+                    <div class="dropdown-image-placeholder">
+                      <span class="placeholder-text">Image Placeholder</span>
+                    </div>
+                    <div class="dropdown-image-placeholder">
+                      <span class="placeholder-text">Image Placeholder</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php elseif ($item['label'] === 'About') : ?>
+            <div class="nav-dropdown">
+              <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link nav-link--dropdown" data-dropdown="about">
+                <?php echo esc_html($item['label']); ?>
+              </a>
+              <div class="dropdown-menu dropdown-menu--about" id="dropdown-about">
+                <div class="dropdown-content dropdown-content--columns">
+                  <div class="dropdown-column">
+                    <h3 class="dropdown-title">Company</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#our-story" class="dropdown-link">Our Story</a></li>
+                      <li><a href="#mission" class="dropdown-link">Mission</a></li>
+                      <li><a href="#people" class="dropdown-link">People</a></li>
+                    </ul>
+                  </div>
+                  <div class="dropdown-column">
+                    <h3 class="dropdown-title">Impact</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#news" class="dropdown-link">News</a></li>
+                      <li><a href="#case-studies" class="dropdown-link">Case Studies</a></li>
+                      <li><a href="#events" class="dropdown-link">Events</a></li>
+                      <li><a href="#industry-updates" class="dropdown-link">Industry Updates</a></li>
+                    </ul>
+                  </div>
+                  <div class="dropdown-column">
+                    <h3 class="dropdown-title">Solutions</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#residential" class="dropdown-link">Residential</a></li>
+                      <li><a href="#fleet" class="dropdown-link">Fleet</a></li>
+                      <li><a href="#commercial" class="dropdown-link">Commercial</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php else : ?>
+            <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link">
+              <?php echo esc_html($item['label']); ?>
+            </a>
+          <?php endif; ?>
         <?php endforeach; ?>
       </nav>
 
@@ -95,10 +163,76 @@
 
       <!-- Navigation - Centered -->
       <nav class="main-navigation" role="navigation" aria-label="<?php esc_attr_e('Primary Menu', 'figma-rebuild'); ?>">
-        <?php foreach ($nav_items as $item) : ?>
-          <a href="<?php echo esc_url($item['url']); ?>" class="nav-link">
-            <?php echo esc_html($item['label']); ?>
-          </a>
+        <?php foreach ($nav_items as $index => $item) : ?>
+          <?php if ($item['label'] === 'Solutions') : ?>
+            <div class="nav-dropdown">
+              <a href="<?php echo esc_url($item['url']); ?>" class="nav-link nav-link--dropdown" data-dropdown="solutions">
+                <?php echo esc_html($item['label']); ?>
+              </a>
+              <div class="dropdown-menu dropdown-menu--solutions" id="dropdown-solutions">
+                <div class="dropdown-content">
+                  <div class="dropdown-section">
+                    <h3 class="dropdown-title">What's Right for Me?</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#residential" class="dropdown-link">Residential</a></li>
+                      <li><a href="#fleet" class="dropdown-link">Fleet</a></li>
+                      <li><a href="#commercial" class="dropdown-link">Commercial</a></li>
+                    </ul>
+                  </div>
+                  <div class="dropdown-images">
+                    <div class="dropdown-image-placeholder">
+                      <span class="placeholder-text">Image Placeholder</span>
+                    </div>
+                    <div class="dropdown-image-placeholder">
+                      <span class="placeholder-text">Image Placeholder</span>
+                    </div>
+                    <div class="dropdown-image-placeholder">
+                      <span class="placeholder-text">Image Placeholder</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php elseif ($item['label'] === 'About') : ?>
+            <div class="nav-dropdown">
+              <a href="<?php echo esc_url($item['url']); ?>" class="nav-link nav-link--dropdown" data-dropdown="about">
+                <?php echo esc_html($item['label']); ?>
+              </a>
+              <div class="dropdown-menu dropdown-menu--about" id="dropdown-about">
+                <div class="dropdown-content dropdown-content--columns">
+                  <div class="dropdown-column">
+                    <h3 class="dropdown-title">Company</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#our-story" class="dropdown-link">Our Story</a></li>
+                      <li><a href="#mission" class="dropdown-link">Mission</a></li>
+                      <li><a href="#people" class="dropdown-link">People</a></li>
+                    </ul>
+                  </div>
+                  <div class="dropdown-column">
+                    <h3 class="dropdown-title">Impact</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#news" class="dropdown-link">News</a></li>
+                      <li><a href="#case-studies" class="dropdown-link">Case Studies</a></li>
+                      <li><a href="#events" class="dropdown-link">Events</a></li>
+                      <li><a href="#industry-updates" class="dropdown-link">Industry Updates</a></li>
+                    </ul>
+                  </div>
+                  <div class="dropdown-column">
+                    <h3 class="dropdown-title">Solutions</h3>
+                    <ul class="dropdown-list">
+                      <li><a href="#residential" class="dropdown-link">Residential</a></li>
+                      <li><a href="#fleet" class="dropdown-link">Fleet</a></li>
+                      <li><a href="#commercial" class="dropdown-link">Commercial</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php else : ?>
+            <a href="<?php echo esc_url($item['url']); ?>" class="nav-link">
+              <?php echo esc_html($item['label']); ?>
+            </a>
+          <?php endif; ?>
         <?php endforeach; ?>
       </nav>
 

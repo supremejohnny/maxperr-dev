@@ -368,3 +368,189 @@
 .mobile-menu .nav-link:last-child {
   border-bottom: none;
 }
+
+/* ===== Dropdown Menu Styles ===== */
+
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link--dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  z-index: 1000;
+  margin-top: 8px;
+  min-width: 400px;
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.is-active .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-content {
+  padding: 24px;
+}
+
+.dropdown-content--columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  min-width: 500px;
+}
+
+.dropdown-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dropdown-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dropdown-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #192943;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown-link {
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+  padding: 4px 0;
+}
+
+.dropdown-link:hover {
+  color: #0b74d0;
+}
+
+.dropdown-images {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dropdown-image-placeholder {
+  flex: 1;
+  height: 80px;
+  background: #f7fafc;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-text {
+  font-size: 12px;
+  color: #a0aec0;
+  font-weight: 500;
+}
+
+/* Solutions dropdown specific styles */
+.dropdown-menu--solutions {
+  min-width: 450px;
+}
+
+.dropdown-menu--solutions .dropdown-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dropdown-menu--solutions .dropdown-section {
+  flex: 1;
+}
+
+.dropdown-menu--solutions .dropdown-images {
+  margin-top: 0;
+}
+
+/* About dropdown specific styles */
+.dropdown-menu--about {
+  min-width: 600px;
+}
+
+/* Subpage header dropdown styles */
+.subpage-header .nav-dropdown {
+  position: relative;
+}
+
+.subpage-header .dropdown-menu {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1023px) {
+  .dropdown-menu {
+    display: none !important;
+  }
+  
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown.is-active .dropdown-menu {
+    display: none !important;
+  }
+  
+}
+
+/* Tablet specific adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dropdown-menu {
+    display: none !important;
+  }
+  
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown.is-active .dropdown-menu {
+    display: none !important;
+  }
+}
+
+/* Ensure dropdowns work on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .nav-dropdown:hover .dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .nav-dropdown.is-active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+  }
+}
