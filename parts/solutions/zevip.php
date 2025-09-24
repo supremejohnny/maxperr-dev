@@ -12,7 +12,7 @@
   $image = get_theme_mod('solutions_zevip_image', isset($zevip_defaults['image']) ? $zevip_defaults['image'] : '');
 ?>
 
-<section class="bg-gray-50 py-20" id="solutions-zevip">
+<section class="bg-white py-20" id="solutions-zevip">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
       <div class="space-y-6">

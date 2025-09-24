@@ -1,5 +1,5 @@
-/* Header - Navigation gradient background */
-.site-header {
+/* Header - Navigation gradient background (首页) */
+.site-header:not(.site-header--subpage) {
   height: 80px;
   flex-shrink: 0;
   background: linear-gradient(180deg, #2D415C 10.19%, rgba(45, 65, 92, 0.00) 100%);
@@ -10,9 +10,19 @@
   width: 100%;
 }
 
-/* Tablet - Move to top right corner */
+/* 子页面导航样式 */
+.site-header--subpage {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(25, 41, 67, 0.08);
+  height: auto;
+}
+
+/* Tablet - Move to top right corner (仅首页) */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .site-header {
+  .site-header:not(.site-header--subpage) {
     height: 80px !important;
     width: auto !important;
     top: 20px !important;
@@ -40,9 +50,9 @@
   }
 }
 
-/* Desktop */
+/* Desktop - 首页保持原始高度 */
 @media (min-width: 1024px) {
-  .site-header {
+  .site-header:not(.site-header--subpage) {
     height: 180px;
     width: 100%;
     top: 0;
@@ -50,6 +60,11 @@
     right: auto;
     border-radius: 0;
     box-shadow: none;
+  }
+  
+  /* 子页面桌面端高度 */
+  .site-header--subpage {
+    height: 51px;
   }
 }
 
@@ -175,14 +190,6 @@
 }
 
 /* ===== Solutions subpage header ===== */
-.site-header--subpage {
-  position: sticky;
-  top: 0;
-  z-index: 60;
-  background: #ffffff;
-  box-shadow: 0 8px 30px rgba(25, 41, 67, 0.08);
-  height: auto;
-}
 
 .site-header--subpage .mobile-menu {
   background: #ffffff;
@@ -192,10 +199,11 @@
 .subpage-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1.25rem;
   width: 100%;
-  padding: 0.75rem clamp(1.25rem, 5vw, 3rem);
+  padding: 0 clamp(0.75rem, 4vw, 2rem);
+  min-height: 51px;
   background-color: #ffffff;
   border-bottom: 1px solid rgba(15, 27, 45, 0.08);
   box-shadow: 0 4px 18px rgba(12, 34, 64, 0.08);
@@ -203,19 +211,22 @@
 
 .subpage-header__logo {
   display: flex;
-  width: 148px;
-  height: 32px;
+  width: 100px;
+  height: 22px;
   align-items: center;
 }
 
 .subpage-header__nav {
   display: none;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
   font-family: 'Manrope', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   letter-spacing: 0.01em;
 }
+
+/* 让导航靠右 */
+.subpage-header__nav { margin-left: auto; }
 
 .subpage-header__link {
   color: #192943;
@@ -234,12 +245,13 @@
   gap: 0.65rem;
 }
 
+/* 隐藏右侧占位图标 */
 .subpage-header__icon {
   border: none;
   background: rgba(11, 116, 208, 0.08);
   border-radius: 9999px;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   display: none;
   align-items: center;
   justify-content: center;
@@ -247,8 +259,8 @@
 }
 
 .subpage-header__icon svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .subpage-header__menu-toggle {
@@ -268,22 +280,21 @@
   .subpage-header__menu-toggle {
     display: none;
   }
-
-  .subpage-header__icon {
-    display: inline-flex;
-  }
+  /* 桌面端显示动作区图标 */
+  .subpage-header__actions { display: flex; }
+  .subpage-header__icon { display: inline-flex; }
 }
 
 @media (min-width: 1024px) {
   .subpage-header {
     gap: 2rem;
-    padding-left: clamp(2rem, 5vw, 4rem);
-    padding-right: clamp(2rem, 5vw, 4rem);
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
   }
 
   .subpage-header__logo {
-    width: 176px;
-    height: 40px;
+    width: 120px;
+    height: 26px;
   }
 }
 

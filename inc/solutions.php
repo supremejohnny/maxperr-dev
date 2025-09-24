@@ -16,12 +16,12 @@ if (!function_exists('figma_rebuild_get_solutions_defaults')) {
       'hero'      => [
         'title'       => '',
         'headline'    => __('Solutions', 'figma-rebuild'),
-        'description' => __('We offer the equipment, installation service and 24/7 technical support.', 'figma-rebuild'),
+        'description' => __('Not sure where to start? We’ve got you.', 'figma-rebuild'),
         'background'  => $template_uri . '/src/images/bg_house.jpg',
       ],
       'services'  => [
         'title'       => __('What service do I need?', 'figma-rebuild'),
-        'description' => __('Select the path that matches your project and see how Maxperr delivers safe, reliable charging across residential, commercial, and funded deployments.', 'figma-rebuild'),
+        'description' => __('Not sure where to start? We’ve got you.', 'figma-rebuild'),
         'items'       => [
           [
             'label'       => __('Home Charging', 'figma-rebuild'),
