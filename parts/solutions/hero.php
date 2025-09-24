@@ -14,25 +14,25 @@
   );
 ?>
 
-<section class="hero-section solutions-hero relative overflow-hidden w-full" id="solutions-hero">
+<section class="hero-section subpage-hero relative overflow-hidden w-full" id="solutions-hero">
   <div class="hero-bg-layer is-active"<?php echo $hero_background ? ' style="background-image:url(' . esc_url($hero_background) . ');"' : ''; ?>></div>
-  <div class="hero-overlay solutions-hero__overlay"></div>
+  <div class="hero-overlay subpage-hero__overlay"></div>
 
-  <div class="solutions-hero__inner">
+  <div class="subpage-hero__inner">
     <?php if (!empty($headline)) : ?>
-      <h1 class="Hero-H1 solutions-hero__headline">
+      <h1 class="Hero-H1 subpage-hero__headline">
         <?php echo esc_html($headline); ?>
       </h1>
     <?php endif; ?>
 
     <?php if (!empty($description)) : ?>
-      <p class="Hero-Body solutions-hero__description">
+      <p class="Hero-Body subpage-hero__description">
         <?php echo wp_kses_post($description); ?>
       </p>
     <?php endif; ?>
 
     <?php if (!empty($button_text)) : ?>
-      <a class="One-Column-Learn-More-Button solutions-hero__cta" href="<?php echo esc_url($button_link); ?>">
+      <a class="One-Column-Learn-More-Button subpage-hero__cta" href="<?php echo esc_url($button_link); ?>">
         <?php echo esc_html($button_text); ?>
       </a>
     <?php endif; ?>

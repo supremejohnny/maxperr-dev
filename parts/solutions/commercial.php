@@ -45,7 +45,7 @@
 
     #<?php echo esc_js($section_id); ?> .sc-card{ background:#f8f8f8; border:none; border-radius:28px; overflow:hidden; }
     #<?php echo esc_js($section_id); ?> .sc-grid{ display:grid; grid-template-columns:1fr; gap:0; }
-    @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .sc-grid{ grid-template-columns:1.05fr 1fr; } }
+    @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .sc-grid{ grid-template-columns:1fr 1fr; } }
 
     #<?php echo esc_js($section_id); ?> .sc-left{ padding:28px; }
     @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .sc-left{ padding:38px; } }

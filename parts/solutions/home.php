@@ -66,7 +66,7 @@
       display:grid; grid-template-columns:1fr; gap:0;
     }
     @media (min-width: 980px){
-      #<?php echo esc_js($section_id); ?> .sh-grid{ grid-template-columns:1.05fr 1fr; }
+      #<?php echo esc_js($section_id); ?> .sh-grid{ grid-template-columns:1fr 1fr; }
     }
 
     /* 左侧：极简信息区 + 手风琴 */

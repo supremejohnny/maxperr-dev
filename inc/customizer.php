@@ -1054,6 +1054,74 @@ add_action('customize_register', function ($wp_customize) {
       ]
     ));
   }
+
+  /* ------------------------------------------------------------------------ */
+  /* Partnership Page                                                         */
+  /* ------------------------------------------------------------------------ */
+  $wp_customize->add_panel('partnership_panel', [
+    'title'       => __('Partnership Page', 'figma-rebuild'),
+    'priority'    => 80,
+    'description' => __('Configure the Partnership page sections.', 'figma-rebuild'),
+  ]);
+
+  // Partnership Hero
+  $wp_customize->add_section('partnership_hero_section', [
+    'title' => __('Hero', 'figma-rebuild'),
+    'panel' => 'partnership_panel',
+  ]);
+  
+  $wp_customize->add_setting('partnership_hero_headline', [
+    'default'           => 'Partner With Us',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('partnership_hero_headline', [
+    'label'   => __('Headline', 'figma-rebuild'),
+    'section' => 'partnership_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('partnership_hero_description', [
+    'default'           => 'We are committed to accelerating the adoption of electric vehicles by making charging infrastructure more efficient and widespread.',
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('partnership_hero_description', [
+    'label'   => __('Description', 'figma-rebuild'),
+    'section' => 'partnership_hero_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('partnership_hero_button_text', [
+    'default'           => __('Learn More', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('partnership_hero_button_text', [
+    'label'   => __('Button Text', 'figma-rebuild'),
+    'section' => 'partnership_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('partnership_hero_button_link', [
+    'default'           => '#partnership-content',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('partnership_hero_button_link', [
+    'label'   => __('Button Link', 'figma-rebuild'),
+    'section' => 'partnership_hero_section',
+    'type'    => 'url',
+  ]);
+  
+  $wp_customize->add_setting('partnership_hero_bg_image', [
+    'default'           => $template_uri . '/src/images/bg_house2.jpg',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'partnership_hero_bg_image',
+    [
+      'label'   => __('Background Image', 'figma-rebuild'),
+      'section' => 'partnership_hero_section',
+    ]
+  ));
 });
 
 // Live preview partial refresh if needed (fallback to full refresh)

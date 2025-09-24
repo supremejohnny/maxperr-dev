@@ -9,6 +9,10 @@
 <?php
   $solutions_page     = get_page_by_path('solutions');
   $solutions_page_url = $solutions_page ? get_permalink($solutions_page) : '#solutions';
+  $products_page      = get_page_by_path('products');
+  $products_page_url = $products_page ? get_permalink($products_page) : '#products';
+  $partnership_page  = get_page_by_path('partnership');
+  $partnership_page_url = $partnership_page ? get_permalink($partnership_page) : '#partnership';
   $about_page         = get_page_by_path('about');
   $about_page_url     = $about_page ? get_permalink($about_page) : '#about';
   $nav_items          = [
@@ -18,11 +22,11 @@
     ],
     [
       'label' => __('Products', 'figma-rebuild'),
-      'url'   => '#products',
+      'url'   => $products_page_url,
     ],
     [
       'label' => __('Partnership', 'figma-rebuild'),
-      'url'   => '#partnership',
+      'url'   => $partnership_page_url,
     ],
     [
       'label' => __('About', 'figma-rebuild'),
@@ -35,10 +39,12 @@
   ];
 
   $is_solutions_page = is_page('solutions');
+  $is_products_page = is_page('products');
+  $is_partnership_page = is_page('partnership');
 ?>
 
-<header class="site-header<?php echo $is_solutions_page ? ' site-header--subpage' : ''; ?>">
-  <?php if ($is_solutions_page) : ?>
+<header class="site-header<?php echo ($is_solutions_page || $is_products_page || $is_partnership_page) ? ' site-header--subpage' : ''; ?>">
+  <?php if ($is_solutions_page || $is_products_page || $is_partnership_page) : ?>
     <div class="subpage-header">
       <a href="<?php echo esc_url(home_url('/')); ?>" class="subpage-header__logo" aria-label="<?php esc_attr_e('Go to homepage', 'figma-rebuild'); ?>">
         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/src/images/logo_maxperr.png"
@@ -113,7 +119,7 @@
               </div>
             </div>
           <?php else : ?>
-            <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link">
+            <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership')) ? ' subpage-header__link--active' : ''; ?>">
               <?php echo esc_html($item['label']); ?>
             </a>
           <?php endif; ?>
@@ -146,7 +152,7 @@
     <div class="mobile-menu" id="mobile-menu">
       <div class="px-6 py-4 space-y-4 max-w-7xl mx-auto">
         <?php foreach ($nav_items as $item) : ?>
-          <a href="<?php echo esc_url($item['url']); ?>" class="nav-link">
+          <a href="<?php echo esc_url($item['url']); ?>" class="nav-link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership')) ? ' nav-link--active' : ''; ?>">
             <?php echo esc_html($item['label']); ?>
           </a>
         <?php endforeach; ?>
