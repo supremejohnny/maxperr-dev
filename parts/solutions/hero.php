@@ -2,7 +2,6 @@
   $defaults      = function_exists('figma_rebuild_get_solutions_defaults') ? figma_rebuild_get_solutions_defaults() : [];
   $hero_defaults = isset($defaults['hero']) ? $defaults['hero'] : [];
 
-  $label       = get_theme_mod('solutions_hero_title', isset($hero_defaults['title']) ? $hero_defaults['title'] : '');
   $headline    = get_theme_mod('solutions_hero_headline', isset($hero_defaults['headline']) ? $hero_defaults['headline'] : '');
   $description = get_theme_mod('solutions_hero_description', isset($hero_defaults['description']) ? $hero_defaults['description'] : '');
   $button_text = get_theme_mod('solutions_hero_button_text', __('Learn More', 'figma-rebuild'));
@@ -20,12 +19,6 @@
   <div class="hero-overlay solutions-hero__overlay"></div>
 
   <div class="solutions-hero__inner">
-    <?php if (!empty($label)) : ?>
-      <span class="solutions-hero__eyebrow">
-        <?php echo esc_html($label); ?>
-      </span>
-    <?php endif; ?>
-
     <?php if (!empty($headline)) : ?>
       <h1 class="Hero-H1 solutions-hero__headline">
         <?php echo esc_html($headline); ?>

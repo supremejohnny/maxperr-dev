@@ -14,10 +14,10 @@ if (!function_exists('figma_rebuild_get_solutions_defaults')) {
 
     return [
       'hero'      => [
-        'title'       => __('Solutions', 'figma-rebuild'),
-        'headline'    => __('Maxperr, Canada\'s EV specialists.', 'figma-rebuild'),
-        'description' => __('Discover tailored charging solutions for every application—from single family homes to complex multi-site fleets. Our experts design, install, and maintain EV infrastructure that keeps you powered and compliant.', 'figma-rebuild'),
-        'background'  => $template_uri . '/src/images/bg_house2.jpg',
+        'title'       => '',
+        'headline'    => __('Solutions', 'figma-rebuild'),
+        'description' => __('We offer the equipment, installation service and 24/7 technical support.', 'figma-rebuild'),
+        'background'  => $template_uri . '/src/images/bg_house.jpg',
       ],
       'services'  => [
         'title'       => __('What service do I need?', 'figma-rebuild'),
