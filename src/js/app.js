@@ -2,23 +2,31 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Tablet header positioning
   const siteHeader = document.querySelector('.site-header');
-  
+  const skipTabletCorner = siteHeader?.classList.contains('site-header--subpage');
+
   function checkTabletSize() {
-    if (siteHeader) {
-      const width = window.innerWidth;
-      if (width >= 768 && width <= 1023) {
-        siteHeader.classList.add('tablet-corner');
-        console.log('Tablet mode: Header moved to corner');
-      } else {
-        siteHeader.classList.remove('tablet-corner');
-        console.log('Non-tablet mode: Header in normal position');
-      }
+    if (!siteHeader || skipTabletCorner) {
+      siteHeader?.classList.remove('tablet-corner');
+      return;
+    }
+
+    const width = window.innerWidth;
+    if (width >= 768 && width <= 1023) {
+      siteHeader.classList.add('tablet-corner');
+      console.log('Tablet mode: Header moved to corner');
+    } else {
+      siteHeader.classList.remove('tablet-corner');
+      console.log('Non-tablet mode: Header in normal position');
     }
   }
-  
+
   // Check on load and resize
-  checkTabletSize();
-  window.addEventListener('resize', checkTabletSize);
+  if (!skipTabletCorner) {
+    checkTabletSize();
+    window.addEventListener('resize', checkTabletSize);
+  } else {
+    siteHeader?.classList.remove('tablet-corner');
+  }
 
   // Mobile menu toggle
   const mobileMenuButton = document.getElementById('mobile-menu-button');

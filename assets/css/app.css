@@ -964,10 +964,6 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
-.bg-white\/10{
-  background-color: rgb(255 255 255 / 0.1);
-}
-
 .bg-white\/80{
   background-color: rgb(255 255 255 / 0.8);
 }
@@ -1202,11 +1198,6 @@ video {
 .text-primary{
   --tw-text-opacity: 1;
   color: rgb(11 95 255 / var(--tw-text-opacity, 1));
-}
-
-.text-primary-light{
-  --tw-text-opacity: 1;
-  color: rgb(230 242 255 / var(--tw-text-opacity, 1));
 }
 
 .text-slate-900{
