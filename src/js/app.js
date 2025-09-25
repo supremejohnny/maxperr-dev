@@ -479,3 +479,34 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('[news slider] init failed:', e);
   }
 });
+
+// News grid "Read more" expander
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    document.querySelectorAll('[data-news-grid]').forEach((wrapper) => {
+      const visibleCount = parseInt(wrapper.getAttribute('data-visible-count') || '', 10) || 0;
+      const cards = Array.from(wrapper.querySelectorAll('[data-news-card]'));
+      const hiddenCards = cards.filter((card, index) => visibleCount && index >= visibleCount);
+      const loadMoreBtn = wrapper.querySelector('[data-news-load-more]');
+
+      if (!loadMoreBtn) {
+        return;
+      }
+
+      if (hiddenCards.length === 0) {
+        loadMoreBtn.setAttribute('hidden', 'hidden');
+        return;
+      }
+
+      loadMoreBtn.addEventListener('click', () => {
+        hiddenCards.forEach((card) => {
+          card.removeAttribute('hidden');
+          card.removeAttribute('data-news-hidden');
+        });
+        loadMoreBtn.setAttribute('hidden', 'hidden');
+      });
+    });
+  } catch (error) {
+    console.error('[news grid] init failed:', error);
+  }
+});
