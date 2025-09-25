@@ -210,6 +210,32 @@ if (!function_exists('figma_rebuild_get_default_news_items')) {
   }
 }
 
+if (!function_exists('figma_rebuild_get_default_news_paragraph_hero')) {
+  function figma_rebuild_get_default_news_paragraph_hero() {
+    return [
+      'tag'       => __('Knowledge', 'figma-rebuild'),
+      'title'     => __('11 EV Charger Installation Tips', 'figma-rebuild'),
+      'date'      => '2025-03-12',
+      'image'     => get_template_directory_uri() . '/src/images/Maxperr-news.png',
+      'image_alt' => __('EV charger installation article hero image', 'figma-rebuild'),
+    ];
+  }
+}
+
+if (!function_exists('figma_rebuild_get_default_news_paragraph_help')) {
+  function figma_rebuild_get_default_news_paragraph_help() {
+    return [
+      'eyebrow'         => __('Need help?', 'figma-rebuild'),
+      'title'           => __('Need Help with EV Charger Installation?', 'figma-rebuild'),
+      'description'     => __('Talk with our specialists to scope, deploy, and maintain your charging network.', 'figma-rebuild'),
+      'primary_label'   => __('Book Consultation', 'figma-rebuild'),
+      'primary_url'     => '#',
+      'secondary_label' => __('Technical Support', 'figma-rebuild'),
+      'secondary_url'   => '#',
+    ];
+  }
+}
+
 // Register Customizer settings for all theme sections
 add_action('customize_register', function ($wp_customize) {
   $template_uri       = get_template_directory_uri();
@@ -684,6 +710,153 @@ add_action('customize_register', function ($wp_customize) {
       'item_label'       => __('新闻', 'figma-rebuild'),
     ]
   ));
+
+  /* ------------------------------------------------------------------------ */
+  /* News Paragraph Page                                                     */
+  /* ------------------------------------------------------------------------ */
+  $news_paragraph_hero_defaults = figma_rebuild_get_default_news_paragraph_hero();
+  $news_paragraph_help_defaults = figma_rebuild_get_default_news_paragraph_help();
+
+  $wp_customize->add_panel('news_paragraph_panel', [
+    'title'       => __('News Paragraph Page', 'figma-rebuild'),
+    'priority'    => 80,
+    'description' => __('Configure the hero and support CTA for the news paragraph template.', 'figma-rebuild'),
+  ]);
+
+  $wp_customize->add_section('news_paragraph_hero_section', [
+    'title' => __('Hero', 'figma-rebuild'),
+    'panel' => 'news_paragraph_panel',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_hero_tag', [
+    'default'           => $news_paragraph_hero_defaults['tag'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_hero_tag', [
+    'label'   => __('Tag', 'figma-rebuild'),
+    'section' => 'news_paragraph_hero_section',
+    'type'    => 'text',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_hero_title', [
+    'default'           => $news_paragraph_hero_defaults['title'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_hero_title', [
+    'label'   => __('Title', 'figma-rebuild'),
+    'section' => 'news_paragraph_hero_section',
+    'type'    => 'text',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_hero_date', [
+    'default'           => $news_paragraph_hero_defaults['date'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_hero_date', [
+    'label'       => __('Published date (YYYY-MM-DD)', 'figma-rebuild'),
+    'description' => __('Leave empty to use the page publish date.', 'figma-rebuild'),
+    'section'     => 'news_paragraph_hero_section',
+    'type'        => 'date',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_hero_image', [
+    'default'           => $news_paragraph_hero_defaults['image'],
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'news_paragraph_hero_image',
+    [
+      'label'   => __('Hero image', 'figma-rebuild'),
+      'section' => 'news_paragraph_hero_section',
+    ]
+  ));
+
+  $wp_customize->add_setting('news_paragraph_hero_image_alt', [
+    'default'           => $news_paragraph_hero_defaults['image_alt'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_hero_image_alt', [
+    'label'       => __('Hero image alt text', 'figma-rebuild'),
+    'description' => __('Describe the hero image for accessibility.', 'figma-rebuild'),
+    'section'     => 'news_paragraph_hero_section',
+    'type'        => 'text',
+  ]);
+
+  $wp_customize->add_section('news_paragraph_help_section', [
+    'title' => __('Need Help CTA', 'figma-rebuild'),
+    'panel' => 'news_paragraph_panel',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_help_eyebrow', [
+    'default'           => $news_paragraph_help_defaults['eyebrow'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_help_eyebrow', [
+    'label'   => __('Eyebrow label', 'figma-rebuild'),
+    'section' => 'news_paragraph_help_section',
+    'type'    => 'text',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_help_title', [
+    'default'           => $news_paragraph_help_defaults['title'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_help_title', [
+    'label'   => __('Title', 'figma-rebuild'),
+    'section' => 'news_paragraph_help_section',
+    'type'    => 'text',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_help_description', [
+    'default'           => $news_paragraph_help_defaults['description'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_help_description', [
+    'label'   => __('Description', 'figma-rebuild'),
+    'section' => 'news_paragraph_help_section',
+    'type'    => 'textarea',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_help_primary_label', [
+    'default'           => $news_paragraph_help_defaults['primary_label'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_help_primary_label', [
+    'label'   => __('Primary action label', 'figma-rebuild'),
+    'section' => 'news_paragraph_help_section',
+    'type'    => 'text',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_help_primary_url', [
+    'default'           => $news_paragraph_help_defaults['primary_url'],
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('news_paragraph_help_primary_url', [
+    'label'   => __('Primary action URL', 'figma-rebuild'),
+    'section' => 'news_paragraph_help_section',
+    'type'    => 'url',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_help_secondary_label', [
+    'default'           => $news_paragraph_help_defaults['secondary_label'],
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_paragraph_help_secondary_label', [
+    'label'   => __('Secondary action label', 'figma-rebuild'),
+    'section' => 'news_paragraph_help_section',
+    'type'    => 'text',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_help_secondary_url', [
+    'default'           => $news_paragraph_help_defaults['secondary_url'],
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('news_paragraph_help_secondary_url', [
+    'label'   => __('Secondary action URL', 'figma-rebuild'),
+    'section' => 'news_paragraph_help_section',
+    'type'    => 'url',
+  ]);
 
   /* ------------------------------------------------------------------------ */
   /* Solutions Page (existing, unchanged, stays under its own panel)          */
