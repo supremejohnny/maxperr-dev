@@ -41,10 +41,11 @@
   $is_solutions_page = is_page('solutions');
   $is_products_page = is_page('products');
   $is_partnership_page = is_page('partnership');
+  $is_about_page = is_page('about');
 ?>
 
-<header class="site-header<?php echo ($is_solutions_page || $is_products_page || $is_partnership_page) ? ' site-header--subpage' : ''; ?>">
-  <?php if ($is_solutions_page || $is_products_page || $is_partnership_page) : ?>
+<header class="site-header<?php echo ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page) ? ' site-header--subpage' : ''; ?>">
+  <?php if ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page) : ?>
     <div class="subpage-header">
       <a href="<?php echo esc_url(home_url('/')); ?>" class="subpage-header__logo" aria-label="<?php esc_attr_e('Go to homepage', 'figma-rebuild'); ?>">
         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/src/images/logo_maxperr.png"
@@ -119,7 +120,7 @@
               </div>
             </div>
           <?php else : ?>
-            <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership')) ? ' subpage-header__link--active' : ''; ?>">
+            <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership') || ($is_about_page && $item['label'] === 'About')) ? ' subpage-header__link--active' : ''; ?>">
               <?php echo esc_html($item['label']); ?>
             </a>
           <?php endif; ?>
@@ -152,7 +153,7 @@
     <div class="mobile-menu" id="mobile-menu">
       <div class="px-6 py-4 space-y-4 max-w-7xl mx-auto">
         <?php foreach ($nav_items as $item) : ?>
-          <a href="<?php echo esc_url($item['url']); ?>" class="nav-link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership')) ? ' nav-link--active' : ''; ?>">
+          <a href="<?php echo esc_url($item['url']); ?>" class="nav-link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership') || ($is_about_page && $item['label'] === 'About')) ? ' nav-link--active' : ''; ?>">
             <?php echo esc_html($item['label']); ?>
           </a>
         <?php endforeach; ?>
