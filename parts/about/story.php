@@ -1,6 +1,6 @@
 <?php
 /**
- * About page story sections.
+ * About page story sections – full-bleed image card with half-blur text overlay.
  */
 
 $default_sections = [
@@ -35,7 +35,6 @@ $default_sections = [
 ];
 
 $about_sections = get_theme_mod('about_story_sections', $default_sections);
-
 if (!is_array($about_sections) || empty($about_sections)) {
   $about_sections = $default_sections;
 }
@@ -49,38 +48,35 @@ if (!is_array($about_sections) || empty($about_sections)) {
       $description = trim($section['description'] ?? '');
       $image = $section['image'] ?? '';
       $image_alt = $section['image_alt'] ?? '';
-      $is_reverse = $index % 2 === 1;
-      $item_classes = 'about-story__item about-story__item--gradient-' . ($index + 1);
-      if ($is_reverse) {
-        $item_classes .= ' about-story__item--reverse';
-      }
-
       if (is_numeric($image)) {
-        $image = wp_get_attachment_image_url((int)$image, 'large');
+        $image = wp_get_attachment_image_url((int)$image, 'full');
       }
+      if (!$image) continue;
     ?>
-      <article class="<?php echo esc_attr($item_classes); ?>">
-        <div class="about-story__content">
+      <article class="blend-card" data-card="<?php echo (int)$index; ?>">
+        <!-- 基底原图（不模糊） -->
+        <img class="blend-card__img" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($image_alt); ?>" loading="lazy" />
+
+        <!-- 左半区的同图模糊层（仅显示左侧，用 mask 裁切） -->
+        <img class="blend-card__img blend-card__img--blur" src="<?php echo esc_url($image); ?>" alt="" aria-hidden="true" />
+
+        <!-- 左侧淡入的白色/雾化遮罩，增强对比度 -->
+        <span class="blend-card__shade" aria-hidden="true"></span>
+
+        <!-- 文字层：放在左半区 -->
+        <div class="blend-card__content">
           <?php if ($kicker) : ?>
-            <p class="about-story__kicker"><?php echo esc_html($kicker); ?></p>
+            <p class="blend-card__kicker"><?php echo esc_html($kicker); ?></p>
           <?php endif; ?>
 
           <?php if ($title) : ?>
-            <h2 class="about-story__title"><?php echo esc_html($title); ?></h2>
+            <h2 class="blend-card__title"><?php echo esc_html($title); ?></h2>
           <?php endif; ?>
 
           <?php if ($description) : ?>
-            <p class="about-story__description"><?php echo esc_html($description); ?></p>
+            <p class="blend-card__desc"><?php echo esc_html($description); ?></p>
           <?php endif; ?>
         </div>
-
-        <?php if ($image) : ?>
-          <div class="about-story__media">
-            <div class="about-story__media-inner">
-              <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($image_alt); ?>">
-            </div>
-          </div>
-        <?php endif; ?>
       </article>
     <?php endforeach; ?>
   </div>
