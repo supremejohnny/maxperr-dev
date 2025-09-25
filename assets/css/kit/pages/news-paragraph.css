@@ -1,3 +1,7 @@
+/* ================================
+   NEWS PARAGRAPH HERO SECTION (Dark)
+   ================================ */
+
 .news-paragraph-hero {
   position: relative;
   padding: clamp(5rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 4.5rem);
@@ -26,7 +30,7 @@
   border-radius: 999px;
   background: rgba(59, 130, 246, 0.2);
   color: #bfdbfe;
-  font-size: 0.95rem;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -81,6 +85,10 @@
   letter-spacing: 0.02em;
   backdrop-filter: blur(6px);
 }
+
+/* ================================
+   NEWS PARAGRAPH BODY SECTION
+   ================================ */
 
 .news-paragraph-body {
   padding: clamp(4.5rem, 7vw, 6.5rem) 0 clamp(5rem, 9vw, 7.5rem);
@@ -145,6 +153,10 @@
   text-align: center;
   color: #94a3b8;
 }
+
+/* ================================
+   NEWS PARAGRAPH HELP SECTION
+   ================================ */
 
 .news-paragraph-help {
   background: #f8fafc;
@@ -282,6 +294,10 @@
   transform: translateX(4px);
 }
 
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
 @media (max-width: 1024px) {
   .news-paragraph-hero__grid {
     grid-template-columns: 1fr;
@@ -334,3 +350,248 @@
     transition: none;
   }
 }
+
+/* ================================
+   NEWS ARTICLE HERO SECTION
+   ================================ */
+
+.news-article-hero {
+  background: #ffffff;
+  color: #0f172a;
+  padding: clamp(2.25rem, 5vw, 3.25rem) 0 clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.news-article-hero__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Back Navigation */
+.news-article-hero__actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+}
+
+.news-article-hero__back-link {
+  color: #0f172a;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+.news-article-hero__back-link:hover {
+  color: #0B5FFF;
+  text-decoration: underline;
+}
+
+/* Header Content */
+.news-article-hero__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.news-article-hero__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 2.25rem;
+  border-radius: 30px;
+  background: #fff;
+  border: 1px solid #2970A7;
+  color: #2970A7;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  width: fit-content;
+}
+
+.news-article-hero__title {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.07;
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  color: #0f172a;
+}
+
+/* Hero Image */
+.news-article-hero__media {
+  margin: 0;
+}
+
+.news-article-hero__image-wrap {
+  width: 100%;
+  height: clamp(320px, 50vh, 560px);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f1f5f9;
+  box-shadow: 0 20px 60px rgba(2, 6, 23, 0.06);
+}
+
+.news-article-hero__image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.news-article-hero__placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(130deg, #e2e8f0 0%, #f1f5f9 100%);
+}
+
+/* Meta Information */
+.news-article-hero__meta {
+  margin: 1.5rem 0 0;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.news-article-hero__author { 
+  font-weight: 700; 
+  font-size: 20px; 
+}
+
+.news-article-hero__sep { 
+  margin: 0 0.35rem; 
+  color: #64748b; 
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .news-article-hero { 
+    padding: 1.5rem 0 1.5rem; 
+  }
+  
+  .news-article-hero__image-wrap { 
+    border-radius: 10px; 
+    height: clamp(240px, 45vh, 420px); 
+  }
+}
+
+/* ================================
+   NEWS PARAGRAPH NEED HELP SECTION
+   ================================ */
+
+.power-future-section {
+  padding: 80px 0;
+  background: #ffffff;
+  border: 1px solid #e0f2fe;
+}
+
+.power-future__container {
+  max-width: 1000px;
+  margin: 0;
+  margin-left: 13%;
+  padding: 0 24px;
+  text-align: left;
+}
+
+.power-future__title {
+  margin: 0 0 16px;
+  font-size: 48px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.power-future__subtitle {
+  margin: 0 0 32px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.power-future__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.power-future__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.power-future__button--primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.power-future__button--primary:hover {
+  background: #1d4ed8;
+}
+
+.power-future__button--secondary {
+  background: #ffffff;
+  color: #0f172a;
+  border: 2px solid #0f172a;
+}
+
+.power-future__button--secondary:hover {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+/* Need Help Section Responsive Design */
+@media (max-width: 768px) {
+  .power-future-section {
+    padding: 60px 0;
+  }
+  
+  .power-future__container {
+    margin-left: 10%;
+    padding: 0 16px;
+  }
+  
+  .power-future__title {
+    font-size: 36px;
+  }
+  
+  .power-future__buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .power-future__button {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .power-future__container {
+    margin-left: 5%;
+  }
+  
+  .power-future__title {
+    font-size: 32px;
+  }
+  
+  .power-future__button {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
