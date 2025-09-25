@@ -24,11 +24,6 @@
 
 <section class="news-page-body">
   <div class="container mx-auto px-6">
-    <header class="news-page-body__header">
-      <h2 class="news-page-body__title"><?php echo esc_html__('Latest Updates', 'figma-rebuild'); ?></h2>
-      <p class="news-page-body__description"><?php echo esc_html__('Stay informed with announcements, installation stories, and EV charging insights from the Maxperr team.', 'figma-rebuild'); ?></p>
-    </header>
-
     <div class="news-grid-wrapper" data-news-grid data-visible-count="<?php echo esc_attr($visible_count); ?>">
       <div class="news-grid">
         <?php foreach ($news_items as $index => $item) :

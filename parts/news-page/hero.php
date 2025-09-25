@@ -1,20 +1,22 @@
 <?php
-  $news_bg_image = get_theme_mod('news_bg_image', '');
-  $news_subtitle = get_theme_mod('news_subtitle', __('All about our company and the EV Charging Industry.', 'figma-rebuild'));
-  $fallback_image = get_template_directory_uri() . '/src/images/maxperr_expo.jpg';
-  $background_image = $news_bg_image ?: $fallback_image;
+  // 可选：从自定义器取图；没配就用主题内置占位图
+  $news_img = get_theme_mod('news_bg_image', '');
+  $fallback = get_template_directory_uri() . '/src/images/Maxperr-news.png';
+  $hero_src = $news_img ?: $fallback;
 ?>
 
-<section class="news-page-hero" style="background-image: url('<?php echo esc_url($background_image); ?>');">
-  <div class="news-page-hero__overlay" aria-hidden="true"></div>
-  <div class="news-page-hero__inner">
-    <div class="container mx-auto px-6">
-      <div class="news-page-hero__content">
-        <h1 class="news-page-hero__title"><?php echo esc_html__('News', 'figma-rebuild'); ?></h1>
-        <?php if ($news_subtitle) : ?>
-          <p class="news-page-hero__subtitle"><?php echo wp_kses_post($news_subtitle); ?></p>
-        <?php endif; ?>
-      </div>
-    </div>
+<section class="news-hero">
+  <div class="container mx-auto px-6">
+    <h1 class="news-hero__title"><?php esc_html_e('News', 'figma-rebuild'); ?></h1>
   </div>
+
+  <figure class="news-hero__figure">
+    <img
+      src="<?php echo esc_url($hero_src); ?>"
+      alt="<?php esc_attr_e('Maxperr Energy hero', 'figma-rebuild'); ?>"
+      class="news-hero__image"
+      loading="eager"
+      decoding="async"
+    />
+  </figure>
 </section>

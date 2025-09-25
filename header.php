@@ -15,6 +15,8 @@
   $partnership_page_url = $partnership_page ? get_permalink($partnership_page) : '#partnership';
   $about_page         = get_page_by_path('about');
   $about_page_url     = $about_page ? get_permalink($about_page) : '#about';
+  $news_page          = get_page_by_path('news');
+  $news_page_url      = $news_page ? get_permalink($news_page) : '#news';
   $nav_items          = [
     [
       'label' => __('Solutions', 'figma-rebuild'),
@@ -33,6 +35,10 @@
       'url'   => $about_page_url,
     ],
     [
+      'label' => __('News', 'figma-rebuild'),
+      'url'   => $news_page_url,
+    ],
+    [
       'label' => __('Contact', 'figma-rebuild'),
       'url'   => '#contact',
     ],
@@ -42,10 +48,11 @@
   $is_products_page = is_page('products');
   $is_partnership_page = is_page('partnership');
   $is_about_page = is_page('about');
+  $is_news_page = is_page_template('templates/page-news.php');
 ?>
 
-<header class="site-header<?php echo ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page) ? ' site-header--subpage' : ''; ?>">
-  <?php if ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page) : ?>
+<header class="site-header<?php echo ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page || $is_news_page) ? ' site-header--subpage' : ''; ?>">
+  <?php if ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page || $is_news_page) : ?>
     <div class="subpage-header">
       <a href="<?php echo esc_url(home_url('/')); ?>" class="subpage-header__logo" aria-label="<?php esc_attr_e('Go to homepage', 'figma-rebuild'); ?>">
         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/src/images/logo_maxperr.png"
@@ -120,7 +127,7 @@
               </div>
             </div>
           <?php else : ?>
-            <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership') || ($is_about_page && $item['label'] === 'About')) ? ' subpage-header__link--active' : ''; ?>">
+            <a href="<?php echo esc_url($item['url']); ?>" class="subpage-header__link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership') || ($is_about_page && $item['label'] === 'About') || ($is_news_page && $item['label'] === 'News')) ? ' subpage-header__link--active' : ''; ?>">
               <?php echo esc_html($item['label']); ?>
             </a>
           <?php endif; ?>
@@ -153,7 +160,7 @@
     <div class="mobile-menu" id="mobile-menu">
       <div class="px-6 py-4 space-y-4 max-w-7xl mx-auto">
         <?php foreach ($nav_items as $item) : ?>
-          <a href="<?php echo esc_url($item['url']); ?>" class="nav-link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership') || ($is_about_page && $item['label'] === 'About')) ? ' nav-link--active' : ''; ?>">
+          <a href="<?php echo esc_url($item['url']); ?>" class="nav-link<?php echo (($is_solutions_page && $item['label'] === 'Solutions') || ($is_products_page && $item['label'] === 'Products') || ($is_partnership_page && $item['label'] === 'Partnership') || ($is_about_page && $item['label'] === 'About') || ($is_news_page && $item['label'] === 'News')) ? ' nav-link--active' : ''; ?>">
             <?php echo esc_html($item['label']); ?>
           </a>
         <?php endforeach; ?>
