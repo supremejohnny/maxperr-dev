@@ -1,0 +1,395 @@
+.product-detail-page {
+  color: #0f172a;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+
+.product-detail-section-title {
+  font-size: clamp(2rem, 1.6rem + 1vw, 2.75rem);
+  line-height: 1.15;
+  font-weight: 600;
+  color: #0b1b37;
+  margin-bottom: 1.5rem;
+}
+
+.product-detail-hero {
+  padding: clamp(4rem, 12vw, 7rem) 1.5rem;
+  background: linear-gradient(135deg, #f8fbff 0%, #eff4ff 100%);
+}
+
+.product-detail-hero__inner,
+.product-detail-cost__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.product-detail-hero__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: clamp(2.5rem, 3vw, 3.5rem);
+}
+
+.product-detail-hero__title-group {
+  max-width: min(480px, 100%);
+}
+
+.product-detail-hero__eyebrow {
+  display: inline-block;
+  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #1d4ed8;
+  margin-bottom: 0.75rem;
+}
+
+.product-detail-hero__title {
+  font-size: clamp(2.5rem, 2.2rem + 1vw, 3.25rem);
+  line-height: 1.05;
+  margin: 0 0 1rem;
+}
+
+.product-detail-hero__subtitle {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #334155;
+}
+
+.product-detail-hero__cta {
+  align-self: flex-start;
+  padding: 0.85rem 2.5rem;
+  border-radius: 999px;
+  background: #1d4ed8;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 25px rgba(29, 78, 216, 0.2);
+}
+
+.product-detail-hero__cta:hover,
+.product-detail-hero__cta:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 30px rgba(29, 78, 216, 0.3);
+}
+
+.product-detail-hero__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 4vw, 2.25rem);
+}
+
+.product-detail-hero__media {
+  background: #fff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-detail-hero__image-frame {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 18px;
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.12), rgba(15, 23, 42, 0.05));
+}
+
+.product-detail-hero__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.product-detail-hero__metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.product-detail-hero__metric-value {
+  font-size: clamp(2rem, 1.7rem + 1vw, 2.75rem);
+  font-weight: 700;
+  color: #0b1b37;
+}
+
+.product-detail-hero__metric-label {
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.product-detail-cost {
+  padding: clamp(3.5rem, 8vw, 6rem) 1.5rem;
+}
+
+.product-detail-cost__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  grid-template-areas:
+    "tall medium"
+    "wide wide";
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.product-detail-cost__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 24px 40px rgba(15, 23, 42, 0.1);
+  min-height: 320px;
+}
+
+.product-detail-cost__card--tall {
+  grid-area: tall;
+}
+
+.product-detail-cost__card--medium {
+  grid-area: medium;
+}
+
+.product-detail-cost__card--wide {
+  grid-area: wide;
+  min-height: 260px;
+}
+
+.product-detail-cost__card--wide .product-detail-cost__description {
+  max-width: 45ch;
+}
+
+.product-detail-cost__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.05);
+}
+
+.product-detail-cost__content {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.75) 100%);
+  color: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+.product-detail-cost__eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.product-detail-cost__description {
+  margin: 0;
+  font-size: 1.05rem;
+  max-width: 35ch;
+}
+
+
+
+@media (max-width: 1024px) {
+  .product-detail-hero__gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-detail-cost__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "tall tall"
+      "medium wide";
+  }
+
+
+}
+
+@media (max-width: 768px) {
+  .product-detail-hero__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-detail-hero__gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .product-detail-cost__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tall"
+      "medium"
+      "wide";
+  }
+
+  .product-detail-cost__card {
+    min-height: 260px;
+  }
+
+
+}
+
+/* Page base 可留用你原来的配色，这里给最小必要样式 */
+.pd-hero {
+  background: #fff;
+  padding: clamp(2rem, 4vw, 3rem) 1.5rem 0; /* 上方留白，图像紧贴其下 */
+  color: #0f172a;
+  font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.pd-hero__inner { max-width: 1180px; margin: 0 auto; }
+
+.pd-hero__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pd-hero__title {
+  margin: 0 0 .5rem 0;
+  font-weight: 700;
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem); /* 接近图1的字号层级 */
+  line-height: 1.05;
+}
+
+.pd-hero__subtitle {
+  margin: 0;
+  font-size: clamp(1rem, .95rem + .3vw, 1.125rem);
+  color: #475569;
+}
+
+.pd-hero__cta {
+  align-self: flex-start;
+  display: inline-flex;
+  padding: .7rem 1.4rem;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, .22);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.pd-hero__cta:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(37,99,235,.28); }
+
+/* Full-bleed image（横跨整页） */
+.pd-hero__bleed {
+  width: 100vw;               /* 占满视窗宽度 */
+  margin: clamp(1rem, 2.5vw, 2rem) 0 0 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);/* 从容器中“流出”全宽 */
+}
+
+.pd-hero__image {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 45vw, 560px); /* 自适应高度，保持横幅比例 */
+  object-fit: cover;                 /* 填满裁切，贴近图1观感 */
+  background: #eef2f7;               /* 兜底色，防止加载前闪烁 */
+}
+
+/* 响应式：小屏 CTA 下移即可 */
+@media (max-width: 768px) {
+  .pd-hero__header { flex-direction: column; gap: .75rem; }
+  .pd-hero__cta { order: 3; }
+}
+
+/* ==========================================
+   Product Specs Section CSS
+   ========================================== */
+.product-detail-specs {
+  --divider: #E5E7EB;
+  --ink: #0f172a;
+  --muted: #475569;
+  --blue: #2970A7;
+  /* 统一对齐用的全局列宽与表宽 */
+  --label-col: 220px;      /* 小类(dt)固定宽度，所有大类统一 */
+  --table-w: 720px;        /* 右侧明细表统一宽度，方便"居中且对齐" */
+}
+
+.product-detail-specs__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 16px 32px;
+}
+
+.product-detail-specs .product-detail-section-title {
+  margin: 0 0 8px;
+  font: 700 22px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: var(--blue); /* 恢复蓝色 */
+}
+
+.spec-group {
+  display: grid;
+  grid-template-columns: 180px minmax(520px, 1fr);
+  gap: 32px;
+  padding: 24px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.spec-group:first-of-type {
+  border-top: none;
+}
+
+.spec-heading {
+  font: 700 18px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: var(--ink);
+}
+
+/* 明细表：统一宽度 + 统一列宽，保证各组小类/数据对齐 */
+.spec-table {
+  display: grid;
+  grid-template-columns: var(--label-col) 1fr; /* 左列固定，右列自适应 */
+  column-gap: 32px;
+  row-gap: 12px;
+  margin: 24px auto;
+  inline-size: var(--table-w);
+  max-width: 100%;
+}
+
+.spec-table dt {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: right;
+}
+
+.spec-table dd {
+  margin: 0;
+  color: var(--muted);
+  text-align: left;
+}
+
+/* 响应式：缩小屏时仍保持对齐；到手机再堆叠 */
+@media (max-width: 1024px) {
+  .product-detail-specs {
+    --label-col: 200px;
+    --table-w: 640px;
+  }
+}
+
+@media (max-width: 768px) {
+  .spec-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .spec-table {
+    grid-template-columns: 1fr;
+    inline-size: 100%;
+  }
+}
+
