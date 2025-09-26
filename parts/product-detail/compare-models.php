@@ -1,24 +1,58 @@
 <?php
-/**
- * Product Detail Compare Models Section
- *
- * @package figma-rebuild
- */
-
 $template_uri = get_template_directory_uri();
 ?>
-
 <section class="product-detail-compare" id="compare-models">
-  <div class="product-detail-compare__inner">
+  <style>
+    /* ===== Minimal look ===== */
+    .product-detail-compare{--ink:#0f172a;--muted:#475569;--blue:#2970A7;--divider:#E5E7EB}
+    .product-detail-compare__inner{max-width:1400px;margin:0 auto;padding:8px 16px 32px}
+    .product-detail-section-title{margin:0 8px 4px 0;font:700 22px/1.2 system-ui,-apple-system,Segoe UI,Roboto;color:var(--ink)}
+    .product-detail-compare__description{margin:0;color:var(--muted)}
+    .product-detail-compare__header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:16px}
+    .product-detail-compare__actions{display:flex;gap:8px}
+    .product-detail-compare__action{display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid var(--divider);text-decoration:none;color:var(--blue);font-weight:600;background:none}
+    .product-detail-compare__action--secondary{color:var(--ink)}
+    /* ===== Models row ===== */
+    .product-detail-compare__models{display:grid;grid-template-columns:240px 400px 400px 240px;gap:32px;align-items:end;margin:16px 0 24px;justify-items:start;padding-left:40px}
+    .product-detail-compare__model{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:16px}
+    .product-detail-compare__model-image{width:400px;height:600px;object-fit:contain}
+    /* 原生下拉，极简 */
+    .compare-select{width:380px;max-width:100%;padding:8px 10px;border:1px solid var(--divider);border-radius:8px;background:none;color:var(--ink)}
+    /* 小号“Add Model”按钮 */
+    .product-detail-compare__add{justify-self:start;align-self:end;display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border:1px solid var(--divider);border-radius:8px;background:none;color:var(--blue);font-weight:600;margin-bottom:10px}
+    .product-detail-compare__add-icon{font-weight:700}
+    /* ===== Matrix (spec table) ===== */
+    .product-detail-compare__matrix{margin-top:8px}
+    .product-detail-compare__matrix-group{padding:12px 0}
+    .product-detail-compare__matrix-heading{display:grid;grid-template-columns:240px 400px 400px;gap:32px;align-items:start;padding:8px 0;padding-left:40px}
+    .product-detail-compare__matrix-header{font-weight:700;text-align:left}
+    .product-detail-compare__matrix-section{display:grid;grid-template-columns:240px 400px 400px;gap:32px;align-items:center;padding:8px 0;padding-left:42px}
+    .product-detail-compare__matrix-section-title{color:var(--blue);font-weight:700}
+    .product-detail-compare__matrix-divider{height:1px;background:transparent}
+    .product-detail-compare__matrix-row{display:grid;grid-template-columns:240px 400px 400px;gap:82px;align-items:start;padding:8px 0;padding-left:42px}
+    .product-detail-compare__matrix-label{font-weight:700;color:var(--ink)}
+    .product-detail-compare__matrix-value{color:var(--muted);text-align:left}
+    @media (max-width: 900px){
+      .product-detail-compare__models{grid-template-columns:1fr 1fr 1fr;gap:8px}
+      .product-detail-compare__models > div:first-child{display:none}
+      .product-detail-compare__add{grid-column:1/-1;justify-self:center;margin-top:16px}
+      .product-detail-compare__matrix-heading,
+      .product-detail-compare__matrix-section,
+      .product-detail-compare__matrix-row{grid-template-columns:1fr;gap:8px}
+    }
+  </style>
+
+  <div class="product-detail-compare__inner" style="margin-top:24px; margin-bottom:84px;">
     <div class="product-detail-compare__header">
       <div class="product-detail-compare__header-text">
         <h2 class="product-detail-section-title"><?php esc_html_e('Compare Models', 'figma-rebuild'); ?></h2>
         <p class="product-detail-compare__description">
-          <?php esc_html_e('Find the right Maxperr charger for your garage, fleet or workplace by comparing capabilities side by side.', 'figma-rebuild'); ?>
+          <?php esc_html_e('Compare capabilities side by side.', 'figma-rebuild'); ?>
         </p>
       </div>
       <div class="product-detail-compare__actions">
-        <a class="product-detail-compare__action product-detail-compare__action--secondary" href="#contact">
+        <a class="product-detail-compare__action--secondary product-detail-compare__action" href="#contact">
           <?php esc_html_e('Book Consultation', 'figma-rebuild'); ?>
         </a>
         <a class="product-detail-compare__action" href="#order">
@@ -27,31 +61,25 @@ $template_uri = get_template_directory_uri();
       </div>
     </div>
 
+    <!-- Models: image + native select; no card backgrounds -->
     <div class="product-detail-compare__models">
+      <div></div> <!-- Empty space to align with label column -->
       <div class="product-detail-compare__model">
-        <img
-          class="product-detail-compare__model-image"
-          src="<?php echo esc_url($template_uri . '/src/images/maxperr_home_10kW.png'); ?>"
-          alt="<?php esc_attr_e('Eco 12kW AC charger', 'figma-rebuild'); ?>"
-        />
-        <div class="product-detail-compare__model-title"><?php esc_html_e('Eco 12kW AC', 'figma-rebuild'); ?></div>
-        <div class="product-detail-compare__select" aria-label="<?php esc_attr_e('Select Eco 12kW AC finish', 'figma-rebuild'); ?>">
-          <span><?php esc_html_e('Matte Graphite', 'figma-rebuild'); ?></span>
-          <span aria-hidden="true" class="product-detail-compare__select-icon">▾</span>
-        </div>
+        <img class="product-detail-compare__model-image"
+             src="<?php echo esc_url($template_uri . '/src/images/maxperr_home_10kW.png'); ?>"
+             alt="<?php esc_attr_e('Eco 12kW AC charger', 'figma-rebuild'); ?>" />
+        <select class="compare-select" aria-label="<?php esc_attr_e('Select Eco 12kW AC finish', 'figma-rebuild'); ?>">
+          <option><?php esc_html_e('Eco 12kW AC', 'figma-rebuild'); ?></option>
+        </select>
       </div>
 
       <div class="product-detail-compare__model">
-        <img
-          class="product-detail-compare__model-image"
-          src="<?php echo esc_url($template_uri . '/src/images/maxperr_smart_30kW.png'); ?>"
-          alt="<?php esc_attr_e('Smart 30kW DC charger', 'figma-rebuild'); ?>"
-        />
-        <div class="product-detail-compare__model-title"><?php esc_html_e('Smart 30kW DC', 'figma-rebuild'); ?></div>
-        <div class="product-detail-compare__select" aria-label="<?php esc_attr_e('Select Smart 30kW DC finish', 'figma-rebuild'); ?>">
-          <span><?php esc_html_e('Industrial Silver', 'figma-rebuild'); ?></span>
-          <span aria-hidden="true" class="product-detail-compare__select-icon">▾</span>
-        </div>
+        <img class="product-detail-compare__model-image"
+             src="<?php echo esc_url($template_uri . '/src/images/maxperr_smart_30kW.png'); ?>"
+             alt="<?php esc_attr_e('Smart 30kW DC charger', 'figma-rebuild'); ?>" />
+        <select class="compare-select" aria-label="<?php esc_attr_e('Select Smart 30kW DC finish', 'figma-rebuild'); ?>">
+          <option><?php esc_html_e('Smart 30kW DC', 'figma-rebuild'); ?></option>
+        </select>
       </div>
 
       <button type="button" class="product-detail-compare__add">
@@ -60,14 +88,9 @@ $template_uri = get_template_directory_uri();
       </button>
     </div>
 
+    <!-- Matrix -->
     <div class="product-detail-compare__matrix" role="table" aria-label="<?php esc_attr_e('Model comparison table', 'figma-rebuild'); ?>">
-      <div class="product-detail-compare__matrix-group" role="rowgroup">
-        <div class="product-detail-compare__matrix-heading" role="row">
-          <div class="product-detail-compare__matrix-label" role="columnheader"></div>
-          <div class="product-detail-compare__matrix-header" role="columnheader"><?php esc_html_e('Eco 12kW AC', 'figma-rebuild'); ?></div>
-          <div class="product-detail-compare__matrix-header" role="columnheader"><?php esc_html_e('Smart 30kW DC', 'figma-rebuild'); ?></div>
-        </div>
-      </div>
+      
 
       <?php
       $comparison_sections = [
@@ -98,8 +121,7 @@ $template_uri = get_template_directory_uri();
         ],
       ];
 
-      foreach ($comparison_sections as $section_title => $rows) :
-        ?>
+      foreach ($comparison_sections as $section_title => $rows) : ?>
         <div class="product-detail-compare__matrix-group" role="rowgroup">
           <div class="product-detail-compare__matrix-section" role="row">
             <div class="product-detail-compare__matrix-section-title" role="columnheader"><?php echo esc_html($section_title); ?></div>

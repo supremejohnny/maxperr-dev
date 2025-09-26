@@ -34,12 +34,21 @@ $template_uri = get_template_directory_uri();
       width:min(1100px,92vw);
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
       gap:clamp(1rem,4vw,2rem);
-      align-items:end;text-align:center;
+      align-items:start;text-align:center;
     }
-    .pd-hero__fact{display:grid;justify-items:center;row-gap:.5rem}
-    .pd-hero__fact-title{font-weight:800;font-size:clamp(2.2rem,1.6rem + 2.2vw,2.9rem);line-height:1.05;color:#0f172a;font-variant-numeric:tabular-nums}
-    .pd-hero__fact-rule{display:inline-block;width:150px;height:3px;background:#0f172a;border-radius:2px;opacity:.9;margin:.1rem 0 .2rem 0}
-    .pd-hero__fact-caption{font-size:clamp(.9rem,.85rem + .25vw,1.05rem);line-height:1.3;color:#111827;opacity:.9}
+    .pd-hero__fact{display:grid;justify-items:center;grid-template-rows:auto auto minmax(60px,auto);row-gap:.5rem;cursor:pointer;padding:1rem;transition:all 0.3s ease}
+    .pd-hero__fact-title{font-weight:800;font-size:clamp(2.6rem,2rem + 2.8vw,3.5rem);line-height:1.05;color:#0f172a;font-variant-numeric:tabular-nums;text-shadow:0 2px 4px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.05);transition:all 0.3s ease;position:relative;z-index:2}
+    .pd-hero__fact-title .percent{font-size:0.7em;vertical-align:top;margin-left:2px}
+    .pd-hero__fact-rule{display:inline-block;width:180px;height:5px;background:#0f172a;border-radius:2px;opacity:.9;margin:.1rem 0 .2rem 0;transition:all 0.3s ease;position:relative;z-index:2}
+    .pd-hero__fact-caption{font-size:clamp(.9rem,.85rem + .25vw,1.05rem);line-height:1.3;color:#111827;opacity:.9;max-width:180px;margin:0 auto;text-align:center;transition:all 0.3s ease;position:relative;z-index:2}
+
+    /* Fact交互效果 */
+    .pd-hero__fact:hover{transform:translateY(-2px)}
+    
+    /* 选中状态 - 仅文字变白色 */
+    .pd-hero__fact.active .pd-hero__fact-title{color:#ffffff;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
+    .pd-hero__fact.active .pd-hero__fact-rule{background:#ffffff;opacity:1}
+    .pd-hero__fact.active .pd-hero__fact-caption{color:#ffffff;opacity:1}
 
     @media (max-width:768px){
       .pd-hero__header{flex-direction:column;gap:.75rem}
@@ -71,17 +80,17 @@ $template_uri = get_template_directory_uri();
     />
 
     <ul class="pd-hero__facts" aria-label="<?php esc_attr_e('Key highlights', 'figma-rebuild'); ?>">
-      <li class="pd-hero__fact">
-        <div class="pd-hero__fact-title">20%</div>
+      <li class="pd-hero__fact active" data-fact="speed" data-image="speed.jpg">
+        <div class="pd-hero__fact-title">20<span class="percent">%</span></div>
         <i class="pd-hero__fact-rule" aria-hidden="true"></i>
         <div class="pd-hero__fact-caption"><?php esc_html_e('faster than chargers on the market', 'figma-rebuild'); ?></div>
       </li>
-      <li class="pd-hero__fact">
+      <li class="pd-hero__fact" data-fact="time" data-image="time.jpg">
         <div class="pd-hero__fact-title">30</div>
         <i class="pd-hero__fact-rule" aria-hidden="true"></i>
         <div class="pd-hero__fact-caption"><?php esc_html_e('minutes to recharge up to 80%', 'figma-rebuild'); ?></div>
       </li>
-      <li class="pd-hero__fact">
+      <li class="pd-hero__fact" data-fact="warranty" data-image="warranty.jpg">
         <div class="pd-hero__fact-title">3</div>
         <i class="pd-hero__fact-rule" aria-hidden="true"></i>
         <div class="pd-hero__fact-caption"><?php esc_html_e('years warranty', 'figma-rebuild'); ?></div>
@@ -89,3 +98,33 @@ $template_uri = get_template_directory_uri();
     </ul>
   </figure>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const facts = document.querySelectorAll('.pd-hero__fact');
+  const heroImage = document.querySelector('.pd-hero__image');
+  
+  facts.forEach(fact => {
+    fact.addEventListener('click', function() {
+      // 移除所有active状态
+      facts.forEach(f => f.classList.remove('active'));
+      
+      // 添加active状态到当前点击的fact
+      this.classList.add('active');
+      
+      // 获取对应的图片信息（为将来的图片切换准备）
+      const factType = this.dataset.fact;
+      const imageSrc = this.dataset.image;
+      
+      // 这里可以添加图片切换逻辑
+      // heroImage.src = '<?php echo esc_url($template_uri . '/src/images/'); ?>' + imageSrc;
+      
+      // 触发自定义事件，方便将来扩展
+      const customEvent = new CustomEvent('factChanged', {
+        detail: { factType, imageSrc, element: this }
+      });
+      document.dispatchEvent(customEvent);
+    });
+  });
+});
+</script>

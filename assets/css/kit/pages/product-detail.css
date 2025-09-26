@@ -1,9 +1,9 @@
 .product-detail-page {
-  background-color: #f7f9fc;
   color: #0f172a;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
 }
+
 
 .product-detail-section-title {
   font-size: clamp(2rem, 1.6rem + 1vw, 2.75rem);
@@ -19,9 +19,7 @@
 }
 
 .product-detail-hero__inner,
-.product-detail-cost__inner,
-.product-detail-specs__inner,
-.product-detail-compare__inner {
+.product-detail-cost__inner {
   max-width: 1180px;
   margin: 0 auto;
 }
@@ -163,6 +161,10 @@
   min-height: 260px;
 }
 
+.product-detail-cost__card--wide .product-detail-cost__description {
+  max-width: 45ch;
+}
+
 .product-detail-cost__image {
   width: 100%;
   height: 100%;
@@ -179,7 +181,7 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 0.75rem;
 }
 
@@ -193,241 +195,10 @@
 .product-detail-cost__description {
   margin: 0;
   font-size: 1.05rem;
-  max-width: 28ch;
+  max-width: 35ch;
 }
 
-.product-detail-specs {
-  padding: clamp(3.5rem, 8vw, 6.5rem) 1.5rem;
-  background: #fff;
-}
 
-.product-detail-specs__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.75rem, 4vw, 2.75rem);
-}
-
-.product-detail-specs__group {
-  border-radius: 20px;
-  background: #f8fbff;
-  padding: 1.75rem;
-  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.35);
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.product-detail-specs__heading {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
-}
-
-.product-detail-specs__list {
-  margin: 0;
-  display: grid;
-  gap: 0.85rem;
-}
-
-.product-detail-specs__item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
-}
-
-.product-detail-specs__item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.product-detail-specs__item dt {
-  font-size: 0.95rem;
-  color: #475569;
-  font-weight: 500;
-}
-
-.product-detail-specs__item dd {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #0f172a;
-  font-weight: 600;
-}
-
-.product-detail-compare {
-  padding: clamp(3.5rem, 8vw, 6.5rem) 1.5rem 7rem;
-  background: #f8fbff;
-}
-
-.product-detail-compare__header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
-}
-
-.product-detail-compare__description {
-  margin: 0;
-  max-width: 540px;
-  color: #42526e;
-  font-size: 1.05rem;
-}
-
-.product-detail-compare__actions {
-  display: flex;
-  gap: 1rem;
-}
-
-.product-detail-compare__action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.85rem 1.9rem;
-  border-radius: 999px;
-  background: #1d4ed8;
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 12px 30px rgba(29, 78, 216, 0.2);
-}
-
-.product-detail-compare__action:hover,
-.product-detail-compare__action:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 36px rgba(29, 78, 216, 0.26);
-}
-
-.product-detail-compare__action--secondary {
-  background: #fff;
-  color: #1d4ed8;
-  box-shadow: inset 0 0 0 1px rgba(29, 78, 216, 0.4);
-}
-
-.product-detail-compare__models {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  align-items: stretch;
-  margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
-}
-
-.product-detail-compare__model,
-.product-detail-compare__add {
-  background: #fff;
-  border-radius: 20px;
-  padding: 1.75rem;
-  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
-}
-
-.product-detail-compare__model-image {
-  width: 160px;
-  height: auto;
-  object-fit: contain;
-}
-
-.product-detail-compare__model-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.product-detail-compare__select {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  padding: 0.75rem 1rem;
-  font-size: 0.95rem;
-  color: #334155;
-  background: rgba(241, 245, 249, 0.65);
-}
-
-.product-detail-compare__select-icon {
-  font-size: 1.1rem;
-  color: #64748b;
-}
-
-.product-detail-compare__add {
-  border: 1px dashed rgba(148, 163, 184, 0.75);
-  color: #1d4ed8;
-  font-weight: 600;
-  cursor: pointer;
-  background: rgba(248, 250, 255, 0.9);
-}
-
-.product-detail-compare__add-icon {
-  font-size: 2rem;
-  line-height: 1;
-}
-
-.product-detail-compare__matrix {
-  background: #fff;
-  border-radius: 24px;
-  box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
-  padding: clamp(2rem, 3vw, 3rem);
-  display: grid;
-  gap: 2rem;
-}
-
-.product-detail-compare__matrix-heading {
-  display: grid;
-  grid-template-columns: 1.1fr repeat(2, minmax(0, 1fr));
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #0b1b37;
-}
-
-.product-detail-compare__matrix-section {
-  display: grid;
-  grid-template-columns: 1.1fr repeat(2, minmax(0, 1fr));
-  align-items: center;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.product-detail-compare__matrix-section-title {
-  padding: 0.6rem 0;
-}
-
-.product-detail-compare__matrix-divider {
-  height: 1px;
-  background: rgba(148, 163, 184, 0.4);
-  margin-left: 1.5rem;
-}
-
-.product-detail-compare__matrix-row {
-  display: grid;
-  grid-template-columns: 1.1fr repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-  font-size: 0.97rem;
-  color: #334155;
-}
-
-.product-detail-compare__matrix-row:last-child {
-  border-bottom: none;
-}
-
-.product-detail-compare__matrix-label {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.product-detail-compare__matrix-value {
-  color: #334155;
-}
 
 @media (max-width: 1024px) {
   .product-detail-hero__gallery {
@@ -441,41 +212,7 @@
       "medium wide";
   }
 
-  .product-detail-specs__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
-  .product-detail-compare__models {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .product-detail-compare__matrix,
-  .product-detail-compare__matrix-heading,
-  .product-detail-compare__matrix-section,
-  .product-detail-compare__matrix-row {
-    grid-template-columns: 1fr;
-  }
-
-  .product-detail-compare__matrix-heading,
-  .product-detail-compare__matrix-section,
-  .product-detail-compare__matrix-row {
-    gap: 0.75rem;
-  }
-
-  .product-detail-compare__matrix-heading > *,
-  .product-detail-compare__matrix-section > *,
-  .product-detail-compare__matrix-row > * {
-    margin-left: 0;
-  }
-
-  .product-detail-compare__matrix-label,
-  .product-detail-compare__matrix-value {
-    padding-left: 0.25rem;
-  }
-
-  .product-detail-compare__matrix-section-title {
-    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
-  }
 }
 
 @media (max-width: 768px) {
@@ -500,22 +237,7 @@
     min-height: 260px;
   }
 
-  .product-detail-specs__grid {
-    grid-template-columns: 1fr;
-  }
 
-  .product-detail-compare__actions {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .product-detail-compare__models {
-    grid-template-columns: 1fr;
-  }
-
-  .product-detail-compare__add {
-    min-height: 180px;
-  }
 }
 
 /* Page base 可留用你原来的配色，这里给最小必要样式 */
@@ -584,5 +306,90 @@
 @media (max-width: 768px) {
   .pd-hero__header { flex-direction: column; gap: .75rem; }
   .pd-hero__cta { order: 3; }
+}
+
+/* ==========================================
+   Product Specs Section CSS
+   ========================================== */
+.product-detail-specs {
+  --divider: #E5E7EB;
+  --ink: #0f172a;
+  --muted: #475569;
+  --blue: #2970A7;
+  /* 统一对齐用的全局列宽与表宽 */
+  --label-col: 220px;      /* 小类(dt)固定宽度，所有大类统一 */
+  --table-w: 720px;        /* 右侧明细表统一宽度，方便"居中且对齐" */
+}
+
+.product-detail-specs__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 16px 32px;
+}
+
+.product-detail-specs .product-detail-section-title {
+  margin: 0 0 8px;
+  font: 700 22px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: var(--blue); /* 恢复蓝色 */
+}
+
+.spec-group {
+  display: grid;
+  grid-template-columns: 180px minmax(520px, 1fr);
+  gap: 32px;
+  padding: 24px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.spec-group:first-of-type {
+  border-top: none;
+}
+
+.spec-heading {
+  font: 700 18px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: var(--ink);
+}
+
+/* 明细表：统一宽度 + 统一列宽，保证各组小类/数据对齐 */
+.spec-table {
+  display: grid;
+  grid-template-columns: var(--label-col) 1fr; /* 左列固定，右列自适应 */
+  column-gap: 32px;
+  row-gap: 12px;
+  margin: 24px auto;
+  inline-size: var(--table-w);
+  max-width: 100%;
+}
+
+.spec-table dt {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: right;
+}
+
+.spec-table dd {
+  margin: 0;
+  color: var(--muted);
+  text-align: left;
+}
+
+/* 响应式：缩小屏时仍保持对齐；到手机再堆叠 */
+@media (max-width: 1024px) {
+  .product-detail-specs {
+    --label-col: 200px;
+    --table-w: 640px;
+  }
+}
+
+@media (max-width: 768px) {
+  .spec-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .spec-table {
+    grid-template-columns: 1fr;
+    inline-size: 100%;
+  }
 }
 
