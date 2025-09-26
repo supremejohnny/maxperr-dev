@@ -517,3 +517,72 @@
     min-height: 180px;
   }
 }
+
+/* Page base 可留用你原来的配色，这里给最小必要样式 */
+.pd-hero {
+  background: #fff;
+  padding: clamp(2rem, 4vw, 3rem) 1.5rem 0; /* 上方留白，图像紧贴其下 */
+  color: #0f172a;
+  font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.pd-hero__inner { max-width: 1180px; margin: 0 auto; }
+
+.pd-hero__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pd-hero__title {
+  margin: 0 0 .5rem 0;
+  font-weight: 700;
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem); /* 接近图1的字号层级 */
+  line-height: 1.05;
+}
+
+.pd-hero__subtitle {
+  margin: 0;
+  font-size: clamp(1rem, .95rem + .3vw, 1.125rem);
+  color: #475569;
+}
+
+.pd-hero__cta {
+  align-self: flex-start;
+  display: inline-flex;
+  padding: .7rem 1.4rem;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, .22);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.pd-hero__cta:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(37,99,235,.28); }
+
+/* Full-bleed image（横跨整页） */
+.pd-hero__bleed {
+  width: 100vw;               /* 占满视窗宽度 */
+  margin: clamp(1rem, 2.5vw, 2rem) 0 0 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);/* 从容器中“流出”全宽 */
+}
+
+.pd-hero__image {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 45vw, 560px); /* 自适应高度，保持横幅比例 */
+  object-fit: cover;                 /* 填满裁切，贴近图1观感 */
+  background: #eef2f7;               /* 兜底色，防止加载前闪烁 */
+}
+
+/* 响应式：小屏 CTA 下移即可 */
+@media (max-width: 768px) {
+  .pd-hero__header { flex-direction: column; gap: .75rem; }
+  .pd-hero__cta { order: 3; }
+}
+
