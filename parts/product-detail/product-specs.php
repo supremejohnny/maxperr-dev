@@ -1,7 +1,7 @@
 <section class="product-detail-specs" id="product-specs">
 
   <div class="product-detail-specs__inner">
-    <h2 class="product-detail-section-title"><?php esc_html_e('Product Specs','figma-rebuild'); ?></h2>
+    <h2 class="H3" style="color: #2970A7;"><?php esc_html_e('Product Specs','figma-rebuild'); ?></h2>
 
     <!-- Design -->
     <section class="spec-group">

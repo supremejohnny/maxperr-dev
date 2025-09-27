@@ -57,8 +57,8 @@
 <header class="site-header<?php echo ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page || $is_news_page || $is_product_details_page) ? ' site-header--subpage' : ''; ?>">
   <?php if ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page || $is_news_page || $is_product_details_page) : ?>
     <div class="subpage-header">
-      <a href="<?php echo esc_url(home_url('/')); ?>" class="subpage-header__logo" aria-label="<?php esc_attr_e('Go to homepage', 'figma-rebuild'); ?>">
-        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/src/images/logo_maxperr.png"
+      <a href="<?php echo esc_url(home_url('/')); ?>" class="subpage-header__logo" aria-label="<?php esc_attr_e('Go to homepage', 'figma-rebuild'); ?>" style="width: 142px; height: 50px; margin-left: 38px;">
+        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/src/images/nav-logo-maxperr.png"
              alt="<?php esc_attr_e('Maxperr Energy', 'figma-rebuild'); ?>"
              class="w-full h-full object-contain">
       </a>

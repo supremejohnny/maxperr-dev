@@ -1229,6 +1229,225 @@ add_action('customize_register', function ($wp_customize) {
   }
 
   /* ------------------------------------------------------------------------ */
+  /* Product Page                                                             */
+  /* ------------------------------------------------------------------------ */
+  $wp_customize->add_panel('product_page_panel', [
+    'title'       => __('Product Page', 'figma-rebuild'),
+    'priority'    => 78,
+    'description' => __('Configure the Product page sections.', 'figma-rebuild'),
+  ]);
+
+  // Product Hero Section
+  $wp_customize->add_section('product_hero_section', [
+    'title' => __('Hero', 'figma-rebuild'),
+    'panel' => 'product_page_panel',
+  ]);
+  
+  $wp_customize->add_setting('products_hero_title', [
+    'default'           => __('EV Chargers', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('products_hero_title', [
+    'label'   => __('Hero Title', 'figma-rebuild'),
+    'section' => 'product_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('products_hero_subtitle', [
+    'default'           => __('We offer the equipment, installation service and 24/7 technical support.', 'figma-rebuild'),
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('products_hero_subtitle', [
+    'label'   => __('Hero Subtitle', 'figma-rebuild'),
+    'section' => 'product_hero_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('products_hero_button_text', [
+    'default'           => __('Learn More', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('products_hero_button_text', [
+    'label'   => __('Button Text', 'figma-rebuild'),
+    'section' => 'product_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('products_hero_button_link', [
+    'default'           => '#charger-cards',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('products_hero_button_link', [
+    'label'   => __('Button Link', 'figma-rebuild'),
+    'section' => 'product_hero_section',
+    'type'    => 'url',
+  ]);
+  
+  $wp_customize->add_setting('products_hero_bg_image', [
+    'default'           => $template_uri . '/src/images/product-Hero-Image.png',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'products_hero_bg_image',
+    [
+      'label'   => __('Background Image', 'figma-rebuild'),
+      'section' => 'product_hero_section',
+    ]
+  ));
+
+  // Charger Cards Section
+  $wp_customize->add_section('product_charger_cards_section', [
+    'title' => __('Charger Cards', 'figma-rebuild'),
+    'panel' => 'product_page_panel',
+  ]);
+  
+  $charger_product_fields = [
+    ['id' => 'name',  'label' => __('Product Name', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'price', 'label' => __('Price', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'image', 'label' => __('Product Image URL', 'figma-rebuild'), 'type' => 'url'],
+  ];
+  
+  $wp_customize->add_setting('charger_products', [
+    'default'           => wp_json_encode([
+      [
+        'name'  => 'Eco 12kW AC',
+        'price' => '$799',
+        'image' => $template_uri . '/src/images/products/Eco 12kW AC.png',
+      ],
+      [
+        'name'  => 'Smart 30kW DC',
+        'price' => '$0000',
+        'image' => $template_uri . '/src/images/products/Smart 30kW DC.png',
+      ],
+      [
+        'name'  => 'Pro Series DC',
+        'price' => '$0000',
+        'image' => $template_uri . '/src/images/products/Pro Series DC.png',
+      ],
+    ]),
+    'sanitize_callback' => function ($input) use ($charger_product_fields) {
+      return figma_rebuild_sanitize_repeater($input, $charger_product_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'charger_products',
+    [
+      'label'            => __('Charger Products', 'figma-rebuild'),
+      'section'          => 'product_charger_cards_section',
+      'fields'           => $charger_product_fields,
+      'add_button_label' => __('Add Product', 'figma-rebuild'),
+      'item_label'       => __('Product', 'figma-rebuild'),
+    ]
+  ));
+
+  // Home Energy Hero Section
+  $wp_customize->add_section('product_home_energy_hero_section', [
+    'title' => __('Home Energy Hero', 'figma-rebuild'),
+    'panel' => 'product_page_panel',
+  ]);
+  
+  $wp_customize->add_setting('home_energy_hero_title', [
+    'default'           => __('Home Energy', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('home_energy_hero_title', [
+    'label'   => __('Hero Title', 'figma-rebuild'),
+    'section' => 'product_home_energy_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('home_energy_hero_subtitle', [
+    'default'           => __('10 years warranty. Designed to save utility cost in the long run.', 'figma-rebuild'),
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('home_energy_hero_subtitle', [
+    'label'   => __('Hero Subtitle', 'figma-rebuild'),
+    'section' => 'product_home_energy_hero_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('home_energy_hero_button_text', [
+    'default'           => __('Learn More', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('home_energy_hero_button_text', [
+    'label'   => __('Button Text', 'figma-rebuild'),
+    'section' => 'product_home_energy_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('home_energy_hero_button_link', [
+    'default'           => '#home-energy-cards',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('home_energy_hero_button_link', [
+    'label'   => __('Button Link', 'figma-rebuild'),
+    'section' => 'product_home_energy_hero_section',
+    'type'    => 'url',
+  ]);
+  
+  $wp_customize->add_setting('home_energy_hero_bg_image', [
+    'default'           => $template_uri . '/src/images/product-Home-Energy-Hero.png',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'home_energy_hero_bg_image',
+    [
+      'label'   => __('Background Image', 'figma-rebuild'),
+      'section' => 'product_home_energy_hero_section',
+    ]
+  ));
+
+  // Home Energy Cards Section
+  $wp_customize->add_section('product_home_energy_cards_section', [
+    'title' => __('Home Energy Cards', 'figma-rebuild'),
+    'panel' => 'product_page_panel',
+  ]);
+  
+  $home_energy_product_fields = [
+    ['id' => 'name',  'label' => __('Product Name', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'price', 'label' => __('Price', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'image', 'label' => __('Product Image URL', 'figma-rebuild'), 'type' => 'url'],
+  ];
+  
+  $wp_customize->add_setting('home_energy_products', [
+    'default'           => wp_json_encode([
+      [
+        'name'  => 'Split Phase Hybrid Inverter 10kW',
+        'price' => '$3999',
+        'image' => $template_uri . '/src/images/products/Split Phase Hybrid Inverter 10kW.png',
+      ],
+      [
+        'name'  => 'Battery Storage System',
+        'price' => '$2599 - $7299',
+        'image' => $template_uri . '/src/images/products/Battery Storage System.png',
+      ],
+      [
+        'name'  => '',
+        'price' => '',
+        'image' => '',
+      ],
+    ]),
+    'sanitize_callback' => function ($input) use ($home_energy_product_fields) {
+      return figma_rebuild_sanitize_repeater($input, $home_energy_product_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'home_energy_products',
+    [
+      'label'            => __('Home Energy Products', 'figma-rebuild'),
+      'section'          => 'product_home_energy_cards_section',
+      'fields'           => $home_energy_product_fields,
+      'add_button_label' => __('Add Product', 'figma-rebuild'),
+      'item_label'       => __('Product', 'figma-rebuild'),
+    ]
+  ));
+
+  /* ------------------------------------------------------------------------ */
   /* Partnership Page                                                         */
   /* ------------------------------------------------------------------------ */
   $wp_customize->add_panel('partnership_panel', [

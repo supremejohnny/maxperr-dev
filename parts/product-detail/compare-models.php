@@ -46,16 +46,16 @@ $template_uri = get_template_directory_uri();
   <div class="product-detail-compare__inner" style="margin-top:24px; margin-bottom:84px;">
     <div class="product-detail-compare__header">
       <div class="product-detail-compare__header-text">
-        <h2 class="product-detail-section-title"><?php esc_html_e('Compare Models', 'figma-rebuild'); ?></h2>
-        <p class="product-detail-compare__description">
-          <?php esc_html_e('Compare capabilities side by side.', 'figma-rebuild'); ?>
+        <h2 class="H2-Black"><?php esc_html_e('Compare Models', 'figma-rebuild'); ?></h2>
+        <p class="Body-1">
+          <?php esc_html_e('Need help finding your right fit? Book a Free Consultation with us now.', 'figma-rebuild'); ?>
         </p>
       </div>
       <div class="product-detail-compare__actions">
-        <a class="product-detail-compare__action--secondary product-detail-compare__action" href="#contact">
+        <a class="One-Column-Book-Consultation-Button" href="#contact">
           <?php esc_html_e('Book Consultation', 'figma-rebuild'); ?>
         </a>
-        <a class="product-detail-compare__action" href="#order">
+        <a class="Two-Column-Learn-More-Button" href="#order">
           <?php esc_html_e('Order Now', 'figma-rebuild'); ?>
         </a>
       </div>

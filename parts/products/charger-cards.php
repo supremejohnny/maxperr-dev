@@ -1,22 +1,33 @@
 <?php
-  // 允许外部预先定义 $charger_products；没有就用默认
-  if (!isset($charger_products) || !is_array($charger_products)) {
+  // 从customizer获取charger products数据
+  $charger_products_json = get_theme_mod('charger_products', '');
+  $charger_products = [];
+  
+  if (!empty($charger_products_json)) {
+    $charger_products = json_decode($charger_products_json, true);
+    if (!is_array($charger_products)) {
+      $charger_products = [];
+    }
+  }
+  
+  // 如果没有数据，使用默认值
+  if (empty($charger_products)) {
     $template_uri = get_template_directory_uri();
     $charger_products = [
       [
         'name'  => 'Eco 12kW AC',
         'price' => '$799',
-        'image' => $template_uri . '/src/images/ev_charging_pic.jpg',
+        'image' => $template_uri . '/src/images/products/Eco 12kW AC.png',
       ],
       [
         'name'  => 'Smart 30kW DC',
         'price' => '$0000',
-        'image' => $template_uri . '/src/images/ev_app_control.jpg',
+        'image' => $template_uri . '/src/images/products/Smart 30kW DC.png',
       ],
       [
         'name'  => 'Pro Series DC',
         'price' => '$0000',
-        'image' => $template_uri . '/src/images/ev_fast_charger.jpg',
+        'image' => $template_uri . '/src/images/products/Pro Series DC.png',
       ],
     ];
   }
@@ -28,42 +39,97 @@
     /* ===== Scoped styles (no Tailwind) ===== */
     body { overflow-x: hidden; }
     * { box-sizing: border-box; }
-     #<?php echo esc_js($section_id); ?>.cc-wrap { padding: 50px 0 75px; background:#fff; width: 100%; }
-    #<?php echo esc_js($section_id); ?> .cc-container { max-width: 1280px; margin: 0 auto; padding: 0 6px; box-sizing: border-box; width: 100%; }
+     #<?php echo esc_js($section_id); ?>.cc-wrap { 
+      padding: 50px 0 75px; 
+      background:#fff; 
+      width: 100%; 
+      overflow-x: hidden;
+    }
+    #<?php echo esc_js($section_id); ?> .cc-container { 
+      max-width: none; 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      width: 100%; 
+    }
 
     #<?php echo esc_js($section_id); ?> .cc-grid {
-      display: grid; gap: 40px;
-      grid-template-columns: 1fr;
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
     }
-    @media (min-width: 900px) {
-      #<?php echo esc_js($section_id); ?> .cc-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    
+    @media (max-width: 1200px) {
+      #<?php echo esc_js($section_id); ?> .cc-grid {
+        gap: 24px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      #<?php echo esc_js($section_id); ?> .cc-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+      }
     }
 
-    #<?php echo esc_js($section_id); ?> .cc-card { display: flex; flex-direction: column; }
+    #<?php echo esc_js($section_id); ?> .cc-card { 
+      display: flex;
+      flex-direction: column;
+      width: 511px;
+      height: 577px;
+      flex-shrink: 0;
+    }
     #<?php echo esc_js($section_id); ?> .cc-media {
-      background: #cfcfcf;            /* 灰底画布 */
-      border-radius: 6px;
-      height: 520px;                   /* 与设计接近的高度 */
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 520px;
+      background: #cfcfcf;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      flex-shrink: 0;
     }
-    @media (max-width: 1024px) {
-      #<?php echo esc_js($section_id); ?> .cc-media { height: 420px; }
+    
+    @media (max-width: 1200px) {
+      #<?php echo esc_js($section_id); ?> .cc-card {
+        width: 400px;
+        height: 450px;
+      }
+      #<?php echo esc_js($section_id); ?> .cc-media { 
+        height: 380px; 
+      }
     }
-    @media (max-width: 640px) {
-      #<?php echo esc_js($section_id); ?> .cc-media { height: 340px; }
+    
+    @media (max-width: 768px) {
+      #<?php echo esc_js($section_id); ?> .cc-card {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+      }
+      #<?php echo esc_js($section_id); ?> .cc-media { 
+        height: 300px; 
+      }
     }
     #<?php echo esc_js($section_id); ?> .cc-media img {
-      max-width: 90%;
-      max-height: 90%;
-      width: auto; height: auto;
-      object-fit: contain; display: block;
-      filter: drop-shadow(0 18px 24px rgba(0,0,0,.18));
-      transform: translateZ(0);        /* 抗锯齿 */
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    #<?php echo esc_js($section_id); ?> .cc-content {
+      padding: 18px 0 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     #<?php echo esc_js($section_id); ?> .cc-name {
-      margin: 18px 0 6px;
+      margin: 0 0 6px;
       font-size: 28px; line-height: 1.2;
       color: #111; font-weight: 700; letter-spacing: -0.01em;
     }
@@ -84,12 +150,14 @@
           <div class="cc-media">
             <img src="<?php echo $img; ?>" alt="<?php echo esc_attr($name); ?>">
           </div>
-          <?php if ($name !== ''): ?>
-            <h3 class="cc-name"><?php echo esc_html($name); ?></h3>
-          <?php endif; ?>
-          <?php if ($price !== ''): ?>
-            <div class="cc-price"><?php echo esc_html($price); ?></div>
-          <?php endif; ?>
+          <div class="cc-content">
+            <?php if ($name !== ''): ?>
+              <h3 class="cc-name"><?php echo esc_html($name); ?></h3>
+            <?php endif; ?>
+            <?php if ($price !== ''): ?>
+              <div class="cc-price"><?php echo esc_html($price); ?></div>
+            <?php endif; ?>
+          </div>
         </div>
       <?php endforeach; ?>
     </div>
