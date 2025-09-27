@@ -12,47 +12,41 @@
   $image = get_theme_mod('solutions_zevip_image', isset($zevip_defaults['image']) ? $zevip_defaults['image'] : '');
 ?>
 
-<section class="bg-white py-20" id="solutions-zevip">
-  <div class="mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-      <div class="space-y-6">
+<style>
+  body, html {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    color: #000;
+  }
+  #solutions-zevip {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    color: #000;
+  }
+  #solutions-zevip .Body-1 {
+    color: #000;
+  }
+</style>
+
+<section class="bg-white py-24" id="solutions-zevip" style="overflow-x: hidden; width: 100%; max-width: 100vw;">
+  <div class="mx-auto px-4 sm:px-6" style="max-width: clamp(320px, 90vw, 1572px); width: 100%; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; min-height: clamp(400px, 40vw, 629px); gap: clamp(20px, 5vw, 97px); width: 100%; box-sizing: border-box;">
+      <div class="space-y-6" style="flex: 0 0 clamp(300px, 35%, 530px); min-width: 0; box-sizing: border-box;">
         <?php if (!empty($heading)) : ?>
-          <h2 class="text-3xl font-semibold text-slate-900 md:text-4xl">
+          <h2 class="H2-Black">
             <?php echo esc_html($heading); ?>
           </h2>
         <?php endif; ?>
 
         <?php if (!empty($intro)) : ?>
-          <p class="text-lg leading-relaxed text-gray-600">
+          <p class="Body-1">
             <?php echo wp_kses_post($intro); ?>
           </p>
         <?php endif; ?>
 
-        <?php if (!empty($features)) : ?>
-          <ul class="space-y-4">
-            <?php foreach ($features as $feature) :
-              $feature_text = isset($feature['text']) ? $feature['text'] : '';
-              if (empty($feature_text)) {
-                continue;
-              }
-            ?>
-              <li class="flex items-start gap-3 text-base text-gray-700">
-                <span class="mt-1 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full bg-primary/15 text-primary">
-                  <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M4 8.5 6.667 11 12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </span>
-                <span class="leading-relaxed">
-                  <?php echo esc_html($feature_text); ?>
-                </span>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        <?php endif; ?>
-
         <?php if (!empty($button_text) && !empty($button_link)) : ?>
           <div class="pt-4">
-            <a href="<?php echo esc_url($button_link); ?>" class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/30 transition hover:bg-primary-dark">
+            <a href="<?php echo esc_url($button_link); ?>" class="One-Column-Learn-More-Button">
               <?php echo esc_html($button_text); ?>
             </a>
           </div>
@@ -60,8 +54,8 @@
       </div>
 
       <?php if (!empty($image)) : ?>
-        <div class="overflow-hidden rounded-3xl shadow-[0_40px_90px_-40px_rgba(15,23,42,0.45)]">
-          <img src="<?php echo esc_url($image); ?>" alt="" class="h-full w-full object-cover" loading="lazy" />
+        <div class="overflow-hidden rounded-3xl" style="flex: 1; height: clamp(200px, 40vw, 629px); min-width: 0; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+          <img src="<?php echo esc_url($image); ?>" alt="" style="width: 100%; height: 100%; object-fit: contain; object-position: center; max-width: none; max-height: none;" loading="lazy" />
         </div>
       <?php endif; ?>
     </div>

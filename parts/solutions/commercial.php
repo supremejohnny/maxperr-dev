@@ -29,7 +29,7 @@
   }
 
   $accordion_group_id = function_exists('wp_unique_id') ? wp_unique_id($section_id . '-acc-') : $section_id . '-acc';
-  $image_url = $image ? esc_url($image) : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000"><rect width="100%" height="100%" rx="24" ry="24" fill="%23eef3f8"/></svg>';
+  $image_url = $image ? esc_url($image) : get_template_directory_uri() . '/src/images/solution-Commercial.png';
 
   $learn_label = $section['button_text'] ?? 'Learn More';
   $learn_link  = !empty($section['button_link']) ? esc_url($section['button_link']) : '';
@@ -37,24 +37,25 @@
 <section id="<?php echo esc_attr($section_id); ?>" class="sc-wrap">
   <style>
     #<?php echo esc_js($section_id); ?>.sc-wrap{ padding:56px 0; background:#fff; }
-    #<?php echo esc_js($section_id); ?> .sc-container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+    #<?php echo esc_js($section_id); ?> .sc-container{ max-width:1395px; margin:0 auto; padding:0 24px; }
 
     #<?php echo esc_js($section_id); ?> .sc-head{ text-align:center; margin-bottom:22px; }
     #<?php echo esc_js($section_id); ?> .sc-head h2{ margin:0 0 10px; font-size:40px; line-height:1.15; font-weight:800; color:#0f172a; letter-spacing:-.02em; }
     #<?php echo esc_js($section_id); ?> .sc-head p{ margin:0 auto; max-width:860px; color:#475569; font-size:18px; line-height:1.65; }
 
-    #<?php echo esc_js($section_id); ?> .sc-card{ background:#f8f8f8; border:none; border-radius:28px; overflow:hidden; }
+    #<?php echo esc_js($section_id); ?> .sc-card{ background:#f8f8f8; border:none; border-radius:28px; overflow:hidden; max-width:1395px; margin:0 auto; }
     #<?php echo esc_js($section_id); ?> .sc-grid{ display:grid; grid-template-columns:1fr; gap:0; }
     @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .sc-grid{ grid-template-columns:1fr 1fr; } }
 
     #<?php echo esc_js($section_id); ?> .sc-left{ padding:28px; }
     @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .sc-left{ padding:38px; } }
 
-    #<?php echo esc_js($section_id); ?> .sc-row{ border-top:1px solid #e8edf3; padding:14px 0; }
+    #<?php echo esc_js($section_id); ?> .sc-row{ padding:14px 0; }
+    #<?php echo esc_js($section_id); ?> .sc-row:not(:first-child){ border-top:1px solid #ADADAD; }
     #<?php echo esc_js($section_id); ?> .sc-row-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
     #<?php echo esc_js($section_id); ?> .sc-row-title{ font-size:22px; font-weight:700; color:#0f172a; }
     #<?php echo esc_js($section_id); ?> .sc-toggle{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; cursor:pointer; }
-    #<?php echo esc_js($section_id); ?> .sc-toggle svg{ width:18px; height:18px; transition: transform .18s ease; color:#1e3a8a; }
+    #<?php echo esc_js($section_id); ?> .sc-toggle svg{ width:30px; height:30px; transition: transform .18s ease; color:#727272; }
     #<?php echo esc_js($section_id); ?> .sc-toggle[aria-expanded="true"] svg{ transform: rotate(180deg); }
 
     #<?php echo esc_js($section_id); ?> .sc-panel{ padding:10px 0 18px; display:none; }
@@ -66,12 +67,14 @@
     #<?php echo esc_js($section_id); ?> .sc-right{ background:#f8f8f8; }
     #<?php echo esc_js($section_id); ?> .sc-figure{ width:100%; height:380px; }
     @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .sc-figure{ height:100%; min-height:520px; } }
+    @media (max-width: 768px){ #<?php echo esc_js($section_id); ?> .sc-figure{ height:300px; } }
+    @media (max-width: 480px){ #<?php echo esc_js($section_id); ?> .sc-figure{ height:250px; } }
     #<?php echo esc_js($section_id); ?> .sc-figure img{ width:100%; height:100%; object-fit:cover; display:block; }
 
     /* Host with Us 表单 */
     #<?php echo esc_js($section_id); ?> .sc-form-note{ font-size:12px; color:#6b7280; margin:0 0 10px; }
     #<?php echo esc_js($section_id); ?> .sc-sr{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
-    #<?php echo esc_js($section_id); ?> .sc-form{ display:grid; gap:12px; }
+    #<?php echo esc_js($section_id); ?> .sc-form{ display:grid; gap:16px; }
     #<?php echo esc_js($section_id); ?> .sc-form-row2{ display:grid; grid-template-columns:1fr; gap:12px; }
     @media (min-width:640px){ #<?php echo esc_js($section_id); ?> .sc-form-row2{ grid-template-columns:1fr 1fr; } }
     #<?php echo esc_js($section_id); ?> .sc-input, 
@@ -79,21 +82,20 @@
       width:100%; padding:12px 14px; border:1px solid #dbe3ec; border-radius:10px; background:#fff; font-size:14px; color:#0f172a;
     }
     #<?php echo esc_js($section_id); ?> .sc-input:focus, 
-    #<?php echo esc_js($section_id); ?> .sc-textarea:focus{ outline:none; border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.15); }
+    #<?php echo esc_js($section_id); ?> .sc-textarea:focus{ outline: auto; border-color:#000; box-shadow:0 0 0 3px rgba(0,0,0,.15); }
     #<?php echo esc_js($section_id); ?> .sc-textarea{ min-height:84px; resize:vertical; }
     #<?php echo esc_js($section_id); ?> .sc-submit{
-      display:inline-flex; align-items:center; justify-content:center; padding:10px 18px; border-radius:12px; background:#2563eb; color:#fff; font-weight:700; border:none; cursor:pointer;
-      box-shadow:0 12px 24px rgba(37,99,235,.25); width: 20%;
+      display:inline-flex; align-items:center; justify-content:center; padding:10px 18px; border-radius:12px; background:#008FFF; color:#fff; font-weight:700; border:none; cursor:pointer; width: 20%;
     }
   </style>
 
   <div class="sc-container">
     <div class="sc-head">
       <?php if (!empty($section['heading'])): ?>
-        <h2><?php echo esc_html($section['heading']); ?></h2>
+        <h2 class="H2-Black"><?php echo esc_html($section['heading']); ?></h2>
       <?php endif; ?>
       <?php if (!empty($section['intro'])): ?>
-        <p><?php echo wp_kses_post($section['intro']); ?></p>
+        <p class="Body-1"><?php echo wp_kses_post($section['intro']); ?></p>
       <?php endif; ?>
     </div>
 
@@ -109,7 +111,7 @@
               ?>
                 <div class="sc-row" data-acc-item>
                   <div class="sc-row-inner">
-                    <div class="sc-row-title"><?php echo esc_html($item['title']); ?></div>
+                    <div class="H3" style="margin:12px;"><?php echo esc_html($item['title']); ?></div>
                     <button type="button" class="sc-toggle" id="<?php echo esc_attr($button_id); ?>" aria-controls="<?php echo esc_attr($panel_id); ?>" aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>" data-acc-trigger aria-label="Toggle <?php echo esc_attr($item['title']); ?>">
                       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M5 7.5 10 12.5 15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -125,11 +127,11 @@
                         <?php endforeach; ?>
                       </ul>
                     <?php else: ?>
-                      <p><?php echo wp_kses_post($item['content']); ?></p>
+                      <p class="Body-1"><?php echo wp_kses_post($item['content']); ?></p>
                     <?php endif; ?>
 
                     <?php if (!empty($learn_link)): ?>
-                      <a class="sc-learn" href="<?php echo $learn_link; ?>"><?php echo esc_html($learn_label); ?></a>
+                      <a class="Two-Column-Learn-More-Button" href="<?php echo $learn_link; ?>"><?php echo esc_html($learn_label); ?></a>
                     <?php endif; ?>
                   </div>
                 </div>
@@ -143,7 +145,7 @@
               ?>
               <div class="sc-row" data-acc-item>
                 <div class="sc-row-inner">
-                  <div class="sc-row-title"><?php echo esc_html__('Host with Us', 'figma-rebuild'); ?></div>
+                  <div class="H3" style="margin:12px;"><?php echo esc_html__('Host with Us', 'figma-rebuild'); ?></div>
                   <button type="button" class="sc-toggle" id="<?php echo esc_attr($form_button); ?>" aria-controls="<?php echo esc_attr($form_panel); ?>" aria-expanded="false" data-acc-trigger aria-label="Toggle Host with Us">
                     <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path d="M5 7.5 10 12.5 15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -152,7 +154,7 @@
                 </div>
 
                 <div id="<?php echo esc_attr($form_panel); ?>" class="sc-panel" data-acc-panel aria-labelledby="<?php echo esc_attr($form_button); ?>" hidden>
-                  <p class="sc-form-note"><?php echo esc_html__('Leave your info with us and our team will reach out with more cost estimation details.', 'figma-rebuild'); ?></p>
+                  <p class="Navigation" style="margin:12px;"><?php echo esc_html__('Leave your info with us and our team will reach out with more cost estimation details.', 'figma-rebuild'); ?></p>
 
                   <form class="sc-form" action="" method="post" novalidate>
                     <?php if (function_exists('wp_nonce_field')) wp_nonce_field('sc_host_with_us', 'sc_host_nonce'); ?>
@@ -190,7 +192,7 @@
 
         <div class="sc-right">
           <div class="sc-figure">
-            <img src="<?php echo $image_url; ?>" alt="">
+            <img src="<?php echo esc_url($image_url); ?>" alt="">
           </div>
         </div>
       </div>

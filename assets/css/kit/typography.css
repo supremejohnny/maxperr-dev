@@ -1,0 +1,81 @@
+/* Typography Styles */
+
+/* H1 - 主标题样式 */
+.H1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: clamp(60px, 8vw, 100px);
+  line-height: 100%;
+  letter-spacing: -0.05em;
+  color: #000;
+}
+
+/* H3 - 三级标题样式 */
+.H3 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: clamp(24px, 3vw, 30px);
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+/* Body-1_Bold - 粗体正文样式 */
+.Body-1_Bold {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #000;
+}
+
+/* News_Subhead - 新闻副标题样式 */
+.News_Subhead {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: clamp(20px, 2.5vw, 25px);
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+/* Paragraph-Body - 段落正文样式 */
+.Paragraph-Body {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #000;
+}
+
+/* Navigation - 导航样式 */
+.Navigation {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: auto;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+/* H2-Black - 标题样式 */
+.H2-Black {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 50px);
+  line-height: 100%;
+  letter-spacing: -0.05em;
+  color: #000;
+}
+
+/* Body-1 - 正文样式 */
+.Body-1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 400;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #2970A7;
+}

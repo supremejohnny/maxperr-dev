@@ -2,28 +2,28 @@
 
 <main id="main">
   <!-- Hero Section -->
-  <?php get_template_part('parts/hero'); ?>
+  <?php get_template_part('parts/front-page/hero'); ?>
 
   <!-- Why Us Section -->
-  <?php get_template_part('parts/whyus'); ?>
+  <?php get_template_part('parts/front-page/whyus'); ?>
 
   <!-- Statistics Section -->
-  <!-- php get_template_part('parts/statistics');  -->
+  <!-- php get_template_part('parts/front-page/statistics');  -->
 
   <!-- Services Section -->
-  <?php get_template_part('parts/services'); ?>
+  <?php get_template_part('parts/front-page/services'); ?>
 
   <!-- Monitor Section -->
-  <?php get_template_part('parts/monitor'); ?>
+  <?php get_template_part('parts/front-page/monitor'); ?>
 
   <!-- Trust Section -->
-  <?php get_template_part('parts/trust'); ?>
+  <?php get_template_part('parts/front-page/trust'); ?>
 
   <!-- Partners Section -->
-  <!-- php get_template_part('parts/partners'); -->
+  <!-- php get_template_part('parts/front-page/partners'); -->
 
   <!-- News Section -->
-  <?php get_template_part('parts/news'); ?>
+  <?php get_template_part('parts/front-page/news'); ?>
 </main>
 
 <?php get_footer(); ?>

@@ -40,34 +40,64 @@
 <section id="solutions-services" class="svc-wrap">
   <style>
     /* --- scoped styles: 不依赖 Tailwind --- */
-    #solutions-services { padding: 56px 0; }
-    #solutions-services .svc-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    #solutions-services { padding: 3.5rem 0; margin: 0 7rem; }
+    #solutions-services .svc-container { max-width: 100%; margin: 0 auto; padding: 0; }
     #solutions-services .svc-head{ display:flex; gap:16px; justify-content:space-between; align-items:flex-start; margin-bottom:28px;}
-    #solutions-services .svc-title{ font-size:36px; line-height:1.15; font-weight:700; color:#0f172a; letter-spacing:-0.01em; margin:0;}
-    #solutions-services .svc-sub{ margin:10px 0 0; font-size:18px; color:#475569; max-width:720px;}
+    #solutions-services .svc-title{ margin:0;}
+    #solutions-services .svc-sub{ margin:10px 0 0; max-width:720px;}
     #solutions-services .svc-cta{ display:inline-flex; align-items:center; justify-content:center; padding:12px 20px; border-radius:9999px; background:#2563eb; color:#fff; text-decoration:none; font-weight:600; white-space:nowrap; }
-    #solutions-services .svc-grid{ display:grid; grid-template-columns:1fr; gap:24px; }
-    @media (min-width: 768px){ #solutions-services .svc-grid{ grid-template-columns:repeat(3,1fr); gap:32px; } }
-    #solutions-services .svc-card{ position:relative; overflow:hidden; border-radius:24px; box-shadow:0 12px 40px rgba(2,6,23,.08); }
-    #solutions-services .svc-card img{ display:block; width:100%; height:380px; object-fit:cover; transform:scale(1); transition:transform .5s ease;}
-    @media (min-width: 768px){ #solutions-services .svc-card img{ height:420px; } }
+    #solutions-services .svc-grid{ display:grid; grid-template-columns:1fr; gap:28px; justify-content:center; }
+    @media (min-width: 768px){ 
+      #solutions-services .svc-grid{ 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 28px; 
+        justify-content: center; 
+        justify-items: center;
+        max-width: 1500px;
+        margin: 0 auto;
+      } 
+    }
+    
+    @media (min-width: 1200px) {
+      #solutions-services .svc-card {
+        max-width: 483px;
+      }
+    }
+    #solutions-services .svc-card{ position:relative; overflow:hidden; border-radius:24px; box-shadow:0 12px 40px rgba(2,6,23,.08); width: 100%; max-width: 483px; height: auto; aspect-ratio: 483/509; }
+    #solutions-services .svc-card img{ display:block; width:100%; height:100%; object-fit:cover; transform:scale(1); transition:transform .5s ease;}
     #solutions-services .svc-card:hover img{ transform:scale(1.05); }
-    #solutions-services .svc-grad{ position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,.2), rgba(0,0,0,0)); }
-    #solutions-services .svc-txt{ position:absolute; left:24px; top:24px; color:#fff; }
-    @media (min-width: 768px){ #solutions-services .svc-txt{ left:32px; top:32px; } }
-    #solutions-services .svc-txt .need{ margin:0; font-size:20px; font-weight:600; opacity:.95;}
-    #solutions-services .svc-txt .line{ margin:4px 0 0; font-size:30px; font-weight:700; line-height:1.1;}
-    @media (min-width: 768px){ #solutions-services .svc-txt .line{ font-size:36px; } }
-    #solutions-services .svc-txt .focus{ font-weight:900; margin-right:6px; }
     #solutions-services .svc-link{ position:absolute; inset:0; }
+    
+    /* 响应式设计 */
+    @media (max-width: 1200px) {
+      #solutions-services { margin: 0 5rem; }
+    }
+    
+    @media (max-width: 768px) {
+      #solutions-services { margin: 0 2rem; padding: 2rem 0; }
+      #solutions-services .svc-head { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      #solutions-services .svc-sub { max-width: 100%; }
+      #solutions-services .svc-grid { gap: 20px; }
+    }
+    
+    @media (max-width: 1024px) {
+      #solutions-services .svc-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      #solutions-services { margin: 0 1rem; }
+    }
   </style>
 
   <div class="svc-container">
     <div class="svc-head">
       <div>
-        <h2 class="svc-title"><?php echo esc_html($title); ?></h2>
+        <h2 class="svc-title H2-Black"><?php echo esc_html($title); ?></h2>
         <?php if (!empty($subtitle)) : ?>
-          <p class="svc-sub"><?php echo esc_html($subtitle); ?></p>
+          <p class="svc-sub Body-1"><?php echo esc_html($subtitle); ?></p>
         <?php endif; ?>
       </div>
       <?php if (!empty($cta_label) && !empty($cta_link)) : ?>
@@ -75,24 +105,24 @@
       <?php endif; ?>
     </div>
 
-    <?php if (!empty($tiles)) : ?>
-      <div class="svc-grid">
-        <?php foreach ($tiles as $it): 
-          $href  = esc_url($it['link'] ?? $it['url'] ?? '#');
-          $img   = maxperr_get_item_image_url($it);
-          $focus = maxperr_focus_word($it);
-        ?>
-          <a href="<?php echo $href; ?>" class="svc-card">
-            <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($it['title'] ?? ($focus.' solutions')); ?>">
-            <div class="svc-grad" aria-hidden="true"></div>
-            <div class="svc-txt">
-              <p class="need">I need</p>
-              <p class="line"><span class="focus"><?php echo esc_html($focus); ?></span><span>solutions.</span></p>
-            </div>
-            <span class="svc-link" aria-hidden="true"></span>
-          </a>
-        <?php endforeach; ?>
-      </div>
-    <?php endif; ?>
+    <div class="svc-grid">
+      <!-- Left Card -->
+      <a href="<?php echo home_url('/solutions/home'); ?>" class="svc-card">
+        <img src="<?php echo get_template_directory_uri(); ?>/src/images/solution-Left-Card.png" alt="Home solutions">
+        <span class="svc-link" aria-hidden="true"></span>
+      </a>
+
+      <!-- Centre Card -->
+      <a href="<?php echo home_url('/solutions/commercial'); ?>" class="svc-card">
+        <img src="<?php echo get_template_directory_uri(); ?>/src/images/solution-Centre-Card.png" alt="Commercial solutions">
+        <span class="svc-link" aria-hidden="true"></span>
+      </a>
+
+      <!-- Right Card -->
+      <a href="<?php echo home_url('/solutions/fleet'); ?>" class="svc-card">
+        <img src="<?php echo get_template_directory_uri(); ?>/src/images/solution-Right-Card-Image.png" alt="Fleet solutions">
+        <span class="svc-link" aria-hidden="true"></span>
+      </a>
+    </div>
   </div>
 </section>

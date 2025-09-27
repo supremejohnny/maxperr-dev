@@ -9,8 +9,8 @@
 
   $template_uri = get_template_directory_uri();
   $hero_background = get_theme_mod(
-    'solutions_hero_bg_image_1',
-    isset($hero_defaults['background']) ? $hero_defaults['background'] : $template_uri . '/src/images/bg_house2.jpg'
+    'solutions_hero_background',
+    isset($hero_defaults['background']) ? $hero_defaults['background'] : $template_uri . '/src/images/solution-house-bg.png'
   );
 ?>
 

@@ -63,8 +63,8 @@
   </style>
 
   <div class="sb-container">
-    <h2 class="sb-title"><?php echo esc_html($title); ?></h2>
-    <a href="<?php echo esc_url($button_link); ?>" class="sb-button">
+    <h2 class="H2-Black" style="margin-bottom: 30px;"><?php echo esc_html($title); ?></h2>
+    <a href="<?php echo esc_url($button_link); ?>" class="One-Column-Book-Consultation-Button">
       <?php echo esc_html($button_text); ?>
     </a>
   </div>

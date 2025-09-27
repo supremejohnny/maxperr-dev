@@ -1,0 +1,7 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+For every absolute units and scales, like 400px * 600px, I want you to make the units responsive to the change of broswer size.

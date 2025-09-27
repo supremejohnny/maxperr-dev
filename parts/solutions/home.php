@@ -34,10 +34,10 @@
     ? wp_unique_id($section_id . '-acc-')
     : $section_id . '-acc';
 
-  // 图片兜底
+  // 图片兜底 - 使用新的solution-Home.png
   $image_url = $image
     ? esc_url($image)
-    : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000"><rect width="100%" height="100%" rx="24" ry="24" fill="%23eef3f8"/></svg>';
+    : get_template_directory_uri() . '/src/images/solution-Home.png';
 
   $learn_label = 'Learn More';
   $learn_link  = !empty($section['button_link']) ? esc_url($section['button_link']) : '';
@@ -46,7 +46,7 @@
   <style>
     /* ===== Scoped、零依赖样式 ===== */
     #<?php echo esc_js($section_id); ?>.sh-wrap{ padding:56px 0; background:#fff; }
-    #<?php echo esc_js($section_id); ?> .sh-container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+    #<?php echo esc_js($section_id); ?> .sh-container{ max-width:1395px; margin:0 auto; padding:0 24px; }
 
     /* 标题：居中 */
     #<?php echo esc_js($section_id); ?> .sh-head{ text-align:center; margin-bottom:22px; }
@@ -61,6 +61,7 @@
     #<?php echo esc_js($section_id); ?> .sh-card{
       background:#f8f8f8; /* card 灰底 */
       border:none; border-radius:28px; overflow:hidden;
+      max-width:1395px; margin:0 auto;
     }
     #<?php echo esc_js($section_id); ?> .sh-grid{
       display:grid; grid-template-columns:1fr; gap:0;
@@ -83,14 +84,15 @@
 
     /* 手风琴：行内只有标题 + 右侧箭头；点击箭头才展开；一次只开一个 */
     #<?php echo esc_js($section_id); ?> .sh-acc{ margin-top:16px; }
-    #<?php echo esc_js($section_id); ?> .sh-row{ border-top:1px solid #e8edf3; padding:14px 0; }
+    #<?php echo esc_js($section_id); ?> .sh-row{ padding:14px 0; }
+    #<?php echo esc_js($section_id); ?> .sh-row:not(:first-child){ border-top:1px solid #ADADAD; }
     #<?php echo esc_js($section_id); ?> .sh-row-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
     #<?php echo esc_js($section_id); ?> .sh-row-title{ font-size:22px; font-weight:700; color:#0f172a; }
     #<?php echo esc_js($section_id); ?> .sh-toggle{
       display:inline-flex; align-items:center; justify-content:center;
       width:36px; height:36px; cursor:pointer;
     }
-    #<?php echo esc_js($section_id); ?> .sh-toggle svg{ width:18px; height:18px; transition: transform .18s ease; color:#1e3a8a; }
+    #<?php echo esc_js($section_id); ?> .sh-toggle svg{ width:30px; height:30px; transition: transform .18s ease; color:#727272; }
     #<?php echo esc_js($section_id); ?> .sh-toggle[aria-expanded="true"] svg{ transform: rotate(180deg); }
 
     #<?php echo esc_js($section_id); ?> .sh-panel{ padding:10px 0 18px; display:none; }
@@ -106,16 +108,18 @@
     #<?php echo esc_js($section_id); ?> .sh-right{ background:#f8f8f8; }
     #<?php echo esc_js($section_id); ?> .sh-figure{ width:100%; height:380px; }
     @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .sh-figure{ height:100%; min-height:520px; } }
+    @media (max-width: 768px){ #<?php echo esc_js($section_id); ?> .sh-figure{ height:300px; } }
+    @media (max-width: 480px){ #<?php echo esc_js($section_id); ?> .sh-figure{ height:250px; } }
     #<?php echo esc_js($section_id); ?> .sh-figure img{ width:100%; height:100%; object-fit:cover; display:block; }
   </style>
 
   <div class="sh-container">
     <div class="sh-head">
       <?php if (!empty($section['heading'])): ?>
-        <h2><?php echo esc_html($section['heading']); ?></h2>
+        <h2 class="H2-Black"><?php echo esc_html($section['heading']); ?></h2>
       <?php endif; ?>
       <?php if (!empty($section['intro'])): ?>
-        <p><?php echo wp_kses_post($section['intro']); ?></p>
+        <p class="Body-1"><?php echo wp_kses_post($section['intro']); ?></p>
       <?php endif; ?>
     </div>
 
@@ -133,7 +137,7 @@
               ?>
                 <div class="sh-row" data-acc-item>
                   <div class="sh-row-inner">
-                    <div class="sh-row-title"><?php echo esc_html($item['title']); ?></div>
+                    <div class="H3" style="margin:12px;"><?php echo esc_html($item['title']); ?></div>
                     <button
                       type="button"
                       class="sh-toggle"
@@ -163,11 +167,11 @@
                         <?php endforeach; ?>
                       </ul>
                     <?php else: ?>
-                      <p><?php echo wp_kses_post($item['content']); ?></p>
+                      <p class="Body-1"><?php echo wp_kses_post($item['content']); ?></p>
                     <?php endif; ?>
 
                     <?php if (!empty($learn_link)): ?>
-                      <a class="sh-learn" href="<?php echo $learn_link; ?>"><?php echo esc_html($learn_label); ?></a>
+                      <a class="Two-Column-Learn-More-Button" href="<?php echo $learn_link; ?>"><?php echo esc_html($learn_label); ?></a>
                     <?php endif; ?>
                   </div>
                 </div>

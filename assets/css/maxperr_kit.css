@@ -1,4 +1,5 @@
 /* Aggregated maxperr kit styles */
+@import url("kit/typography.css");
 @import url("kit/sections/hero.css");
 @import url("kit/layout/header.css");
 @import url("kit/components/buttons.css");
