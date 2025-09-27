@@ -1448,6 +1448,238 @@ add_action('customize_register', function ($wp_customize) {
   ));
 
   /* ------------------------------------------------------------------------ */
+  /* Product Detail Page                                                      */
+  /* ------------------------------------------------------------------------ */
+  $wp_customize->add_panel('product_detail_panel', [
+    'title'       => __('Product Detail Page', 'figma-rebuild'),
+    'priority'    => 79,
+    'description' => __('Configure the Product Detail page sections.', 'figma-rebuild'),
+  ]);
+
+  // Product Detail Hero Section
+  $wp_customize->add_section('product_detail_hero_section', [
+    'title' => __('Hero', 'figma-rebuild'),
+    'panel' => 'product_detail_panel',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_hero_eyebrow', [
+    'default'           => __('Eco 12kW AC', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('product_detail_hero_eyebrow', [
+    'label'   => __('Eyebrow Text', 'figma-rebuild'),
+    'section' => 'product_detail_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_hero_title', [
+    'default'           => __('Cost Efficient Home Charger', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('product_detail_hero_title', [
+    'label'   => __('Hero Title', 'figma-rebuild'),
+    'section' => 'product_detail_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_hero_subtitle', [
+    'default'           => __('Smart charging for your home. Save money, reduce emissions, and enjoy the convenience of charging at home.', 'figma-rebuild'),
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('product_detail_hero_subtitle', [
+    'label'   => __('Hero Subtitle', 'figma-rebuild'),
+    'section' => 'product_detail_hero_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_hero_button_text', [
+    'default'           => __('Order Now', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('product_detail_hero_button_text', [
+    'label'   => __('Button Text', 'figma-rebuild'),
+    'section' => 'product_detail_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_hero_button_link', [
+    'default'           => '#contact',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('product_detail_hero_button_link', [
+    'label'   => __('Button Link', 'figma-rebuild'),
+    'section' => 'product_detail_hero_section',
+    'type'    => 'url',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_hero_bg_image', [
+    'default'           => $template_uri . '/src/images/product-Hero-Image.png',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'product_detail_hero_bg_image',
+    [
+      'label'   => __('Background Image', 'figma-rebuild'),
+      'section' => 'product_detail_hero_section',
+    ]
+  ));
+
+  // Cost Efficient Section
+  $wp_customize->add_section('product_detail_cost_section', [
+    'title' => __('Cost Efficient Section', 'figma-rebuild'),
+    'panel' => 'product_detail_panel',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_cost_title', [
+    'default'           => __('Cost Efficient Home Charger', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('product_detail_cost_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'product_detail_cost_section',
+    'type'    => 'text',
+  ]);
+  
+  $cost_card_fields = [
+    ['id' => 'title', 'label' => __('Card Title', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'description', 'label' => __('Description', 'figma-rebuild'), 'type' => 'textarea'],
+    ['id' => 'image', 'label' => __('Image URL', 'figma-rebuild'), 'type' => 'url'],
+  ];
+  
+  $wp_customize->add_setting('product_detail_cost_cards', [
+    'default'           => wp_json_encode([
+      [
+        'title' => 'Intelligent & Efficient',
+        'description' => 'Dynamic load balancing protects your home supply while prioritising the lowest tariff windows for every session.',
+        'image' => $template_uri . '/src/images/detail-Image-Top-Left.png',
+      ],
+      [
+        'title' => 'Secure & Reliable',
+        'description' => 'Built-in surge defence, ground-fault monitoring and auto-diagnostics keep every charge session protected.',
+        'image' => $template_uri . '/src/images/detail-Image-Top-Right.png',
+      ],
+      [
+        'title' => 'Flexible & Convenient',
+        'description' => 'Control sessions remotely, share access securely with family members and review energy history in real time.',
+        'image' => $template_uri . '/src/images/detail-Image-Bottom.png',
+      ],
+    ]),
+    'sanitize_callback' => function ($input) use ($cost_card_fields) {
+      return figma_rebuild_sanitize_repeater($input, $cost_card_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'product_detail_cost_cards',
+    [
+      'label'            => __('Cost Efficient Cards', 'figma-rebuild'),
+      'section'          => 'product_detail_cost_section',
+      'fields'           => $cost_card_fields,
+      'add_button_label' => __('Add Card', 'figma-rebuild'),
+      'item_label'       => __('Card', 'figma-rebuild'),
+    ]
+  ));
+
+  // Product Specs Section
+  $wp_customize->add_section('product_detail_specs_section', [
+    'title' => __('Product Specs Section', 'figma-rebuild'),
+    'panel' => 'product_detail_panel',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_specs_title', [
+    'default'           => __('Product Specifications', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('product_detail_specs_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'product_detail_specs_section',
+    'type'    => 'text',
+  ]);
+  
+  $spec_fields = [
+    ['id' => 'category', 'label' => __('Category', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'specs', 'label' => __('Specifications (one per line)', 'figma-rebuild'), 'type' => 'textarea'],
+  ];
+  
+  $wp_customize->add_setting('product_detail_specs', [
+    'default'           => wp_json_encode([
+      [
+        'category' => 'Design',
+        'specs' => "Dimensions (H × W × D): 320 × 220 × 120 mm\nWeight: 7.5 kg\nMounting: Wall / pedestal",
+      ],
+      [
+        'category' => 'Input',
+        'specs' => "Grid Connection: 1-phase AC\nVoltage Range: 180–264 V\nMax Current: 32 A",
+      ],
+      [
+        'category' => 'Output',
+        'specs' => "Power Rating: 12 kW AC\nConnector: Type 2\nCharging Speed: Up to 60 km / h",
+      ],
+    ]),
+    'sanitize_callback' => function ($input) use ($spec_fields) {
+      return figma_rebuild_sanitize_repeater($input, $spec_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'product_detail_specs',
+    [
+      'label'            => __('Product Specifications', 'figma-rebuild'),
+      'section'          => 'product_detail_specs_section',
+      'fields'           => $spec_fields,
+      'add_button_label' => __('Add Category', 'figma-rebuild'),
+      'item_label'       => __('Category', 'figma-rebuild'),
+    ]
+  ));
+
+  // Compare Models Section
+  $wp_customize->add_section('product_detail_compare_section', [
+    'title' => __('Compare Models Section', 'figma-rebuild'),
+    'panel' => 'product_detail_panel',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_compare_title', [
+    'default'           => __('Compare Models', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('product_detail_compare_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'product_detail_compare_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_compare_description', [
+    'default'           => __('Need help finding your right fit? Book a Free Consultation with us now.', 'figma-rebuild'),
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('product_detail_compare_description', [
+    'label'   => __('Description', 'figma-rebuild'),
+    'section' => 'product_detail_compare_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_compare_button_text', [
+    'default'           => __('Book Consultation', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('product_detail_compare_button_text', [
+    'label'   => __('Button Text', 'figma-rebuild'),
+    'section' => 'product_detail_compare_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('product_detail_compare_button_link', [
+    'default'           => '#contact',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('product_detail_compare_button_link', [
+    'label'   => __('Button Link', 'figma-rebuild'),
+    'section' => 'product_detail_compare_section',
+    'type'    => 'url',
+  ]);
+
+  /* ------------------------------------------------------------------------ */
   /* Partnership Page                                                         */
   /* ------------------------------------------------------------------------ */
   $wp_customize->add_panel('partnership_panel', [

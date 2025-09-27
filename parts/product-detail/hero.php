@@ -17,7 +17,7 @@ $template_uri = get_template_directory_uri();
     .pd-hero__cta:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(37,99,235,.28)}
 
     /* Full-bleed hero image */
-    .pd-hero__bleed{width:100vw;margin:clamp(1rem,2.5vw,2rem) 0 0 0;position:relative;left:50%;right:50%;transform:translateX(-50%)}
+    .pd-hero__bleed{width:100vw;max-width:100vw;margin:clamp(1rem,2.5vw,2rem) 0 0 0;position:relative;left:50%;right:50%;transform:translateX(-50%);overflow:hidden;box-sizing:border-box}
     .pd-hero__image{display:block;width:100%;height:clamp(380px,52vw,830px);object-fit:cover;background:#eef2f7}
 
     /* 可选：轻微底部提亮，提升可读性（需要更贴“纯图”就删掉这段） */
@@ -63,12 +63,13 @@ $template_uri = get_template_directory_uri();
 
     /* Phone响应式 (最大768px) */
     @media (max-width:768px){
-      .pd-hero{padding:clamp(1.5rem,3vw,2.5rem) 1rem 0}
-      .pd-hero__inner{margin-left:clamp(20px,4vw,60px);margin-right:clamp(20px,4vw,60px)}
+      .pd-hero{padding:clamp(1.5rem,3vw,2.5rem) 1rem 0;overflow-x:hidden}
+      .pd-hero__inner{margin-left:clamp(20px,4vw,60px);margin-right:clamp(20px,4vw,60px);max-width:100%;overflow-x:hidden}
       .pd-hero__header{flex-direction:column;gap:1rem;align-items:flex-start}
-      .pd-hero__title{font-size:clamp(1.8rem,1.5rem + 1.5vw,2.4rem);margin-bottom:.75rem}
-      .pd-hero__subtitle{font-size:clamp(.85rem,.8rem + .2vw,.95rem)}
+      .pd-hero__title{font-size:clamp(1.8rem,1.5rem + 1.5vw,2.4rem);margin-bottom:.75rem;word-wrap:break-word}
+      .pd-hero__subtitle{font-size:clamp(.85rem,.8rem + .2vw,.95rem);word-wrap:break-word}
       .One-Column-Shop-All-Button{position:static;margin-top:1rem;align-self:flex-start}
+      .pd-hero__bleed{width:100vw;max-width:100vw;overflow:hidden}
       .pd-hero__facts{grid-template-columns:1fr;row-gap:clamp(0.5rem,1.5vw,1rem);bottom:clamp(15px,4vw,28px);width:min(80vw,350px);left:50%;transform:translateX(-50%);padding:0 0.5rem}
       .pd-hero__fact{padding:clamp(0.4rem,1vw,0.6rem);grid-template-rows:auto auto minmax(35px,auto)}
       .pd-hero__fact-title{font-size:clamp(1.4rem,1.2rem + 1vw,1.8rem);margin-bottom:0.2rem}
@@ -80,12 +81,12 @@ $template_uri = get_template_directory_uri();
   <div class="pd-hero__inner">
     <div class="pd-hero__header">
       <div class="pd-hero__text">
-        <h1 class="H2-Black"><?php esc_html_e('Eco 12kW AC', 'figma-rebuild'); ?></h1>
+        <h1 class="H2-Black"><?php echo esc_html(get_theme_mod('product_detail_hero_eyebrow', __('Eco 12kW AC', 'figma-rebuild'))); ?></h1>
         <p class="Body-1" style="color: #000;">
-          <?php esc_html_e('Stylish and user-friendly home charging solution', 'figma-rebuild'); ?>
+          <?php echo wp_kses_post(get_theme_mod('product_detail_hero_subtitle', __('Stylish and user-friendly home charging solution', 'figma-rebuild'))); ?>
         </p>
       </div>
-      <a class="One-Column-Shop-All-Button" href="#order"><?php esc_html_e('Order Now', 'figma-rebuild'); ?></a>
+      <a class="One-Column-Shop-All-Button" href="<?php echo esc_url(get_theme_mod('product_detail_hero_button_link', '#order')); ?>"><?php echo esc_html(get_theme_mod('product_detail_hero_button_text', __('Order Now', 'figma-rebuild'))); ?></a>
     </div>
   </div>
 
@@ -93,7 +94,7 @@ $template_uri = get_template_directory_uri();
   <figure class="pd-hero__bleed">
     <img
       class="pd-hero__image"
-      src="<?php echo esc_url($template_uri . '/src/images/ev_charging_pic.jpg'); ?>"
+      src="<?php echo esc_url(get_theme_mod('product_detail_hero_bg_image', $template_uri . '/src/images/ev_charging_pic.jpg')); ?>"
       alt="<?php esc_attr_e('Eco 12kW AC — hero image', 'figma-rebuild'); ?>"
       loading="eager"
       decoding="async"

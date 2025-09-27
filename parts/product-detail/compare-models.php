@@ -1,11 +1,12 @@
 <?php
 $template_uri = get_template_directory_uri();
 ?>
+
 <section class="product-detail-compare" id="compare-models">
   <style>
     /* ===== Minimal look ===== */
     .product-detail-compare{--ink:#0f172a;--muted:#475569;--blue:#2970A7;--divider:#E5E7EB}
-    .product-detail-compare__inner{max-width:1400px;margin:0 auto;padding:8px 16px 32px}
+    .product-detail-compare__inner{max-width:1400px;margin-left:auto !important;margin-right:auto !important;padding:8px 16px 32px;overflow-x:hidden;box-sizing:border-box;}
     .product-detail-section-title{margin:0 8px 4px 0;font:700 22px/1.2 system-ui,-apple-system,Segoe UI,Roboto;color:var(--ink)}
     .product-detail-compare__description{margin:0;color:var(--muted)}
     .product-detail-compare__header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:16px}
@@ -13,11 +14,11 @@ $template_uri = get_template_directory_uri();
     .product-detail-compare__action{display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid var(--divider);text-decoration:none;color:var(--blue);font-weight:600;background:none}
     .product-detail-compare__action--secondary{color:var(--ink)}
     /* ===== Models row ===== */
-    .product-detail-compare__models{display:grid;grid-template-columns:240px 400px 400px 240px;gap:32px;align-items:end;margin:16px 0 24px;justify-items:start;padding-left:40px}
+    .product-detail-compare__models{display:grid;grid-template-columns:240px 1fr 1fr 240px;gap:32px;align-items:end;margin:16px 0 24px;justify-items:start;padding-left:0px}
     .product-detail-compare__model{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:16px}
-    .product-detail-compare__model-image{width:400px;height:600px;object-fit:contain}
+    .product-detail-compare__model-image{width:100%;height:600px;object-fit:contain;max-width:400px}
     /* 原生下拉，极简 */
-    .compare-select{width:380px;max-width:100%;padding:8px 10px;border:1px solid var(--divider);border-radius:8px;background:none;color:var(--ink)}
+    .compare-select{width:380px;max-width:100%;padding:8px 10px;border:1px solid var(--divider);border-radius:8px;background:none;color:var(--ink);min-width:200px}
     /* 小号“Add Model”按钮 */
     .product-detail-compare__add{justify-self:start;align-self:end;display:inline-flex;align-items:center;gap:6px;
       padding:6px 10px;border:1px solid var(--divider);border-radius:8px;background:none;color:var(--blue);font-weight:600;margin-bottom:10px}
@@ -25,35 +26,50 @@ $template_uri = get_template_directory_uri();
     /* ===== Matrix (spec table) ===== */
     .product-detail-compare__matrix{margin-top:8px}
     .product-detail-compare__matrix-group{padding:12px 0}
-    .product-detail-compare__matrix-heading{display:grid;grid-template-columns:240px 400px 400px;gap:32px;align-items:start;padding:8px 0;padding-left:40px}
+    .product-detail-compare__matrix-heading{display:grid;grid-template-columns:240px 1fr 1fr;gap:32px;align-items:start;padding:8px 0;padding-left:0px}
     .product-detail-compare__matrix-header{font-weight:700;text-align:left}
-    .product-detail-compare__matrix-section{display:grid;grid-template-columns:240px 400px 400px;gap:32px;align-items:center;padding:8px 0;padding-left:42px}
+    .product-detail-compare__matrix-section{display:grid;grid-template-columns:240px 1fr 1fr;gap:32px;align-items:center;padding:8px 0;padding-left:0px}
     .product-detail-compare__matrix-section-title{color:var(--blue);font-weight:700}
     .product-detail-compare__matrix-divider{height:1px;background:transparent}
-    .product-detail-compare__matrix-row{display:grid;grid-template-columns:240px 400px 400px;gap:82px;align-items:start;padding:8px 0;padding-left:42px}
+    .product-detail-compare__matrix-row{display:grid;grid-template-columns:240px 1fr 1fr;gap:82px;align-items:start;padding:8px 0;padding-left:0px}
     .product-detail-compare__matrix-label{font-weight:700;color:var(--ink)}
     .product-detail-compare__matrix-value{color:var(--muted);text-align:left}
-    @media (max-width: 900px){
-      .product-detail-compare__models{grid-template-columns:1fr 1fr 1fr;gap:8px}
+    @media (max-width: 1200px){
+      .product-detail-compare__inner{padding:8px 20px 32px;overflow-x:hidden;margin-left:auto !important;margin-right:auto !important}
+      .product-detail-compare__models{grid-template-columns:1fr 1fr;gap:20px;padding-left:0;overflow-x:hidden}
       .product-detail-compare__models > div:first-child{display:none}
       .product-detail-compare__add{grid-column:1/-1;justify-self:center;margin-top:16px}
       .product-detail-compare__matrix-heading,
       .product-detail-compare__matrix-section,
-      .product-detail-compare__matrix-row{grid-template-columns:1fr;gap:8px}
+      .product-detail-compare__matrix-row{grid-template-columns:1fr;gap:8px;padding-left:0;overflow-x:hidden}
+      .product-detail-compare__model-image{width:100%;height:auto;max-height:400px;object-fit:contain}
+      .compare-select{width:100%;min-width:150px;max-width:100%}
+    }
+    
+    @media (max-width: 768px){
+      .product-detail-compare__inner{padding:8px 16px 32px;overflow-x:hidden;margin-left:auto !important;margin-right:auto !important}
+      .product-detail-compare__header{flex-direction:column;align-items:flex-start;gap:12px}
+      .product-detail-compare__actions{flex-wrap:wrap;gap:8px}
+      .product-detail-compare__models{grid-template-columns:1fr;gap:16px;padding-left:0;overflow-x:hidden}
+      .product-detail-compare__model-image{height:300px;width:100%;object-fit:contain;max-width:100%}
+      .compare-select{width:100%;max-width:100%}
+      .product-detail-compare__matrix-heading,
+      .product-detail-compare__matrix-section,
+      .product-detail-compare__matrix-row{overflow-x:hidden;word-wrap:break-word}
     }
   </style>
 
-  <div class="product-detail-compare__inner" style="margin-top:24px; margin-bottom:84px;">
+  <div class="product-detail-compare__inner" style="margin: 24px auto 84px auto;">
     <div class="product-detail-compare__header">
       <div class="product-detail-compare__header-text">
-        <h2 class="H2-Black"><?php esc_html_e('Compare Models', 'figma-rebuild'); ?></h2>
+        <h2 class="H2-Black" style="margin-bottom: 10px;"><?php echo esc_html(get_theme_mod('product_detail_compare_title', __('Compare Models', 'figma-rebuild'))); ?></h2>
         <p class="Body-1">
-          <?php esc_html_e('Need help finding your right fit? Book a Free Consultation with us now.', 'figma-rebuild'); ?>
+          <?php echo wp_kses_post(get_theme_mod('product_detail_compare_description', __('Need help finding your right fit? Book a Free Consultation with us now.', 'figma-rebuild'))); ?>
         </p>
       </div>
       <div class="product-detail-compare__actions">
-        <a class="One-Column-Book-Consultation-Button" href="#contact">
-          <?php esc_html_e('Book Consultation', 'figma-rebuild'); ?>
+        <a class="One-Column-Book-Consultation-Button" href="<?php echo esc_url(get_theme_mod('product_detail_compare_button_link', '#contact')); ?>">
+          <?php echo esc_html(get_theme_mod('product_detail_compare_button_text', __('Book Consultation', 'figma-rebuild'))); ?>
         </a>
         <a class="Two-Column-Learn-More-Button" href="#order">
           <?php esc_html_e('Order Now', 'figma-rebuild'); ?>

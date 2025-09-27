@@ -1,7 +1,55 @@
+/* 全局overflow控制 */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
 .product-detail-page {
   color: #0f172a;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  box-sizing: border-box;
+  width: 100% !important;
+}
+
+/* 确保所有section都不会overflow */
+.product-detail-page > section,
+.product-detail-page > * {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 强制修复所有可能的overflow问题 */
+.pd-hero,
+.product-detail-compare,
+.product-detail-cost,
+.product-detail-specs {
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* 修复所有内部容器 - 只添加overflow控制，不覆盖margin */
+.pd-hero__inner,
+.product-detail-compare__inner,
+.product-detail-cost__inner,
+.product-detail-specs__inner {
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* 修复所有网格和flex容器 */
+.pd-hero__facts,
+.product-detail-compare__models,
+.product-detail-compare__matrix,
+.product-detail-cost__grid,
+.spec-group,
+.spec-table {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 
@@ -128,16 +176,37 @@
 }
 
 .product-detail-cost {
-  padding: clamp(3.5rem, 8vw, 6rem) 1.5rem;
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
+}
+
+.product-detail-cost__inner {
+  max-width: calc(1394px + 167px * 2);
+  margin: 0 auto;
+  padding: 0 167px;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .product-detail-cost__grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 682px 682px;
   grid-template-areas:
     "tall medium"
     "wide wide";
-  gap: clamp(1.5rem, 4vw, 2.5rem);
+  gap: 30px;
+  justify-content: center;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.product-detail-cost__card--wide {
+  width: 1394px;
+  max-width: 100%;
+  justify-self: center;
+  box-sizing: border-box;
 }
 
 .product-detail-cost__card {
@@ -145,20 +214,30 @@
   overflow: hidden;
   border-radius: 24px;
   box-shadow: 0 24px 40px rgba(15, 23, 42, 0.1);
-  min-height: 320px;
 }
 
 .product-detail-cost__card--tall {
   grid-area: tall;
+  width: 682px;
+  max-width: 100%;
+  height: 768px;
+  box-sizing: border-box;
 }
 
 .product-detail-cost__card--medium {
   grid-area: medium;
+  width: 682px;
+  max-width: 100%;
+  height: 768px;
+  box-sizing: border-box;
 }
 
 .product-detail-cost__card--wide {
   grid-area: wide;
-  min-height: 260px;
+  width: 1394px;
+  max-width: 100%;
+  height: 750px;
+  box-sizing: border-box;
 }
 
 .product-detail-cost__card--wide .product-detail-cost__description {
@@ -170,19 +249,22 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(1.05);
 }
 
 .product-detail-cost__content {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.75) 100%);
-  color: #fff;
+  background: transparent;
+  color: #000;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 0.75rem;
+}
+
+.product-detail-cost__card--wide .product-detail-cost__content {
+  color: #fff;
 }
 
 .product-detail-cost__eyebrow {
@@ -200,19 +282,59 @@
 
 
 
+@media (max-width: 1728px) {
+  .product-detail-cost__inner {
+    padding: 0 80px;
+    overflow-x: hidden;
+  }
+  
+  .product-detail-cost__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    overflow-x: hidden;
+  }
+  
+  .product-detail-cost__card--tall,
+  .product-detail-cost__card--medium {
+    width: 100%;
+    height: 600px;
+    max-width: 100%;
+  }
+  
+  .product-detail-cost__card--wide {
+    width: 100%;
+    height: 500px;
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 1024px) {
   .product-detail-hero__gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .product-detail-cost__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas:
-      "tall tall"
-      "medium wide";
+  .product-detail-cost__inner {
+    padding: 0 40px;
+    overflow-x: hidden;
   }
 
-
+  .product-detail-cost__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tall"
+      "medium"
+      "wide";
+    gap: 20px;
+    overflow-x: hidden;
+  }
+  
+  .product-detail-cost__card--tall,
+  .product-detail-cost__card--medium,
+  .product-detail-cost__card--wide {
+    width: 100%;
+    height: 500px;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -225,19 +347,28 @@
     grid-template-columns: 1fr;
   }
 
+  .product-detail-cost__inner {
+    padding: 0 20px;
+    overflow-x: hidden;
+  }
+
   .product-detail-cost__grid {
     grid-template-columns: 1fr;
     grid-template-areas:
       "tall"
       "medium"
       "wide";
+    gap: 16px;
+    overflow-x: hidden;
   }
 
-  .product-detail-cost__card {
-    min-height: 260px;
+  .product-detail-cost__card--tall,
+  .product-detail-cost__card--medium,
+  .product-detail-cost__card--wide {
+    width: 100%;
+    height: 400px;
+    max-width: 100%;
   }
-
-
 }
 
 
@@ -256,8 +387,11 @@
 
 .product-detail-specs__inner {
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: auto !important;
+  margin-right: auto !important;
   padding: 8px 16px 32px;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .product-detail-specs .product-detail-section-title {
@@ -272,6 +406,8 @@
   gap: 32px;
   padding: 24px 0;
   border-top: 1px solid var(--divider);
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .spec-group:first-of-type {
@@ -292,6 +428,8 @@
   margin: 24px auto;
   inline-size: var(--table-w);
   max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .spec-table dt {
@@ -313,16 +451,58 @@
     --label-col: 200px;
     --table-w: 640px;
   }
+  
+  .product-detail-specs__inner {
+    padding: 8px 20px 32px;
+    overflow-x: hidden;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .spec-group {
+    grid-template-columns: 150px 1fr;
+    gap: 20px;
+    overflow-x: hidden;
+  }
+  
+  .spec-table {
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
 }
 
 @media (max-width: 768px) {
+  .product-detail-specs__inner {
+    padding: 8px 16px 32px;
+    overflow-x: hidden;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
   .spec-group {
     grid-template-columns: 1fr;
+    gap: 16px;
+    overflow-x: hidden;
   }
   
   .spec-table {
     grid-template-columns: 1fr;
     inline-size: 100%;
+    margin: 16px 0;
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+  
+  .spec-table dt {
+    text-align: left;
+    font-weight: 700;
+    margin-bottom: 4px;
+    word-wrap: break-word;
+  }
+  
+  .spec-table dd {
+    margin-bottom: 12px;
+    word-wrap: break-word;
   }
 }
 
