@@ -40,33 +40,38 @@ $professionals = [
 <section id="who-can-apply" class="who-can-apply-section">
   <div class="who-can-apply__container">
     <div class="who-can-apply__header">
-      <h2 class="who-can-apply__title">Who Can Apply?</h2>
-      <p class="who-can-apply__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <h2 class="H2-Black">Who Can Apply?</h2>
+      <p class="Body-1" style="color: #000; margin:20px">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       <div class="who-can-apply__cta">
-        <a href="#become-partner" class="who-can-apply__button">Apply Now</a>
+        <a href="#become-partner" class="One-Column-Learn-More-Button">Apply Now</a>
       </div>
     </div>
     
-    <div class="who-can-apply__grid">
+    <div class="who-can-apply__grid who-can-apply__grid--fixed">
       <?php foreach ($professionals as $index => $professional): ?>
-        <div class="who-can-apply__card">
-          <div class="who-can-apply__card-image">
-            <img src="<?php echo esc_url($professional['image']); ?>" alt="<?php echo esc_attr($professional['title']); ?>" class="who-can-apply__img">
-          </div>
+        <article class="who-can-apply__card who-can-apply__card--overlay">
+          <img
+            src="<?php echo esc_url($professional['image']); ?>"
+            alt="<?php echo esc_attr($professional['title']); ?>"
+            class="who-can-apply__img"
+          >
           <div class="who-can-apply__card-content">
-            <h3 class="who-can-apply__card-title"><?php echo esc_html($professional['title']); ?></h3>
-            <p class="who-can-apply__card-description"><?php echo esc_html($professional['description']); ?></p>
+            <h3 class="H3" style="max-width:230px;margin-bottom:10px;">
+              <?php echo esc_html($professional['title']); ?>
+            </h3>
+            <p class="Body-1" style="max-width:340px; color: #000;">
+              <?php echo esc_html($professional['description']); ?>
+            </p>
           </div>
-        </div>
+        </article>
       <?php endforeach; ?>
     </div>
-  </div>
 </section>
 
 <style>
 .who-can-apply-section {
   padding: 80px 0;
-  background: #f8fafc;
+  background: #ffffff;
 }
 
 .who-can-apply__container {
@@ -138,6 +143,7 @@ $professionals = [
   .who-can-apply__grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
 }
 
 .who-can-apply__card {
@@ -188,6 +194,60 @@ $professionals = [
   color: #475569;
   margin: 0;
 }
+
+/* 固定 450×450，并让网格两侧各有 160px 边距 */
+.who-can-apply__grid--fixed{
+  padding-left:160px;
+  padding-right:160px;
+  display:grid;
+  grid-template-columns:repeat(3, 450px);
+  gap:24px;
+  justify-content:center;
+}
+
+/* 卡片覆盖式：图片满铺，文字叠在上方，顶部羽化提亮文字 */
+.who-can-apply__card--overlay{
+  position:relative;
+  width:450px;
+  height:450px;
+  overflow:hidden;
+}
+.who-can-apply__card--overlay .who-can-apply__img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  z-index:1;
+  transition:transform .25s ease;
+}
+.who-can-apply__card--overlay::before{
+  content:"";
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  /* 顶部羽化：白到透明，保证字清晰 */
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,.94) 0%,
+    rgba(255,255,255,.82) 14%,
+    rgba(255,255,255,.48) 34%,
+    rgba(255,255,255,.20) 52%,
+    rgba(255,255,255,0) 68%
+  );
+}
+.who-can-apply__card--overlay .who-can-apply__card-content{
+  position:absolute; z-index:3;
+  top:20px; left:40px; right:20px;
+  padding:0; /* 覆盖原 padding */
+  color:#111827;
+}
+.who-can-apply__card--overlay:hover .who-can-apply__img{ transform:scale(1.03); }
+
+/* 自适应降列：视口不足时从 3 列降为 2/1 列 */
+@media (max-width: calc(3 * 450px + 2 * 24px + 2 * 160px)){
+  .who-can-apply__grid--fixed{ grid-template-columns:repeat(2, 450px); }
+}
+@media (max-width: calc(2 * 450px + 1 * 24px + 2 * 160px)){
+  .who-can-apply__grid--fixed{ grid-template-columns:repeat(1, 450px); }
+}
+
 
 @media (max-width: 768px) {
   .who-can-apply-section {

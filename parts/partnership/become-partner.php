@@ -9,8 +9,8 @@
     <h2 class="become-partner__title">Become a Partner Today</h2>
     
     <div class="become-partner__buttons">
-      <a href="#contact" class="become-partner__button become-partner__button--primary">Apply Now</a>
-      <a href="#learn-more" class="become-partner__button become-partner__button--secondary">Learn More</a>
+      <a href="#contact" class="One-Column-Learn-More-Button become-partner__button become-partner__button--primary">Apply Now</a>
+      <a href="#learn-more" class="Two-Column-Learn-More-Button become-partner__button--secondary">Learn More</a>
     </div>
   </div>
 </section>

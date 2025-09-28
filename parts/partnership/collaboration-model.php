@@ -52,72 +52,79 @@ $collaboration_models = [
 
 $section_id = 'collaboration-models';
 $accordion_group_id = wp_unique_id($section_id . '-acc-');
+
+$learn_label = 'Learn More';
+$learn_link  = '#become-partner';
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" class="cm-wrap">
   <style>
     /* ===== Scoped、零依赖样式 ===== */
-    #<?php echo esc_js($section_id); ?>.cm-wrap{ padding:56px 0; background:#fff; }
-    #<?php echo esc_js($section_id); ?> .cm-container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+    #<?php echo esc_js($section_id); ?>.cm-wrap{ padding:3.5rem 0; background:#fff; }
+    #<?php echo esc_js($section_id); ?> .cm-container{ max-width:87.1875rem; margin:0 auto; padding:0 1.5rem; }
 
     /* 标题：居中 */
-    #<?php echo esc_js($section_id); ?> .cm-head{ text-align:center; margin-bottom:22px; }
+    #<?php echo esc_js($section_id); ?> .cm-head{ text-align:center; margin-bottom:1.375rem; }
     #<?php echo esc_js($section_id); ?> .cm-head h2{
-      margin:0 0 10px; font-size:40px; line-height:1.15; font-weight:800; color:#0f172a; letter-spacing:-.02em;
+      margin:0 0 0.625rem; font-size:2.5rem; line-height:1.15; font-weight:800; color:#0f172a; letter-spacing:-.02em;
     }
     #<?php echo esc_js($section_id); ?> .cm-head p{
-      margin:0 auto; max-width:860px; color:#475569; font-size:18px; line-height:1.65;
+      margin:0 auto; max-width:53.75rem; color:#475569; font-size:1.125rem; line-height:1.65;
     }
 
-    /* 大卡片：图片在右、手风琴在左 */
+    /* 大卡片：图片在右、手风琴在左（与solution一致） */
     #<?php echo esc_js($section_id); ?> .cm-card{
-      background:#f8f8f8;
-      border:none; border-radius:28px; overflow:hidden;
+      background:#f8f8f8; /* card 灰底 */
+      border:none; border-radius:1.75rem; overflow:hidden;
+      max-width:87.1875rem; margin:0 auto;
     }
     #<?php echo esc_js($section_id); ?> .cm-grid{
       display:grid; grid-template-columns:1fr; gap:0;
     }
-    @media (min-width: 980px){
-      #<?php echo esc_js($section_id); ?> .cm-grid{ grid-template-columns:1.05fr 1fr; }
+    @media (min-width: 61.25rem){
+      #<?php echo esc_js($section_id); ?> .cm-grid{ grid-template-columns:1fr 1fr; }
     }
 
     /* 左侧：极简信息区 + 手风琴 */
-    #<?php echo esc_js($section_id); ?> .cm-left{ padding:28px; }
-    @media (min-width: 980px){ #<?php echo esc_js($section_id); ?> .cm-left{ padding:38px; } }
+    #<?php echo esc_js($section_id); ?> .cm-left{ padding:1.75rem; }
+    @media (min-width: 61.25rem){ #<?php echo esc_js($section_id); ?> .cm-left{ padding:2.375rem; } }
 
     #<?php echo esc_js($section_id); ?> .cm-badge{
-      display:inline-block; padding:6px 10px; border-radius:9999px; background:#eaf2ff;
-      color:#2563eb; font-weight:700; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+      display:inline-block; padding:0.375rem 0.625rem; border-radius:9999px; background:#eaf2ff;
+      color:#2563eb; font-weight:700; font-size:0.75rem; letter-spacing:.18em; text-transform:uppercase;
     }
     #<?php echo esc_js($section_id); ?> .cm-title{
-      margin:14px 0 6px; font-size:28px; font-weight:800; color:#0f172a; letter-spacing:-.01em;
+      margin:0.875rem 0 0.375rem; font-size:1.75rem; font-weight:800; color:#0f172a; letter-spacing:-.01em;
     }
 
     /* 手风琴：行内只有标题 + 右侧箭头；点击箭头才展开；一次只开一个 */
-    #<?php echo esc_js($section_id); ?> .cm-acc{ margin-top:16px; }
-    #<?php echo esc_js($section_id); ?> .cm-row{ border-top:1px solid #e8edf3; padding:14px 0; }
-    #<?php echo esc_js($section_id); ?> .cm-row-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    #<?php echo esc_js($section_id); ?> .cm-row-title{ font-size:22px; font-weight:700; color:#0f172a; }
+    #<?php echo esc_js($section_id); ?> .cm-acc{ margin-top:1rem; }
+    #<?php echo esc_js($section_id); ?> .cm-row{ padding:0.875rem 0; }
+    #<?php echo esc_js($section_id); ?> .cm-row:not(:first-child){ border-top:1px solid #ADADAD; }
+    #<?php echo esc_js($section_id); ?> .cm-row-inner{ display:flex; align-items:center; justify-content:space-between; gap:0.75rem; }
+    #<?php echo esc_js($section_id); ?> .cm-row-title{ font-size:1.375rem; font-weight:700; color:#0f172a; }
     #<?php echo esc_js($section_id); ?> .cm-toggle{
       display:inline-flex; align-items:center; justify-content:center;
-      width:36px; height:36px; cursor:pointer;
+      width:2.25rem; height:2.25rem; cursor:pointer;
     }
-    #<?php echo esc_js($section_id); ?> .cm-toggle svg{ width:18px; height:18px; transition: transform .18s ease; color:#1e3a8a; }
+    #<?php echo esc_js($section_id); ?> .cm-toggle svg{ width:1.875rem; height:1.875rem; transition: transform .18s ease; color:#727272; }
     #<?php echo esc_js($section_id); ?> .cm-toggle[aria-expanded="true"] svg{ transform: rotate(180deg); }
 
-    #<?php echo esc_js($section_id); ?> .cm-panel{ padding:10px 0 18px; display:none; }
+    #<?php echo esc_js($section_id); ?> .cm-panel{ padding:0.625rem 0 1.125rem; display:none; }
     #<?php echo esc_js($section_id); ?> .cm-panel.open{ display:block; }
-    #<?php echo esc_js($section_id); ?> .cm-panel p{ color:#334155; line-height:1.7; margin:0 0 14px; }
+    #<?php echo esc_js($section_id); ?> .cm-panel p{ color:#334155; line-height:1.7; margin:0 0 0.875rem; }
 
     #<?php echo esc_js($section_id); ?> .cm-learn{
-      display:inline-flex; align-items:center; justify-content:center; padding:2px 30px; border-radius:12px;
+      display:inline-flex; align-items:center; justify-content:center; padding:0.125rem 1.875rem; border-radius:0.75rem;
       border:2px solid #0f172a; color:#0f172a; text-decoration:none; font-weight:700; background:#fff;
     }
 
     /* 右侧：嵌入式图片（同一张卡片内） */
     #<?php echo esc_js($section_id); ?> .cm-right{ background:#f8f8f8; }
-    #<?php echo esc_js($section_id); ?> .cm-figure{ width:100%; height:380px; }
-    @media (min-width:980px){ #<?php echo esc_js($section_id); ?> .cm-figure{ height:100%; min-height:520px; } }
+    #<?php echo esc_js($section_id); ?> .cm-figure{ width:100%; height:23.75rem; }
+    @media (min-width:61.25rem){ #<?php echo esc_js($section_id); ?> .cm-figure{ height:100%; min-height:32.5rem; } }
+    @media (max-width: 48rem){ #<?php echo esc_js($section_id); ?> .cm-figure{ height:18.75rem; } }
+    @media (max-width: 30rem){ #<?php echo esc_js($section_id); ?> .cm-figure{ height:15.625rem; } }
     #<?php echo esc_js($section_id); ?> .cm-figure img{ width:100%; height:100%; object-fit:cover; display:block; }
   </style>
 
@@ -139,7 +146,7 @@ $accordion_group_id = wp_unique_id($section_id . '-acc-');
             ?>
               <div class="cm-row" data-acc-item>
                 <div class="cm-row-inner">
-                  <div class="cm-row-title"><?php echo esc_html($model['title']); ?></div>
+                  <div class="H3" style="margin:0.75rem;"><?php echo esc_html($model['title']); ?></div>
                   <button
                     type="button"
                     class="cm-toggle"
@@ -162,21 +169,19 @@ $accordion_group_id = wp_unique_id($section_id . '-acc-');
                   aria-labelledby="<?php echo esc_attr($button_id); ?>"
                   <?php echo $is_open ? '' : 'hidden'; ?>
                 >
-                  <p><?php echo wp_kses_post($model['description']); ?></p>
-                  
                   <?php if (!empty($model['features'])): ?>
-                    <ul style="list-style:disc; padding-left:20px; margin:0 0 14px; color:#334155;">
+                    <ul style="list-style:disc; padding-left:1.25rem; margin:0 0 0.875rem; color:#334155;">
                       <?php foreach ($model['features'] as $feature): ?>
                         <li><?php echo esc_html($feature); ?></li>
                       <?php endforeach; ?>
                     </ul>
-                  <?php endif; ?>
-                  
-                  <?php if (!empty($model['note'])): ?>
-                    <p style="font-style: italic; color: #64748b;"><?php echo esc_html($model['note']); ?></p>
+                  <?php else: ?>
+                    <p class="Body-1"><?php echo wp_kses_post($model['description']); ?></p>
                   <?php endif; ?>
 
-                  <a class="cm-learn" href="#become-partner">Learn More</a>
+                  <?php if (!empty($learn_link)): ?>
+                    <a class="Two-Column-Learn-More-Button" href="<?php echo $learn_link; ?>"><?php echo esc_html($learn_label); ?></a>
+                  <?php endif; ?>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -186,7 +191,7 @@ $accordion_group_id = wp_unique_id($section_id . '-acc-');
         <!-- 右侧：图片（嵌在同一张卡片里） -->
         <div class="cm-right">
           <div class="cm-figure">
-            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80" alt="Professional working on electrical equipment">
+            <img src="<?php echo get_template_directory_uri(); ?>/src/images/partner-collaboration.png" alt="Partnership collaboration">
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ $button_link = get_theme_mod('partnership_hero_button_link', '#partnership-conte
 $template_uri = get_template_directory_uri();
 $hero_background = get_theme_mod(
   'partnership_hero_bg_image',
-  $template_uri . '/src/images/bg_house2.jpg'
+  $template_uri . '/src/images/partner-Hero.png'
 );
 ?>
 
@@ -21,13 +21,13 @@ $hero_background = get_theme_mod(
 
   <div class="subpage-hero__inner">
     <?php if (!empty($headline)) : ?>
-      <h1 class="Hero-H1 subpage-hero__headline">
+      <h1 class="H2-Black" style="color: #FFF; margin-top: 60px;">
         <?php echo esc_html($headline); ?>
       </h1>
     <?php endif; ?>
 
     <?php if (!empty($description)) : ?>
-      <p class="Hero-Body subpage-hero__description">
+      <p class="Body-1 subpage-hero__description">
         <?php echo wp_kses_post($description); ?>
       </p>
     <?php endif; ?>

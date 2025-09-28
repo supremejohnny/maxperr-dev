@@ -13,7 +13,7 @@ $pf['cta_link']    = $pf['cta_link']    ?? get_theme_mod('power_future_cta_link'
 
 $hero_image = $pf['hero_image'] ?? get_theme_mod('power_future_hero_image', '');
 if (is_numeric($hero_image)) { $hero_image = wp_get_attachment_image_url((int)$hero_image, 'full'); }
-if (empty($hero_image)) { $hero_image = get_template_directory_uri().'/src/images/bg_house2.jpg'; }
+if (empty($hero_image)) { $hero_image = get_template_directory_uri().'/src/images/partner-power-future.png'; }
 
 $benefits = $pf['benefits'] ?? get_theme_mod('power_future_benefits', []);
 if (empty($benefits) || !is_array($benefits)) {
@@ -31,7 +31,7 @@ $section_id = 'power-future';
 <section id="<?php echo esc_attr($section_id); ?>" class="pf-wrap">
   <style>
     #<?php echo esc_js($section_id); ?>.pf-wrap { padding: 36px 0 0; background:#fff; }
-    #<?php echo esc_js($section_id); ?> .pf-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    #<?php echo esc_js($section_id); ?> .pf-container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 24px); }
 
     /* 头部：居中 */
     #<?php echo esc_js($section_id); ?> .pf-head { text-align:center; margin-bottom: 18px; }
@@ -63,39 +63,73 @@ $section_id = 'power-future';
       background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 95%);
       pointer-events:none; z-index:1;
     }
-    @media (max-width: 1024px){ #<?php echo esc_js($section_id); ?> .pf-hero-img{ --pf-hero-h: 500px; } }
-    @media (max-width: 640px) { #<?php echo esc_js($section_id); ?> .pf-hero-img{ --pf-hero-h: 420px; } }
+    @media (max-width: 1024px){ 
+      #<?php echo esc_js($section_id); ?> .pf-hero-img{ --pf-hero-h: 500px; } 
+      #<?php echo esc_js($section_id); ?> .pf-overlay{ padding: 0 min(40px, 5vw) !important; height: min(140px, 9vw) !important; }
+      #<?php echo esc_js($section_id); ?> .pf-grid{ gap: min(20px, 2.5vw) !important; grid-template-columns: repeat(3, 1fr) !important; }
+      #<?php echo esc_js($section_id); ?> .pf-item h3{ margin: 0 auto 15px !important; font-size: clamp(14px, 2.2vw, 18px) !important; }
+      #<?php echo esc_js($section_id); ?> .pf-div{ width: min(140px, 12vw) !important; height: 2px !important; margin: 3px auto 5px !important; }
+      #<?php echo esc_js($section_id); ?> .pf-item p{ max-width: min(140px, 12vw) !important; font-size: clamp(10px, 1.8vw, 12px) !important; line-height: 1.4 !important; }
+      /* 隐藏第4和第5个benefit在平板端 */
+      #<?php echo esc_js($section_id); ?> .pf-item:nth-child(4),
+      #<?php echo esc_js($section_id); ?> .pf-item:nth-child(5) { display: none !important; }
+    }
+    @media (max-width: 640px) { 
+      #<?php echo esc_js($section_id); ?> .pf-hero-img{ --pf-hero-h: 420px; } 
+      #<?php echo esc_js($section_id); ?> .pf-overlay{ padding: 0 min(20px, 5vw) !important; height: auto !important; min-height: min(100px, 7vw) !important; }
+      #<?php echo esc_js($section_id); ?> .pf-grid{ gap: min(20px, 4vw) !important; }
+      #<?php echo esc_js($section_id); ?> .pf-item h3{ margin: 0 auto 12px !important; font-size: clamp(14px, 3.5vw, 18px) !important; text-align: center !important; }
+      #<?php echo esc_js($section_id); ?> .pf-div{ width: min(150px, 70vw) !important; height: 2px !important; margin: 3px auto 4px !important; }
+      #<?php echo esc_js($section_id); ?> .pf-item p{ max-width: min(150px, 70vw) !important; font-size: clamp(10px, 2.8vw, 12px) !important; line-height: 1.3 !important; }
+      /* 手机端只显示前3个benefits */
+      #<?php echo esc_js($section_id); ?> .pf-item:nth-child(4),
+      #<?php echo esc_js($section_id); ?> .pf-item:nth-child(5) { display: none !important; }
+    }
+    
+    /* 超小屏幕优化 */
+    @media (max-width: 480px) {
+      #<?php echo esc_js($section_id); ?> .pf-overlay{ padding: 0 min(16px, 4vw) !important; height: min(80px, 6vw) !important; }
+      #<?php echo esc_js($section_id); ?> .pf-grid{ gap: min(16px, 4vw) !important; grid-template-columns: repeat(2, 1fr) !important; }
+      #<?php echo esc_js($section_id); ?> .pf-item h3{ margin: 0 auto 10px !important; font-size: clamp(12px, 4vw, 16px) !important; text-align: center !important; }
+      #<?php echo esc_js($section_id); ?> .pf-div{ width: min(120px, 60vw) !important; height: 2px !important; margin: 2px auto 3px !important; }
+      #<?php echo esc_js($section_id); ?> .pf-item p{ max-width: min(120px, 60vw) !important; font-size: clamp(9px, 3vw, 11px) !important; line-height: 1.2 !important; }
+      /* 超小屏幕只显示前2个benefits */
+      #<?php echo esc_js($section_id); ?> .pf-item:nth-child(3),
+      #<?php echo esc_js($section_id); ?> .pf-item:nth-child(4),
+      #<?php echo esc_js($section_id); ?> .pf-item:nth-child(5) { display: none !important; }
+    }
 
     /* 覆盖在羽化区域的 benefits */
     #<?php echo esc_js($section_id); ?> .pf-overlay{
-      position: absolute; z-index: 2;
-      left: 50%; transform: translateX(-50%);
-      bottom: clamp(10px, 3vw, 26px);
-      width: min(1200px, calc(100% - 28px));
-      padding: 0 4px;
+      position: absolute !important; z-index: 2 !important;
+      left: 0 !important; right: 0 !important;
+      bottom: clamp(10px, 3vw, 26px) !important;
+      height: min(180px, 11vw) !important;
+      padding: 0 min(120px, 7.5vw) !important;
+      box-sizing: border-box !important;
     }
     #<?php echo esc_js($section_id); ?> .pf-grid{
-      display:grid; gap: 16px; grid-template-columns: 1fr;
-      text-align:center;
+      display:grid !important; gap: min(50px, 3vw) !important; grid-template-columns: 1fr !important;
+      text-align:center !important;
     }
-    @media (min-width: 640px){ #<?php echo esc_js($section_id); ?> .pf-grid{ grid-template-columns: repeat(2,1fr); } }
-    @media (min-width: 1024px){ #<?php echo esc_js($section_id); ?> .pf-grid{ grid-template-columns: repeat(5,1fr); gap: 10px; } }
+    @media (min-width: 640px){ #<?php echo esc_js($section_id); ?> .pf-grid{ grid-template-columns: repeat(2,1fr) !important; } }
+    @media (min-width: 1024px){ #<?php echo esc_js($section_id); ?> .pf-grid{ grid-template-columns: repeat(5,1fr) !important; gap: min(50px, 3vw) !important; } }
 
     #<?php echo esc_js($section_id); ?> .pf-item h3{
-      margin:0 0 6px; font-weight:800; font-size:15px; line-height:1.3; color:#1e40af;
+      margin:0 auto 30px !important; font-family: 'Manrope', sans-serif !important; font-weight: 600 !important; font-size: clamp(20px, 2.5vw, 25px) !important; line-height: 120% !important; letter-spacing: -0.02em !important; color: #2970A7 !important; text-align: center !important;
     }
-    #<?php echo esc_js($section_id); ?> .pf-div{ width: 60%; height: 2px; margin: 6px auto 8px; background:#0f172a; }
+    #<?php echo esc_js($section_id); ?> .pf-div{ width: min(220px, 14vw) !important; height: 3px !important; margin: 6px auto 8px !important; background:#0f172a !important; }
     #<?php echo esc_js($section_id); ?> .pf-item p{
-      margin:0; color:#111827; font-size:13px; line-height:1.55;
+      margin:0 auto !important; color:#111827 !important; font-size:clamp(12px, 1.5vw, 14px) !important; line-height:1.55 !important; max-width: min(220px, 14vw) !important;
     }
   </style>
 
   <div class="pf-container">
     <div class="pf-head">
-      <h2 class="pf-title"><?php echo esc_html($pf['title']); ?></h2>
-      <?php if (!empty($pf['description'])): ?><p class="pf-desc"><?php echo esc_html($pf['description']); ?></p><?php endif; ?>
+      <h2 class="H2-Black "><?php echo esc_html($pf['title']); ?></h2>
+      <?php if (!empty($pf['description'])): ?><p class="Body-1" style="color: #000; margin:20px auto; max-width: 890px;"><?php echo esc_html($pf['description']); ?></p><?php endif; ?>
       <?php if (!empty($pf['cta_label']) && !empty($pf['cta_link'])): ?>
-        <a class="pf-cta" href="<?php echo esc_url($pf['cta_link']); ?>"><?php echo esc_html($pf['cta_label']); ?></a>
+        <a class="One-Column-Learn-More-Button" href="<?php echo esc_url($pf['cta_link']); ?>" style="margin-bottom: 60px;"><?php echo esc_html($pf['cta_label']); ?></a>
       <?php endif; ?>
     </div>
   </div>
@@ -126,54 +160,113 @@ $section_id = 'power-future';
   /* 放大整块（图片高度 + 覆盖区域 + 文案字号） */
   #power-future .pf-hero-img { --pf-hero-h: 680px; }                 /* 默认更高 */
   @media (min-width: 1280px){ #power-future .pf-hero-img { --pf-hero-h: 760px; } } /* 超大屏更高 */
-  @media (max-width: 1024px){ #power-future .pf-hero-img { --pf-hero-h: 560px; } } /* 笔电/Pad */
-  @media (max-width: 640px) { #power-future .pf-hero-img { --pf-hero-h: 480px; } } /* 手机 */
+  @media (max-width: 1024px){ 
+    #power-future .pf-hero-img { --pf-hero-h: 560px; } /* 笔电/Pad */
+    #power-future .pf-overlay{ padding: 0 min(40px, 5vw) !important; height: min(140px, 9vw) !important; }
+    #power-future .pf-grid{ gap: min(20px, 2.5vw) !important; grid-template-columns: repeat(3, 1fr) !important; }
+    #power-future .pf-item h3{ margin: 0 auto 15px !important; font-size: clamp(14px, 2.2vw, 18px) !important; }
+    #power-future .pf-div{ width: min(140px, 12vw) !important; height: 2px !important; margin: 3px auto 5px !important; }
+    #power-future .pf-item p{ max-width: min(140px, 12vw) !important; font-size: clamp(10px, 1.8vw, 12px) !important; line-height: 1.4 !important; }
+    /* 隐藏第4和第5个benefit在平板端 */
+    #power-future .pf-item:nth-child(4),
+    #power-future .pf-item:nth-child(5) { display: none !important; }
+  }
+  @media (max-width: 640px) { 
+    #power-future .pf-hero-img { --pf-hero-h: 480px; } /* 手机 */
+    #power-future .pf-overlay{ padding: 0 min(20px, 5vw) !important; height: auto !important; min-height: min(100px, 7vw) !important; }
+    #power-future .pf-grid{ gap: min(20px, 4vw) !important; }
+    #power-future .pf-item h3{ margin: 0 auto 12px !important; font-size: clamp(14px, 3.5vw, 18px) !important; text-align: center !important; }
+    #power-future .pf-div{ width: min(150px, 70vw) !important; height: 2px !important; margin: 3px auto 4px !important; }
+    #power-future .pf-item p{ max-width: min(150px, 70vw) !important; font-size: clamp(10px, 2.8vw, 12px) !important; line-height: 1.3 !important; }
+    /* 手机端只显示前3个benefits */
+    #power-future .pf-item:nth-child(4),
+    #power-future .pf-item:nth-child(5) { display: none !important; }
+  }
+  
+  /* 超小屏幕优化 */
+  @media (max-width: 480px) {
+    #power-future .pf-overlay{ padding: 0 min(16px, 4vw) !important; height: min(80px, 6vw) !important; }
+    #power-future .pf-grid{ gap: min(16px, 4vw) !important; grid-template-columns: repeat(2, 1fr) !important; }
+    #power-future .pf-item h3{ margin: 0 auto 10px !important; font-size: clamp(12px, 4vw, 16px) !important; text-align: center !important; }
+    #power-future .pf-div{ width: min(120px, 60vw) !important; height: 2px !important; margin: 2px auto 3px !important; }
+    #power-future .pf-item p{ max-width: min(120px, 60vw) !important; font-size: clamp(9px, 3vw, 11px) !important; line-height: 1.2 !important; }
+    /* 超小屏幕只显示前2个benefits */
+    #power-future .pf-item:nth-child(3),
+    #power-future .pf-item:nth-child(4),
+    #power-future .pf-item:nth-child(5) { display: none !important; }
+  }
 
   /* 让覆盖层位置也按比例下移一点，保持呼吸感 */
   #power-future .pf-overlay { 
     bottom: clamp(16px, 4vw, 40px);
-    width: min(1300px, calc(100% - 28px));   /* 覆盖层稍微更宽，适配大屏 */
+    left: 0; right: 0;   /* 使用全宽，通过padding控制间距 */
+    height: min(180px, 11vw);
+    padding: 0 min(120px, 7.5vw);
+    box-sizing: border-box;
   }
 
   /* 描述区字号稍微放大一点点，以匹配更高的视觉 */
-  #power-future .pf-item h3 { font-size: 17px; }
-  #power-future .pf-item p  { font-size: 14.5px; }
-  #power-future .pf-div     { width: 70%; }  /* 分隔线略长，比例更协调 */
+  #power-future .pf-item h3 { 
+    font-family: 'Manrope', sans-serif; 
+    font-weight: 600; 
+    font-size: clamp(20px, 2.5vw, 25px); 
+    line-height: 120%; 
+    letter-spacing: -0.02em; 
+    color: #2970A7; 
+    margin: 0 0 30px;
+  }
+  #power-future .pf-item p  { 
+    font-size: 14.5px; 
+    max-width: min(220px, 14vw); 
+    margin: 0 auto;
+  }
+  #power-future .pf-div     { width: min(220px, 14vw); height: 3px; }  /* 分割线与描述对齐 */
 </style>
 
 <style id="pf-benefits-compact">
   /* 整体区域也稍微收窄一点，更聚拢 */
   #power-future .pf-overlay{
-    width: min(1050px, calc(100% - 28px));
+    left: 0; right: 0;   /* 使用全宽，通过padding控制间距 */
+    height: min(180px, 11vw);
+    padding: 0 min(120px, 7.5vw);
+    box-sizing: border-box;
   }
 
   /* >=1024px 时：5 列定宽，更紧凑、居中排列 */
   @media (min-width:1024px){
     #power-future .pf-grid{
-      /* 每列 160–200px，按需自动取值；整组居中 */
-      grid-template-columns: repeat(5, minmax(160px, 200px));
+      /* 每列 200–280px，按需自动取值；整组居中 */
+      grid-template-columns: repeat(5, minmax(200px, 280px));
       justify-content: center;
-      column-gap: clamp(12px, 1.6vw, 28px);
+      column-gap: min(50px, 3vw);
       row-gap: 10px;
     }
     #power-future .pf-item{ padding: 0 4px; }
-    #power-future .pf-item h3{ font-size: 16px; margin-bottom: 10px; }
+    #power-future .pf-item h3{ 
+      font-family: 'Manrope', sans-serif; 
+      font-weight: 600; 
+      font-size: clamp(20px, 2.5vw, 25px); 
+      line-height: 120%; 
+      letter-spacing: -0.02em; 
+      color: #2970A7; 
+      margin: 0 0 30px; 
+    }
     #power-future .pf-item p{
-      max-width: 180px;           /* 文案列宽受控，视觉更紧凑 */
+      max-width: min(220px, 14vw);           /* 文案列宽受控，视觉更紧凑 */
       margin: 0 auto;
       font-size: 14px;
       line-height: 1.55;
     }
-    #power-future .pf-div{ width: 68%; }  /* 分隔线也缩短一点 */
+    #power-future .pf-div{ width: min(220px, 14vw); height: 3px; }  /* 分割线与描述对齐 */
   }
 
   /* 640–1024 保持 2 列，但也略微收紧 */
   @media (min-width:640px) and (max-width:1023.98px){
     #power-future .pf-grid{
-      grid-template-columns: repeat(2, minmax(160px, 220px));
-      column-gap: 18px;
+      grid-template-columns: repeat(2, minmax(200px, 280px));
+      column-gap: min(50px, 3vw);
     }
-    #power-future .pf-item p{ max-width: 420px; margin: 0 auto; }
+    #power-future .pf-item p{ max-width: min(220px, 14vw); margin: 0 auto; }
   }
 </style>
 
@@ -185,15 +278,20 @@ $section_id = 'power-future';
     /* 标题收窄 + 居中 + 更均匀的两行 */
     #power-future .pf-item h3{
       max-width: var(--pf-title-w);
-      margin-left:auto; margin-right:auto;
-      line-height: 1.25;
+      margin: 0 auto 30px;
+      font-family: 'Manrope', sans-serif; 
+      font-weight: 600; 
+      font-size: clamp(20px, 2.5vw, 25px); 
+      line-height: 120%; 
+      letter-spacing: -0.02em; 
+      color: #2970A7;
       white-space: normal;         /* 按单词换行 */
       word-break: normal;          /* 避免硬断词 */
       text-wrap: balance;          /* 支持的浏览器会更均匀分两行 */
     }
 
-    /* 分隔线也稍微跟着缩一点，更协调 */
-    #power-future .pf-div{ width: 68%; }
+    /* 分隔线与描述对齐 */
+    #power-future .pf-div{ width: min(220px, 14vw); }
 
     /* 段落保持之前列宽；如果你想跟标题同宽也可以解开下面一行 */
     /* #power-future .pf-item p{ max-width: var(--pf-title-w); } */
@@ -204,3 +302,4 @@ $section_id = 'power-future';
     #power-future .pf-item h3{ max-width: 200px; text-wrap: balance; }
   }
 </style>
+
