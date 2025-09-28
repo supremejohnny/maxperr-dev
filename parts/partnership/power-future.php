@@ -15,8 +15,18 @@ $hero_image = $pf['hero_image'] ?? get_theme_mod('power_future_hero_image', '');
 if (is_numeric($hero_image)) { $hero_image = wp_get_attachment_image_url((int)$hero_image, 'full'); }
 if (empty($hero_image)) { $hero_image = get_template_directory_uri().'/src/images/partner-power-future.png'; }
 
-$benefits = $pf['benefits'] ?? get_theme_mod('power_future_benefits', []);
-if (empty($benefits) || !is_array($benefits)) {
+// Get benefits from customizer repeater field
+$benefits_raw = get_theme_mod('power_future_benefits', '');
+$benefits = [];
+if (!empty($benefits_raw)) {
+  $benefits = json_decode($benefits_raw, true);
+  if (!is_array($benefits)) {
+    $benefits = [];
+  }
+}
+
+// Fallback to default benefits if none are set
+if (empty($benefits)) {
   $benefits = [
     ['title'=>'Innovative Products','text'=>'Provide your clients with state-of-the-art EV charging solutions.'],
     ['title'=>'Competitive Pricing','text'=>'Enjoy partner discounts and favorable terms.'],

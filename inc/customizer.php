@@ -77,6 +77,17 @@ if (class_exists('WP_Customize_Control') && !class_exists('Figma_Rebuild_Repeate
 
         if ('textarea' === $type) {
           echo '<textarea class="figma-repeater__input" data-field="' . esc_attr($field_id) . '" rows="4">' . esc_textarea($value) . '</textarea>';
+        } elseif ('image' === $type) {
+          echo '<div class="figma-repeater__image-field">';
+          echo '<input type="hidden" class="figma-repeater__input" data-field="' . esc_attr($field_id) . '" value="' . esc_attr($value) . '" />';
+          echo '<div class="figma-repeater__image-preview">';
+          if ($value) {
+            echo '<img src="' . esc_url($value) . '" alt="Preview" style="max-width: 150px; height: auto;" />';
+          }
+          echo '</div>';
+          echo '<button type="button" class="button figma-repeater__image-upload">' . __('Select Image', 'figma-rebuild') . '</button>';
+          echo '<button type="button" class="button figma-repeater__image-remove" style="display: ' . ($value ? 'inline-block' : 'none') . ';">' . __('Remove', 'figma-rebuild') . '</button>';
+          echo '</div>';
         } else {
           $input_type = in_array($type, ['url', 'date'], true) ? $type : 'text';
           echo '<input type="' . esc_attr($input_type) . '" class="figma-repeater__input" data-field="' . esc_attr($field_id) . '" value="' . esc_attr($value) . '" />';
@@ -119,6 +130,9 @@ if (!function_exists('figma_rebuild_sanitize_repeater')) {
             $clean[$id] = wp_kses_post($raw);
             break;
           case 'url':
+            $clean[$id] = esc_url_raw($raw);
+            break;
+          case 'image':
             $clean[$id] = esc_url_raw($raw);
             break;
           case 'date':
@@ -1680,6 +1694,174 @@ add_action('customize_register', function ($wp_customize) {
   ]);
 
   /* ------------------------------------------------------------------------ */
+  /* About Page                                                               */
+  /* ------------------------------------------------------------------------ */
+  $wp_customize->add_panel('about_panel', [
+    'title'       => __('About Page', 'figma-rebuild'),
+    'priority'    => 77,
+    'description' => __('Configure the About page sections.', 'figma-rebuild'),
+  ]);
+
+  // About Hero Section
+  $wp_customize->add_section('about_hero_section', [
+    'title' => __('Hero', 'figma-rebuild'),
+    'panel' => 'about_panel',
+  ]);
+  
+  $wp_customize->add_setting('about_hero_title', [
+    'default'           => __('About Us', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('about_hero_title', [
+    'label'   => __('Hero Title', 'figma-rebuild'),
+    'section' => 'about_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('about_hero_description', [
+    'default'           => __('We build reliable energy ecosystems that accelerate electrification and empower communities to thrive.', 'figma-rebuild'),
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('about_hero_description', [
+    'label'   => __('Hero Description', 'figma-rebuild'),
+    'section' => 'about_hero_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('about_hero_bg_image', [
+    'default'           => $template_uri . '/src/images/about-Hero.png',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'about_hero_bg_image',
+    [
+      'label'   => __('Background Image', 'figma-rebuild'),
+      'section' => 'about_hero_section',
+    ]
+  ));
+
+  // About Story Section
+  $wp_customize->add_section('about_story_section', [
+    'title' => __('Story Sections', 'figma-rebuild'),
+    'panel' => 'about_panel',
+  ]);
+
+  // Default story sections
+  $default_story_sections = [
+    [
+      'kicker' => __('Our Value', 'figma-rebuild'),
+      'title' => __('Reliable Energy, Tailored to Everyday Life', 'figma-rebuild'),
+      'description' => __('From intelligent charging to smart energy management, we design systems that ensure dependable performance for homes, businesses, and fleets.', 'figma-rebuild'),
+      'image' => $template_uri . '/src/images/ev_charging_pic.jpg',
+      'image_alt' => __('Technician installing a charger on brick wall', 'figma-rebuild'),
+    ],
+    [
+      'kicker' => __('Our Promise', 'figma-rebuild'),
+      'title' => __('Partners in Every Step of Electrification', 'figma-rebuild'),
+      'description' => __('We stay beside our customers with dedicated service teams, robust warranties, and insight that simplifies each installation.', 'figma-rebuild'),
+      'image' => $template_uri . '/src/images/ev_app_control.jpg',
+      'image_alt' => __('Driver monitoring EV charging from mobile app', 'figma-rebuild'),
+    ],
+    [
+      'kicker' => __('Tailored Solutions', 'figma-rebuild'),
+      'title' => __('Built for Communities, Campuses, and Corridors', 'figma-rebuild'),
+      'description' => __('Whether deploying a single charger or building a regional network, our engineering team adapts hardware and software to match your roadmap.', 'figma-rebuild'),
+      'image' => $template_uri . '/src/images/maxperr_expo.jpg',
+      'image_alt' => __('Team demonstrating charging solutions at an expo', 'figma-rebuild'),
+    ],
+    [
+      'kicker' => __('Our Team', 'figma-rebuild'),
+      'title' => __('A Collective of Builders, Engineers, and Advocates', 'figma-rebuild'),
+      'description' => __('We bring together energy experts, product designers, and field technicians who are united by a mission to make electrification effortless.', 'figma-rebuild'),
+      'image' => $template_uri . '/src/images/maxperr_home_10kW.png',
+      'image_alt' => __('Maxperr team collaborating beside charging units', 'figma-rebuild'),
+    ],
+  ];
+
+  $story_fields = [
+    ['id' => 'kicker', 'label' => __('Kicker Text', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'title', 'label' => __('Title', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'description', 'label' => __('Description', 'figma-rebuild'), 'type' => 'textarea'],
+    ['id' => 'image', 'label' => __('Image', 'figma-rebuild'), 'type' => 'image'],
+    ['id' => 'image_alt', 'label' => __('Image Alt Text', 'figma-rebuild'), 'type' => 'text'],
+  ];
+  
+  $wp_customize->add_setting('about_story_sections', [
+    'default'           => wp_json_encode($default_story_sections),
+    'sanitize_callback' => function ($input) use ($story_fields) {
+      return figma_rebuild_sanitize_repeater($input, $story_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'about_story_sections',
+    [
+      'label'            => __('Story Sections', 'figma-rebuild'),
+      'section'          => 'about_story_section',
+      'fields'           => $story_fields,
+      'add_button_label' => __('Add Story Section', 'figma-rebuild'),
+      'item_label'       => __('Story Section', 'figma-rebuild'),
+    ]
+  ));
+
+  // Power Future Section
+  $wp_customize->add_section('about_power_future_section', [
+    'title' => __('Power Future Section', 'figma-rebuild'),
+    'panel' => 'about_panel',
+  ]);
+  
+  $wp_customize->add_setting('about_power_future_title', [
+    'default'           => __('Let\'s Power the Future Together.', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('about_power_future_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'about_power_future_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('about_power_future_primary_button_text', [
+    'default'           => __('Contact Us', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('about_power_future_primary_button_text', [
+    'label'   => __('Primary Button Text', 'figma-rebuild'),
+    'section' => 'about_power_future_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('about_power_future_primary_button_link', [
+    'default'           => '#contact',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('about_power_future_primary_button_link', [
+    'label'   => __('Primary Button Link', 'figma-rebuild'),
+    'section' => 'about_power_future_section',
+    'type'    => 'url',
+  ]);
+  
+  $wp_customize->add_setting('about_power_future_secondary_button_text', [
+    'default'           => __('Careers', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('about_power_future_secondary_button_text', [
+    'label'   => __('Secondary Button Text', 'figma-rebuild'),
+    'section' => 'about_power_future_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('about_power_future_secondary_button_link', [
+    'default'           => '#careers',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('about_power_future_secondary_button_link', [
+    'label'   => __('Secondary Button Link', 'figma-rebuild'),
+    'section' => 'about_power_future_section',
+    'type'    => 'url',
+  ]);
+
+  /* ------------------------------------------------------------------------ */
   /* Partnership Page                                                         */
   /* ------------------------------------------------------------------------ */
   $wp_customize->add_panel('partnership_panel', [
@@ -1746,6 +1928,358 @@ add_action('customize_register', function ($wp_customize) {
       'section' => 'partnership_hero_section',
     ]
   ));
+
+  // Power Future Section
+  $wp_customize->add_section('partnership_power_future_section', [
+    'title' => __('Power Future Section', 'figma-rebuild'),
+    'panel' => 'partnership_panel',
+  ]);
+  
+  $wp_customize->add_setting('power_future_title', [
+    'default'           => 'Power the Future Together',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('power_future_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'partnership_power_future_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('power_future_desc', [
+    'default'           => "We're reaching out to electricians, distributors, contractors, and industry professionals like you to join us in expanding our network. By partnering together, we can combine our expertise and resources to meet the soaring demand for EV charging solutions.",
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('power_future_desc', [
+    'label'   => __('Description', 'figma-rebuild'),
+    'section' => 'partnership_power_future_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('power_future_cta_label', [
+    'default'           => 'Apply Now',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('power_future_cta_label', [
+    'label'   => __('CTA Button Text', 'figma-rebuild'),
+    'section' => 'partnership_power_future_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('power_future_cta_link', [
+    'default'           => '#become-partner',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('power_future_cta_link', [
+    'label'   => __('CTA Button Link', 'figma-rebuild'),
+    'section' => 'partnership_power_future_section',
+    'type'    => 'url',
+  ]);
+  
+  $wp_customize->add_setting('power_future_hero_image', [
+    'default'           => $template_uri . '/src/images/partner-power-future.png',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'power_future_hero_image',
+    [
+      'label'   => __('Hero Background Image', 'figma-rebuild'),
+      'section' => 'partnership_power_future_section',
+    ]
+  ));
+
+  // Power Future Benefits (Repeater Field)
+  $benefit_fields = [
+    ['id' => 'title', 'label' => __('Benefit Title', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'text', 'label' => __('Benefit Description', 'figma-rebuild'), 'type' => 'textarea'],
+  ];
+  
+  $wp_customize->add_setting('power_future_benefits', [
+    'default'           => wp_json_encode([
+      [
+        'title' => 'Innovative Products',
+        'text' => 'Provide your clients with state-of-the-art EV charging solutions.',
+      ],
+      [
+        'title' => 'Competitive Pricing',
+        'text' => 'Enjoy partner discounts and favorable terms.',
+      ],
+      [
+        'title' => 'Grow Your Business',
+        'text' => 'Increase your service offerings and grow your customer base.',
+      ],
+      [
+        'title' => 'Training and Certification',
+        'text' => 'Receive comprehensive training on installation and device maintenance.',
+      ],
+      [
+        'title' => 'Dedicated Support',
+        'text' => 'Get priority technical support and dedicated account management.',
+      ],
+    ]),
+    'sanitize_callback' => function ($input) use ($benefit_fields) {
+      return figma_rebuild_sanitize_repeater($input, $benefit_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'power_future_benefits',
+    [
+      'label'            => __('Partnership Benefits', 'figma-rebuild'),
+      'section'          => 'partnership_power_future_section',
+      'fields'           => $benefit_fields,
+      'add_button_label' => __('Add Benefit', 'figma-rebuild'),
+      'item_label'       => __('Benefit', 'figma-rebuild'),
+    ]
+  ));
+
+  // Who Can Apply Section
+  $wp_customize->add_section('partnership_who_can_apply_section', [
+    'title' => __('Who Can Apply Section', 'figma-rebuild'),
+    'panel' => 'partnership_panel',
+  ]);
+  
+  $wp_customize->add_setting('who_can_apply_title', [
+    'default'           => 'Who Can Apply?',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('who_can_apply_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'partnership_who_can_apply_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('who_can_apply_description', [
+    'default'           => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('who_can_apply_description', [
+    'label'   => __('Section Description', 'figma-rebuild'),
+    'section' => 'partnership_who_can_apply_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('who_can_apply_button_text', [
+    'default'           => 'Apply Now',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('who_can_apply_button_text', [
+    'label'   => __('Button Text', 'figma-rebuild'),
+    'section' => 'partnership_who_can_apply_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('who_can_apply_button_link', [
+    'default'           => '#become-partner',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('who_can_apply_button_link', [
+    'label'   => __('Button Link', 'figma-rebuild'),
+    'section' => 'partnership_who_can_apply_section',
+    'type'    => 'url',
+  ]);
+
+  // Professional Types (Repeater Field)
+  $professional_fields = [
+    ['id' => 'title', 'label' => __('Professional Title', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'description', 'label' => __('Description', 'figma-rebuild'), 'type' => 'textarea'],
+    ['id' => 'image', 'label' => __('Image URL', 'figma-rebuild'), 'type' => 'url'],
+  ];
+  
+  $wp_customize->add_setting('who_can_apply_professionals', [
+    'default'           => wp_json_encode([
+      [
+        'title' => 'Electricians and Technicians',
+        'description' => 'Licensed professionals experienced in electrical installations.',
+        'image' => 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80',
+      ],
+      [
+        'title' => 'Distributors and Resellers',
+        'description' => 'Businesses looking to expand their product portfolio with EV solutions.',
+        'image' => 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=400&q=80',
+      ],
+      [
+        'title' => 'Contractors and Installers',
+        'description' => 'Companies specializing in installing electrical or EV charging equipment.',
+        'image' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80',
+      ],
+      [
+        'title' => 'Energy Consultants',
+        'description' => 'Professionals advising clients on energy efficiency and sustainable solutions.',
+        'image' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+      ],
+      [
+        'title' => 'Property Developers and Managers',
+        'description' => 'Those interested in integrating EV charging into their projects.',
+        'image' => 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=400&q=80',
+      ],
+      [
+        'title' => 'Architects and Engineers',
+        'description' => 'Professionals specialize in the design and construction of infrastructures.',
+        'image' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      ],
+    ]),
+    'sanitize_callback' => function ($input) use ($professional_fields) {
+      return figma_rebuild_sanitize_repeater($input, $professional_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'who_can_apply_professionals',
+    [
+      'label'            => __('Professional Types', 'figma-rebuild'),
+      'section'          => 'partnership_who_can_apply_section',
+      'fields'           => $professional_fields,
+      'add_button_label' => __('Add Professional Type', 'figma-rebuild'),
+      'item_label'       => __('Professional Type', 'figma-rebuild'),
+    ]
+  ));
+
+  // Collaboration Models Section
+  $wp_customize->add_section('partnership_collaboration_models_section', [
+    'title' => __('Collaboration Models Section', 'figma-rebuild'),
+    'panel' => 'partnership_panel',
+  ]);
+  
+  $wp_customize->add_setting('collaboration_models_title', [
+    'default'           => 'Collaboration Models',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('collaboration_models_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'partnership_collaboration_models_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('collaboration_models_description', [
+    'default'           => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('collaboration_models_description', [
+    'label'   => __('Section Description', 'figma-rebuild'),
+    'section' => 'partnership_collaboration_models_section',
+    'type'    => 'textarea',
+  ]);
+  
+  $wp_customize->add_setting('collaboration_models_image', [
+    'default'           => $template_uri . '/src/images/partner-collaboration.png',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'collaboration_models_image',
+    [
+      'label'   => __('Section Image', 'figma-rebuild'),
+      'section' => 'partnership_collaboration_models_section',
+    ]
+  ));
+
+  // Collaboration Models (Repeater Field)
+  $collaboration_fields = [
+    ['id' => 'title', 'label' => __('Model Title', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'description', 'label' => __('Description', 'figma-rebuild'), 'type' => 'textarea'],
+    ['id' => 'features', 'label' => __('Features (one per line)', 'figma-rebuild'), 'type' => 'textarea'],
+    ['id' => 'note', 'label' => __('Note', 'figma-rebuild'), 'type' => 'textarea'],
+  ];
+  
+  $wp_customize->add_setting('collaboration_models_items', [
+    'default'           => wp_json_encode([
+      [
+        'title' => 'Authorized Installer',
+        'description' => 'The Authorized Installer Program is tailored for licensed electricians and installation companies eager to tap into the growing EV charging market. By becoming an authorized installer, you position yourself as a trusted expert for Maxperr Energy\'s cutting-edge products.',
+        'features' => "Access to exclusive training programs\nTechnical support and certification\nCompetitive pricing and terms\nMarketing support and materials",
+        'note' => 'Ideal for licensed electricians and installation companies looking to expand their service offerings.',
+      ],
+      [
+        'title' => 'Distributor Partnership',
+        'description' => 'Join our network of authorized distributors to bring Maxperr Energy\'s innovative EV charging solutions to your market. Benefit from our comprehensive support system and proven business model.',
+        'features' => "Exclusive territory rights\nComprehensive product training\nMarketing and sales support\nInventory management assistance",
+        'note' => 'Perfect for established electrical distributors seeking to add EV charging to their portfolio.',
+      ],
+      [
+        'title' => 'Referral Program',
+        'description' => 'Earn rewards by referring qualified leads to Maxperr Energy. Our referral program offers competitive commissions for successful partnerships and installations.',
+        'features' => "Competitive commission structure\nEasy lead submission process\nRegular performance tracking\nFlexible payment terms",
+        'note' => 'Great for industry professionals who want to monetize their network without full commitment.',
+      ],
+      [
+        'title' => 'Custom Solutions',
+        'description' => 'Work with our team to develop tailored partnership solutions that meet your specific business needs and market requirements.',
+        'features' => "Customized partnership terms\nDedicated account management\nFlexible program structure\nOngoing strategic support",
+        'note' => 'Designed for large organizations or unique market situations requiring specialized approaches.',
+      ],
+    ]),
+    'sanitize_callback' => function ($input) use ($collaboration_fields) {
+      return figma_rebuild_sanitize_repeater($input, $collaboration_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'collaboration_models_items',
+    [
+      'label'            => __('Collaboration Models', 'figma-rebuild'),
+      'section'          => 'partnership_collaboration_models_section',
+      'fields'           => $collaboration_fields,
+      'add_button_label' => __('Add Model', 'figma-rebuild'),
+      'item_label'       => __('Model', 'figma-rebuild'),
+    ]
+  ));
+
+  // Become Partner Section
+  $wp_customize->add_section('partnership_become_partner_section', [
+    'title' => __('Become Partner Section', 'figma-rebuild'),
+    'panel' => 'partnership_panel',
+  ]);
+  
+  $wp_customize->add_setting('become_partner_title', [
+    'default'           => 'Become a Partner Today',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('become_partner_title', [
+    'label'   => __('Section Title', 'figma-rebuild'),
+    'section' => 'partnership_become_partner_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('become_partner_primary_button_text', [
+    'default'           => 'Apply Now',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('become_partner_primary_button_text', [
+    'label'   => __('Primary Button Text', 'figma-rebuild'),
+    'section' => 'partnership_become_partner_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('become_partner_primary_button_link', [
+    'default'           => '#contact',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('become_partner_primary_button_link', [
+    'label'   => __('Primary Button Link', 'figma-rebuild'),
+    'section' => 'partnership_become_partner_section',
+    'type'    => 'url',
+  ]);
+  
+  $wp_customize->add_setting('become_partner_secondary_button_text', [
+    'default'           => 'Learn More',
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('become_partner_secondary_button_text', [
+    'label'   => __('Secondary Button Text', 'figma-rebuild'),
+    'section' => 'partnership_become_partner_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('become_partner_secondary_button_link', [
+    'default'           => '#learn-more',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control('become_partner_secondary_button_link', [
+    'label'   => __('Secondary Button Link', 'figma-rebuild'),
+    'section' => 'partnership_become_partner_section',
+    'type'    => 'url',
+  ]);
 });
 
 // Live preview partial refresh if needed (fallback to full refresh)

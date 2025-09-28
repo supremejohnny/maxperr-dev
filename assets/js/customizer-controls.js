@@ -47,6 +47,54 @@
       input.addEventListener('change', () => syncStore(container, fields));
     });
 
+    // Handle image upload buttons
+    item.querySelectorAll('.figma-repeater__image-upload').forEach((uploadBtn) => {
+      uploadBtn.addEventListener('click', () => {
+        const fieldId = uploadBtn.closest('.figma-repeater__image-field').querySelector('input[data-field]').getAttribute('data-field');
+        const frame = wp.media({
+          title: 'Select Image',
+          button: {
+            text: 'Use Image'
+          },
+          multiple: false
+        });
+
+        frame.on('select', () => {
+          const attachment = frame.state().get('selection').first().toJSON();
+          const input = item.querySelector(`[data-field="${fieldId}"]`);
+          const preview = item.querySelector('.figma-repeater__image-preview');
+          const removeBtn = item.querySelector('.figma-repeater__image-remove');
+          
+          if (input && preview) {
+            input.value = attachment.url;
+            preview.innerHTML = `<img src="${attachment.url}" alt="Preview" style="max-width: 150px; height: auto;" />`;
+            if (removeBtn) {
+              removeBtn.style.display = 'inline-block';
+            }
+            syncStore(container, fields);
+          }
+        });
+
+        frame.open();
+      });
+    });
+
+    // Handle image remove buttons
+    item.querySelectorAll('.figma-repeater__image-remove').forEach((removeBtn) => {
+      removeBtn.addEventListener('click', () => {
+        const fieldId = removeBtn.closest('.figma-repeater__image-field').querySelector('input[data-field]').getAttribute('data-field');
+        const input = item.querySelector(`[data-field="${fieldId}"]`);
+        const preview = item.querySelector('.figma-repeater__image-preview');
+        
+        if (input && preview) {
+          input.value = '';
+          preview.innerHTML = '';
+          removeBtn.style.display = 'none';
+          syncStore(container, fields);
+        }
+      });
+    });
+
     const removeBtn = item.querySelector('.figma-repeater__remove');
     if (removeBtn) {
       removeBtn.addEventListener('click', () => {

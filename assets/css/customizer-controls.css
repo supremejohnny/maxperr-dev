@@ -58,3 +58,34 @@
   width: 100%;
   justify-content: center;
 }
+
+/* Image upload field styles */
+.figma-repeater__image-field {
+  display: grid;
+  gap: 8px;
+}
+
+.figma-repeater__image-preview {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.figma-repeater__image-preview img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.figma-repeater__image-upload,
+.figma-repeater__image-remove {
+  margin-right: 8px;
+}
+
+.figma-repeater__image-remove {
+  color: #b52727;
+}

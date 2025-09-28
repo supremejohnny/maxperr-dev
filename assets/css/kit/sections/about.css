@@ -3,7 +3,7 @@
    -------------------------------------------------------------- */
 
    :root{
-    --card-radius: 20px;
+    --card-radius: 0px;
     --card-shadow: 0 8px 30px rgba(0,0,0,.06);
   
     --accent: #3b82f6;   /* kicker */
@@ -64,7 +64,6 @@
   /* 同图模糊，只保留靠文本一侧，营造柔化过渡 */
   .blend-card__img--blur{
     z-index: 2;
-    filter: blur(14px) saturate(1.02) brightness(1.02);
     transform: scale(1.06);
     -webkit-mask-image: linear-gradient(
       to right,

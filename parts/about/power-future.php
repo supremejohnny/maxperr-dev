@@ -2,15 +2,21 @@
 /**
  * About page CTA - Power the Future Together Section
  */
+
+$power_future_title = get_theme_mod('about_power_future_title', __('Let\'s Power the Future Together.', 'figma-rebuild'));
+$primary_button_text = get_theme_mod('about_power_future_primary_button_text', __('Contact Us', 'figma-rebuild'));
+$primary_button_link = get_theme_mod('about_power_future_primary_button_link', '#contact');
+$secondary_button_text = get_theme_mod('about_power_future_secondary_button_text', __('Careers', 'figma-rebuild'));
+$secondary_button_link = get_theme_mod('about_power_future_secondary_button_link', '#careers');
 ?>
 
 <section id="power-future" class="power-future-section">
   <div class="power-future__container">
-    <h2 class="power-future__title">Let's Power the Future Together.</h2>
+    <h2 class="power-future__title"><?php echo esc_html($power_future_title); ?></h2>
     
     <div class="power-future__buttons">
-      <a href="#contact" class="power-future__button power-future__button--primary">Contact Us</a>
-      <a href="#careers" class="power-future__button power-future__button--secondary">Careers</a>
+      <a href="<?php echo esc_url($primary_button_link); ?>" class="One-Column-Learn-More-Button power-future__button--primary"><?php echo esc_html($primary_button_text); ?></a>
+      <a href="<?php echo esc_url($secondary_button_link); ?>" class="Two-Column-Learn-More-Button power-future__button--secondary"><?php echo esc_html($secondary_button_text); ?></a>
     </div>
   </div>
 </section>
@@ -23,7 +29,7 @@
 }
 
 .power-future__container {
-  max-width: 600px;
+  max-width: 840px;
   margin: 0 auto;
   padding: 0 24px;
   text-align: center;

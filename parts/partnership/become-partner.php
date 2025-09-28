@@ -2,15 +2,22 @@
 /**
  * Become a Partner Today Section
  */
+
+// Get settings from customizer
+$section_title = get_theme_mod('become_partner_title', 'Become a Partner Today');
+$primary_button_text = get_theme_mod('become_partner_primary_button_text', 'Apply Now');
+$primary_button_link = get_theme_mod('become_partner_primary_button_link', '#contact');
+$secondary_button_text = get_theme_mod('become_partner_secondary_button_text', 'Learn More');
+$secondary_button_link = get_theme_mod('become_partner_secondary_button_link', '#learn-more');
 ?>
 
 <section id="become-partner" class="become-partner-section">
   <div class="become-partner__container">
-    <h2 class="become-partner__title">Become a Partner Today</h2>
+    <h2 class="become-partner__title"><?php echo esc_html($section_title); ?></h2>
     
     <div class="become-partner__buttons">
-      <a href="#contact" class="One-Column-Learn-More-Button become-partner__button become-partner__button--primary">Apply Now</a>
-      <a href="#learn-more" class="Two-Column-Learn-More-Button become-partner__button--secondary">Learn More</a>
+      <a href="<?php echo esc_url($primary_button_link); ?>" class="One-Column-Learn-More-Button become-partner__button become-partner__button--primary"><?php echo esc_html($primary_button_text); ?></a>
+      <a href="<?php echo esc_url($secondary_button_link); ?>" class="Two-Column-Learn-More-Button become-partner__button--secondary"><?php echo esc_html($secondary_button_text); ?></a>
     </div>
   </div>
 </section>

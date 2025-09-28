@@ -3,52 +3,50 @@
  * Collaboration Models Section
  */
 
-$collaboration_models = [
-  [
-    'title' => 'Authorized Installer',
-    'description' => 'The Authorized Installer Program is tailored for licensed electricians and installation companies eager to tap into the growing EV charging market. By becoming an authorized installer, you position yourself as a trusted expert for Maxperr Energy\'s cutting-edge products.',
-    'features' => [
-      'Access to exclusive training programs',
-      'Technical support and certification',
-      'Competitive pricing and terms',
-      'Marketing support and materials'
+// Get collaboration models from customizer repeater field
+$collaboration_models_raw = get_theme_mod('collaboration_models_items', '');
+$collaboration_models = [];
+if (!empty($collaboration_models_raw)) {
+  $collaboration_models = json_decode($collaboration_models_raw, true);
+  if (!is_array($collaboration_models)) {
+    $collaboration_models = [];
+  }
+}
+
+// Fallback to default models if none are set
+if (empty($collaboration_models)) {
+  $collaboration_models = [
+    [
+      'title' => 'Authorized Installer',
+      'description' => 'The Authorized Installer Program is tailored for licensed electricians and installation companies eager to tap into the growing EV charging market. By becoming an authorized installer, you position yourself as a trusted expert for Maxperr Energy\'s cutting-edge products.',
+      'features' => "Access to exclusive training programs\nTechnical support and certification\nCompetitive pricing and terms\nMarketing support and materials",
+      'note' => 'Ideal for licensed electricians and installation companies looking to expand their service offerings.'
     ],
-    'note' => 'Ideal for licensed electricians and installation companies looking to expand their service offerings.'
-  ],
-  [
-    'title' => 'Distributor Partnership',
-    'description' => 'Join our network of authorized distributors to bring Maxperr Energy\'s innovative EV charging solutions to your market. Benefit from our comprehensive support system and proven business model.',
-    'features' => [
-      'Exclusive territory rights',
-      'Comprehensive product training',
-      'Marketing and sales support',
-      'Inventory management assistance'
+    [
+      'title' => 'Distributor Partnership',
+      'description' => 'Join our network of authorized distributors to bring Maxperr Energy\'s innovative EV charging solutions to your market. Benefit from our comprehensive support system and proven business model.',
+      'features' => "Exclusive territory rights\nComprehensive product training\nMarketing and sales support\nInventory management assistance",
+      'note' => 'Perfect for established electrical distributors seeking to add EV charging to their portfolio.'
     ],
-    'note' => 'Perfect for established electrical distributors seeking to add EV charging to their portfolio.'
-  ],
-  [
-    'title' => 'Referral Program',
-    'description' => 'Earn rewards by referring qualified leads to Maxperr Energy. Our referral program offers competitive commissions for successful partnerships and installations.',
-    'features' => [
-      'Competitive commission structure',
-      'Easy lead submission process',
-      'Regular performance tracking',
-      'Flexible payment terms'
+    [
+      'title' => 'Referral Program',
+      'description' => 'Earn rewards by referring qualified leads to Maxperr Energy. Our referral program offers competitive commissions for successful partnerships and installations.',
+      'features' => "Competitive commission structure\nEasy lead submission process\nRegular performance tracking\nFlexible payment terms",
+      'note' => 'Great for industry professionals who want to monetize their network without full commitment.'
     ],
-    'note' => 'Great for industry professionals who want to monetize their network without full commitment.'
-  ],
-  [
-    'title' => 'Custom Solutions',
-    'description' => 'Work with our team to develop tailored partnership solutions that meet your specific business needs and market requirements.',
-    'features' => [
-      'Customized partnership terms',
-      'Dedicated account management',
-      'Flexible program structure',
-      'Ongoing strategic support'
-    ],
-    'note' => 'Designed for large organizations or unique market situations requiring specialized approaches.'
-  ]
-];
+    [
+      'title' => 'Custom Solutions',
+      'description' => 'Work with our team to develop tailored partnership solutions that meet your specific business needs and market requirements.',
+      'features' => "Customized partnership terms\nDedicated account management\nFlexible program structure\nOngoing strategic support",
+      'note' => 'Designed for large organizations or unique market situations requiring specialized approaches.'
+    ]
+  ];
+}
+
+// Get section settings from customizer
+$section_title = get_theme_mod('collaboration_models_title', 'Collaboration Models');
+$section_description = get_theme_mod('collaboration_models_description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+$section_image = get_theme_mod('collaboration_models_image', get_template_directory_uri() . '/src/images/partner-collaboration.png');
 
 $section_id = 'collaboration-models';
 $accordion_group_id = wp_unique_id($section_id . '-acc-');
@@ -130,8 +128,8 @@ $learn_link  = '#become-partner';
 
   <div class="cm-container">
     <div class="cm-head">
-      <h2>Collaboration Models</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <h2><?php echo esc_html($section_title); ?></h2>
+      <p><?php echo wp_kses_post($section_description); ?></p>
     </div>
 
     <div class="cm-card">
@@ -171,9 +169,17 @@ $learn_link  = '#become-partner';
                 >
                   <?php if (!empty($model['features'])): ?>
                     <ul style="list-style:disc; padding-left:1.25rem; margin:0 0 0.875rem; color:#334155;">
-                      <?php foreach ($model['features'] as $feature): ?>
+                      <?php 
+                      $features_array = explode("\n", $model['features']);
+                      foreach ($features_array as $feature): 
+                        $feature = trim($feature);
+                        if (!empty($feature)):
+                      ?>
                         <li><?php echo esc_html($feature); ?></li>
-                      <?php endforeach; ?>
+                      <?php 
+                        endif;
+                      endforeach; 
+                      ?>
                     </ul>
                   <?php else: ?>
                     <p class="Body-1"><?php echo wp_kses_post($model['description']); ?></p>
@@ -191,7 +197,7 @@ $learn_link  = '#become-partner';
         <!-- 右侧：图片（嵌在同一张卡片里） -->
         <div class="cm-right">
           <div class="cm-figure">
-            <img src="<?php echo get_template_directory_uri(); ?>/src/images/partner-collaboration.png" alt="Partnership collaboration">
+            <img src="<?php echo esc_url($section_image); ?>" alt="Partnership collaboration">
           </div>
         </div>
       </div>

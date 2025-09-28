@@ -34,7 +34,8 @@ $default_sections = [
   ],
 ];
 
-$about_sections = get_theme_mod('about_story_sections', $default_sections);
+$about_sections_raw = get_theme_mod('about_story_sections', wp_json_encode($default_sections));
+$about_sections = json_decode($about_sections_raw, true);
 if (!is_array($about_sections) || empty($about_sections)) {
   $about_sections = $default_sections;
 }
@@ -56,9 +57,6 @@ if (!is_array($about_sections) || empty($about_sections)) {
       <article class="blend-card" data-card="<?php echo (int)$index; ?>">
         <!-- 基底原图（不模糊） -->
         <img class="blend-card__img" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($image_alt); ?>" loading="lazy" />
-
-        <!-- 左半区的同图模糊层（仅显示左侧，用 mask 裁切） -->
-        <img class="blend-card__img blend-card__img--blur" src="<?php echo esc_url($image); ?>" alt="" aria-hidden="true" />
 
         <!-- 左侧淡入的白色/雾化遮罩，增强对比度 -->
         <span class="blend-card__shade" aria-hidden="true"></span>

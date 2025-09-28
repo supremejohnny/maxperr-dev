@@ -3,47 +3,66 @@
  * Who Can Apply Section
  */
 
-$professionals = [
-  [
-    'title' => 'Electricians and Technicians',
-    'description' => 'Licensed professionals experienced in electrical installations.',
-    'image' => 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80'
-  ],
-  [
-    'title' => 'Distributors and Resellers',
-    'description' => 'Businesses looking to expand their product portfolio with EV solutions.',
-    'image' => 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=400&q=80'
-  ],
-  [
-    'title' => 'Contractors and Installers',
-    'description' => 'Companies specializing in installing electrical or EV charging equipment.',
-    'image' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80'
-  ],
-  [
-    'title' => 'Energy Consultants',
-    'description' => 'Professionals advising clients on energy efficiency and sustainable solutions.',
-    'image' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80'
-  ],
-  [
-    'title' => 'Property Developers and Managers',
-    'description' => 'Those interested in integrating EV charging into their projects.',
-    'image' => 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=400&q=80'
-  ],
-  [
-    'title' => 'Architects and Engineers',
-    'description' => 'Professionals specialize in the design and construction of infrastructures.',
-    'image' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80'
-  ]
-];
+// Get professionals from customizer repeater field
+$professionals_raw = get_theme_mod('who_can_apply_professionals', '');
+$professionals = [];
+if (!empty($professionals_raw)) {
+  $professionals = json_decode($professionals_raw, true);
+  if (!is_array($professionals)) {
+    $professionals = [];
+  }
+}
+
+// Fallback to default professionals if none are set
+if (empty($professionals)) {
+  $professionals = [
+    [
+      'title' => 'Electricians and Technicians',
+      'description' => 'Licensed professionals experienced in electrical installations.',
+      'image' => 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80'
+    ],
+    [
+      'title' => 'Distributors and Resellers',
+      'description' => 'Businesses looking to expand their product portfolio with EV solutions.',
+      'image' => 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=400&q=80'
+    ],
+    [
+      'title' => 'Contractors and Installers',
+      'description' => 'Companies specializing in installing electrical or EV charging equipment.',
+      'image' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80'
+    ],
+    [
+      'title' => 'Energy Consultants',
+      'description' => 'Professionals advising clients on energy efficiency and sustainable solutions.',
+      'image' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80'
+    ],
+    [
+      'title' => 'Property Developers and Managers',
+      'description' => 'Those interested in integrating EV charging into their projects.',
+      'image' => 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=400&q=80'
+    ],
+    [
+      'title' => 'Architects and Engineers',
+      'description' => 'Professionals specialize in the design and construction of infrastructures.',
+      'image' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80'
+    ]
+  ];
+}
+
+// Get section settings from customizer
+$section_title = get_theme_mod('who_can_apply_title', 'Who Can Apply?');
+$section_description = get_theme_mod('who_can_apply_description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+$button_text = get_theme_mod('who_can_apply_button_text', 'Apply Now');
+$button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
 ?>
 
 <section id="who-can-apply" class="who-can-apply-section">
   <div class="who-can-apply__container">
     <div class="who-can-apply__header">
-      <h2 class="H2-Black">Who Can Apply?</h2>
-      <p class="Body-1" style="color: #000; margin:20px">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <h2 class="H2-Black"><?php echo esc_html($section_title); ?></h2>
+      <p class="Body-1" style="color: #000; margin:20px"><?php echo wp_kses_post($section_description); ?></p>
       <div class="who-can-apply__cta">
-        <a href="#become-partner" class="One-Column-Learn-More-Button">Apply Now</a>
+        <a href="<?php echo esc_url($button_link); ?>" class="One-Column-Learn-More-Button"><?php echo esc_html($button_text); ?></a>
       </div>
     </div>
     
