@@ -98,3 +98,37 @@
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+/* Knowledge Tag Button - 知识标签按钮样式 */
+.knowledge-tag {
+  box-sizing: border-box;
+  position: relative;
+  width: 158px;
+  height: 36.98px;
+  border: 1px solid #2970A7;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Manrope', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #2970A7;
+  text-align: center;
+  cursor: default;
+  pointer-events: none;
+}
+
+.knowledge-tag__text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: 'Manrope', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #2970A7;
+}

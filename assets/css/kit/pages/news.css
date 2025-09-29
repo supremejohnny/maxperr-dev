@@ -1,3 +1,23 @@
+.news-hero {
+  padding: clamp(3rem, 5vw, 4rem) 0;
+  background-color: #ffffff;
+}
+
+.news-hero-image {
+  width: 100%;
+}
+
+.news-hero__figure {
+  width: 100%;
+  margin: 0;
+}
+
+.news-hero__image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .news-page-hero {
   position: relative;
   padding: clamp(6rem, 9vw, 9rem) 0;
@@ -71,6 +91,8 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(2.25rem, 4vw, 3rem);
+  margin-left: 160px;
+  margin-right: 160px;
 }
 
 .news-grid__card {
@@ -93,6 +115,13 @@
 .news-grid__card--link {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.news-grid__card--link:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 32px 64px rgba(15, 23, 42, 0.15);
 }
 
 .news-grid__image {
@@ -121,8 +150,7 @@
 .news-grid__body {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 1.25rem;
+  gap: 1.875rem;
   padding: 1.75rem 2rem 2.25rem;
   flex: 1 1 auto;
   overflow: hidden;
@@ -162,6 +190,7 @@
   color: #0f172a;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -183,6 +212,8 @@
   .news-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2.25rem;
+    margin-left: clamp(2rem, 8vw, 160px);
+    margin-right: clamp(2rem, 8vw, 160px);
   }
 
   .news-grid__card {
@@ -201,6 +232,8 @@
 
   .news-grid {
     grid-template-columns: 1fr;
+    margin-left: clamp(1rem, 4vw, 2rem);
+    margin-right: clamp(1rem, 4vw, 2rem);
   }
 
   .news-grid__body {

@@ -1,6 +1,6 @@
 <?php
   $news_defaults = figma_rebuild_get_default_news_items();
-  $news_items_raw = get_theme_mod('news_items', wp_json_encode($news_defaults));
+  $news_items_raw = get_theme_mod('news_page_items', wp_json_encode($news_defaults));
   $news_items = json_decode($news_items_raw, true);
 
   if (!is_array($news_items) || empty($news_items)) {
@@ -78,17 +78,17 @@
             <div class="news-grid__body">
               <div class="news-grid__meta">
                 <?php if ($tag) : ?>
-                  <span class="news-grid__tag"><?php echo esc_html($tag); ?></span>
+                  <span class="knowledge-tag"><?php echo esc_html($tag); ?></span>
                 <?php endif; ?>
                 <?php if ($date) :
                   $timestamp = strtotime($date);
                   $formatted_date = $timestamp ? date_i18n(get_option('date_format'), $timestamp) : $date;
                 ?>
-                  <time class="news-grid__date" datetime="<?php echo esc_attr($date); ?>"><?php echo esc_html($formatted_date); ?></time>
+                  <time class="Body-1" style="color: #000;" datetime="<?php echo esc_attr($date); ?>"><?php echo esc_html($formatted_date); ?></time>
                 <?php endif; ?>
               </div>
               <?php if ($title) : ?>
-                <h3 class="news-grid__title"><?php echo esc_html($title); ?></h3>
+                <h3 class="H3"><?php echo esc_html($title); ?></h3>
               <?php endif; ?>
             </div>
           </<?php echo $card_tag; ?>>
@@ -97,7 +97,7 @@
 
       <?php if ($total_items > $visible_count) : ?>
         <div class="news-grid__actions">
-          <button type="button" class="CTA-medium" data-news-load-more>
+          <button type="button" class="One-Column-Shop-All-Button" data-news-load-more>
             <?php echo esc_html__('Read more', 'figma-rebuild'); ?>
           </button>
         </div>

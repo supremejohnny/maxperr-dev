@@ -189,35 +189,42 @@ if (!function_exists('figma_rebuild_get_default_news_items')) {
         'title' => __('[2025 Edition] Home EV Charger Installation Tips', 'figma-rebuild'),
         'tag'   => __('Knowledge', 'figma-rebuild'),
         'date'  => '2025-07-11',
-        'image' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=2069&q=80',
-        'link'  => '',
+        'image' => get_template_directory_uri() . '/src/images/news/news-installation.png',
+        'link'  => home_url('/news-paragraph/'),
       ],
       [
         'title' => __('10+ Public Charging Stations Launched downtown Toronto', 'figma-rebuild'),
         'tag'   => __('Knowledge', 'figma-rebuild'),
         'date'  => '2025-06-25',
-        'image' => 'https://images.unsplash.com/photo-1593941707882-a5bac6861d75?auto=format&fit=crop&w=2072&q=80',
+        'image' => get_template_directory_uri() . '/src/images/news/news-New-stations.png',
         'link'  => '',
       ],
       [
         'title' => __('Maxperr Energy Unveils Powerful EV Charging Solutions at Canadas Largest Expo', 'figma-rebuild'),
         'tag'   => __('News', 'figma-rebuild'),
         'date'  => '2025-06-10',
-        'image' => get_template_directory_uri() . '/src/images/bg_house.jpg',
+        'image' => get_template_directory_uri() . '/src/images/news/news-unveil-maxperr.png',
         'link'  => '',
       ],
       [
         'title' => __('Grid-Friendly Charging Strategies for Commercial Sites', 'figma-rebuild'),
         'tag'   => __('News', 'figma-rebuild'),
         'date'  => '2025-05-30',
-        'image' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
+        'image' => get_template_directory_uri() . '/src/images/news/news-charger-installation.png',
         'link'  => '',
       ],
       [
         'title' => __('Smart O&M: Lowering TCO of EV Charging Assets', 'figma-rebuild'),
         'tag'   => __('Knowledge', 'figma-rebuild'),
         'date'  => '2025-05-12',
-        'image' => 'https://images.unsplash.com/photo-1611880984806-a0a7d48b8c67?q=80&w=2070&auto=format&fit=crop',
+        'image' => get_template_directory_uri() . '/src/images/news/news-ACvsDC.png',
+        'link'  => '',
+      ],
+      [
+        'title' => __('Government Incentives for EV Charging Infrastructure', 'figma-rebuild'),
+        'tag'   => __('News', 'figma-rebuild'),
+        'date'  => '2025-04-15',
+        'image' => get_template_directory_uri() . '/src/images/news/news-Incentives.png',
         'link'  => '',
       ],
     ];
@@ -722,6 +729,76 @@ add_action('customize_register', function ($wp_customize) {
       'fields'           => $news_fields,
       'add_button_label' => __('添加新闻', 'figma-rebuild'),
       'item_label'       => __('新闻', 'figma-rebuild'),
+    ]
+  ));
+
+  /* ------------------------------------------------------------------------ */
+  /* News Page Panel                                                          */
+  /* ------------------------------------------------------------------------ */
+  $wp_customize->add_panel('news_page_panel', [
+    'title'       => __('News Page', 'figma-rebuild'),
+    'priority'    => 79,
+    'description' => __('Configure the News page sections.', 'figma-rebuild'),
+  ]);
+
+  // News Page Hero Section
+  $wp_customize->add_section('news_page_hero_section', [
+    'title' => __('Hero', 'figma-rebuild'),
+    'panel' => 'news_page_panel',
+  ]);
+  
+  $wp_customize->add_setting('news_page_hero_title', [
+    'default'           => __('News', 'figma-rebuild'),
+    'sanitize_callback' => 'sanitize_text_field',
+  ]);
+  $wp_customize->add_control('news_page_hero_title', [
+    'label'   => __('Page Title', 'figma-rebuild'),
+    'section' => 'news_page_hero_section',
+    'type'    => 'text',
+  ]);
+  
+  $wp_customize->add_setting('news_page_hero_bg_image', [
+    'default'           => $template_uri . '/src/images/Maxperr-news.png',
+    'sanitize_callback' => 'esc_url_raw',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Image_Control(
+    $wp_customize,
+    'news_page_hero_bg_image',
+    [
+      'label'       => __('Hero Background Image', 'figma-rebuild'),
+      'section'     => 'news_page_hero_section',
+      'description' => __('Upload an image for the hero section background.', 'figma-rebuild'),
+    ]
+  ));
+
+  // News Page Grid Section
+  $wp_customize->add_section('news_page_grid_section', [
+    'title' => __('News Grid', 'figma-rebuild'),
+    'panel' => 'news_page_panel',
+  ]);
+
+  $news_page_fields = [
+    ['id' => 'title', 'label' => __('Article Title', 'figma-rebuild'), 'type' => 'text'],
+    ['id' => 'tag',   'label' => __('Tag', 'figma-rebuild'),     'type' => 'text'],
+    ['id' => 'date',  'label' => __('Date (YYYY-MM-DD)', 'figma-rebuild'), 'type' => 'date'],
+    ['id' => 'image', 'label' => __('Cover Image', 'figma-rebuild'), 'type' => 'image'],
+    ['id' => 'link',  'label' => __('Link (Optional)', 'figma-rebuild'), 'type' => 'url'],
+  ];
+  $wp_customize->add_setting('news_page_items', [
+    'default'           => wp_json_encode(figma_rebuild_get_default_news_items()),
+    'sanitize_callback' => function ($input) use ($news_page_fields) {
+      return figma_rebuild_sanitize_repeater($input, $news_page_fields);
+    },
+  ]);
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'news_page_items',
+    [
+      'label'            => __('News Articles', 'figma-rebuild'),
+      'section'          => 'news_page_grid_section',
+      'fields'           => $news_page_fields,
+      'add_button_label' => __('Add News Article', 'figma-rebuild'),
+      'item_label'       => __('News Article', 'figma-rebuild'),
     ]
   ));
 
