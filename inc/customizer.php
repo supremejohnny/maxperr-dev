@@ -237,7 +237,7 @@ if (!function_exists('figma_rebuild_get_default_news_paragraph_hero')) {
       'tag'       => __('Knowledge', 'figma-rebuild'),
       'title'     => __('11 EV Charger Installation Tips', 'figma-rebuild'),
       'date'      => '2025-03-12',
-      'image'     => get_template_directory_uri() . '/src/images/Maxperr-news.png',
+      'image'     => get_template_directory_uri() . '/src/images/news/newspara-Installation.png',
       'image_alt' => __('EV charger installation article hero image', 'figma-rebuild'),
     ];
   }
@@ -872,6 +872,22 @@ add_action('customize_register', function ($wp_customize) {
     'description' => __('Describe the hero image for accessibility.', 'figma-rebuild'),
     'section'     => 'news_paragraph_hero_section',
     'type'        => 'text',
+  ]);
+
+  $wp_customize->add_section('news_paragraph_content_section', [
+    'title' => __('Content', 'figma-rebuild'),
+    'panel' => 'news_paragraph_panel',
+  ]);
+
+  $wp_customize->add_setting('news_paragraph_content', [
+    'default'           => '',
+    'sanitize_callback' => 'wp_kses_post',
+  ]);
+  $wp_customize->add_control('news_paragraph_content', [
+    'label'       => __('新闻内容', 'figma-rebuild'),
+    'description' => __('在这里添加新闻文章的详细内容。支持HTML格式。', 'figma-rebuild'),
+    'section'     => 'news_paragraph_content_section',
+    'type'        => 'textarea',
   ]);
 
   $wp_customize->add_section('news_paragraph_help_section', [

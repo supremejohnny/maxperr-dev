@@ -9,7 +9,7 @@ $hero_defaults = [
   'tag'       => __('Knowledge', 'figma-rebuild'),
   'title'     => __('Latest News', 'figma-rebuild'),
   'date'      => '',
-  'image'     => get_template_directory_uri() . '/src/images/install_wallbox_news.png',
+  'image'     => get_template_directory_uri() . '/src/images/news/newspara-Installation.png',
   'image_alt' => '',
 ];
 
@@ -55,10 +55,10 @@ if ($author_custom !== '') {
     </div>
     <header class="news-article-hero__header">
       <?php if ($hero_tag) : ?>
-        <span class="news-article-hero__tag"><?php echo esc_html($hero_tag); ?></span>
+        <span class="knowledge-tag"><?php echo esc_html($hero_tag); ?></span>
       <?php endif; ?>
       <?php if ($hero_title) : ?>
-        <h1 class="news-article-hero__title"><?php echo esc_html($hero_title); ?></h1>
+        <h1 class="H2-Black"><?php echo esc_html($hero_title); ?></h1>
       <?php endif; ?>
     </header>
 
@@ -80,13 +80,13 @@ if ($author_custom !== '') {
     <?php if ($author_name || $hero_date_text) : ?>
       <p class="news-article-hero__meta">
         <?php if ($author_name) : ?>
-          <span class="news-article-hero__author"><?php echo esc_html($author_name); ?></span>
+          <span class="Body-1_Bold"><?php echo esc_html($author_name); ?></span>
         <?php endif; ?>
         <?php if ($author_name && $hero_date_text) : ?>
-          <span class="news-article-hero__sep"> / </span>
+          <span class="Body-1_Bold"> / </span>
         <?php endif; ?>
         <?php if ($hero_date_text) : ?>
-          <time datetime="<?php echo esc_attr($hero_date_attr); ?>"><?php echo esc_html($hero_date_text); ?></time>
+          <time class="Body-1_Bold" style="margin-left: 20px;" datetime="<?php echo esc_attr($hero_date_attr); ?>"><?php echo esc_html($hero_date_text); ?></time>
         <?php endif; ?>
       </p>
     <?php endif; ?>
