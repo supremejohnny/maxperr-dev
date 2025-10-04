@@ -7,18 +7,13 @@
 </head>
 <body <?php body_class('antialiased text-gray-900 bg-white'); ?>>
 <?php
-  $solutions_page     = get_page_by_path('solutions');
-  $solutions_page_url = $solutions_page ? get_permalink($solutions_page) : '#solutions';
-  $products_page      = get_page_by_path('products');
-  $products_page_url = $products_page ? get_permalink($products_page) : '#products';
-  $products_details_page = get_page_by_path('product-details');
-  $products_details_page_url = $products_details_page ? get_permalink($products_details_page) : '#product-details';
-  $partnership_page  = get_page_by_path('partnership');
-  $partnership_page_url = $partnership_page ? get_permalink($partnership_page) : '#partnership';
-  $about_page         = get_page_by_path('about');
-  $about_page_url     = $about_page ? get_permalink($about_page) : '#about';
-  $news_page          = get_page_by_path('news');
-  $news_page_url      = $news_page ? get_permalink($news_page) : '#news';
+  // Direct template URLs
+  $solutions_page_url = home_url('/solutions/');
+  $products_page_url = home_url('/products/');
+  $products_details_page_url = home_url('/product-detail/');
+  $partnership_page_url = home_url('/partnership/');
+  $about_page_url = home_url('/about/');
+  $news_page_url = home_url('/news/');
   $nav_items          = [
     [
       'label' => __('Solutions', 'figma-rebuild'),
@@ -46,13 +41,15 @@
     ],
   ];
 
-  $is_solutions_page = is_page('solutions');
-  $is_products_page = is_page('products');
-  $is_partnership_page = is_page('partnership');
-  $is_about_page = is_page('about');
-  $is_news_page = is_page_template('templates/page-news.php');
-  $is_news_paragraph_page = is_page_template('templates/page-news-paragraph.php');
-  $is_product_details_page = is_page_template('templates/page-product-detail.php');
+  // Check which template is being used via custom query var
+  $current_template = get_query_var('custom_template');
+  $is_solutions_page = ($current_template === 'solutions') || is_page_template('templates/page-solutions.php');
+  $is_products_page = ($current_template === 'products') || is_page_template('templates/page-products.php');
+  $is_partnership_page = ($current_template === 'partnership') || is_page_template('templates/page-partnership.php');
+  $is_about_page = ($current_template === 'about') || is_page_template('templates/page-about.php');
+  $is_news_page = ($current_template === 'news') || is_page_template('templates/page-news.php');
+  $is_news_paragraph_page = ($current_template === 'news-paragraph') || is_page_template('templates/page-news-paragraph.php');
+  $is_product_details_page = ($current_template === 'product-detail') || is_page_template('templates/page-product-detail.php');
 ?>
 
 <header class="site-header<?php echo ($is_solutions_page || $is_products_page || $is_partnership_page || $is_about_page || $is_news_page || $is_news_paragraph_page || $is_product_details_page) ? ' site-header--subpage' : ''; ?>">

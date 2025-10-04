@@ -45,8 +45,7 @@ if ($author_custom !== '') {
   <div class="news-article-hero__container">
     <?php 
     // Get the news page URL
-    $news_page = get_page_by_path('news');
-    $news_page_url = $news_page ? get_permalink($news_page) : home_url('/news');
+    $news_page_url = home_url('/news/');
     ?>
     <div class="news-article-hero__actions">
       <a href="<?php echo esc_url($news_page_url); ?>" class="news-article-hero__back-link">

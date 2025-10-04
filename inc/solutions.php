@@ -220,60 +220,11 @@ if (!function_exists('figma_rebuild_get_repeater_mod')) {
 
 if (!function_exists('figma_rebuild_get_solutions_page_url')) {
   /**
-   * Locate the permalink for the published Solutions page.
+   * Get the Solutions page URL (direct template routing)
    *
    * @return string
    */
   function figma_rebuild_get_solutions_page_url() {
-    static $cached_url = null;
-
-    if (null !== $cached_url) {
-      return $cached_url;
-    }
-
-    $solutions_page = null;
-
-    $template_pages = get_posts([
-      'post_type'      => 'page',
-      'post_status'    => 'publish',
-      'posts_per_page' => 1,
-      'meta_key'       => '_wp_page_template',
-      'meta_value'     => 'templates/page-solutions.php',
-      'orderby'        => 'menu_order',
-      'order'          => 'ASC',
-      'no_found_rows'  => true,
-    ]);
-
-    if (!empty($template_pages)) {
-      $solutions_page = $template_pages[0];
-    }
-
-    if (!$solutions_page instanceof WP_Post) {
-      $candidate_page = get_page_by_path('solutions');
-
-      if ($candidate_page instanceof WP_Post && 'publish' === get_post_status($candidate_page->ID)) {
-        $solutions_page = $candidate_page;
-      }
-    }
-
-    if (!$solutions_page instanceof WP_Post) {
-      $candidate_page = get_page_by_title('Solutions');
-
-      if ($candidate_page instanceof WP_Post && 'publish' === get_post_status($candidate_page->ID)) {
-        $solutions_page = $candidate_page;
-      }
-    }
-
-    if ($solutions_page instanceof WP_Post) {
-      $permalink = get_permalink($solutions_page);
-
-      if ($permalink) {
-        $cached_url = $permalink;
-
-        return $cached_url;
-      }
-    }
-
     return home_url('/solutions/');
   }
 }
