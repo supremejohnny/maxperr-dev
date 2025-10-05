@@ -196,84 +196,352 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ========== Hero slider (robust & multi-instance) ==========
+// ========== Hero video and slider (robust & multi-instance) ==========
 try {
   const heroSections = document.querySelectorAll('.hero-section');
   heroSections.forEach((hero) => {
     if (!(hero instanceof Element)) return;
 
-    // 读取 data-hero-images
-    let images = [];
-    try {
-      images = JSON.parse(hero.getAttribute('data-hero-images') || '[]');
-    } catch { images = []; }
-    if (!Array.isArray(images) || images.length === 0) return;
-
-    const pagination = hero.querySelector('.hero-pagination');
-    const prevBtn   = hero.querySelector('.hero-nav--prev');
-    const nextBtn   = hero.querySelector('.hero-nav--next');
-    const layerA    = hero.querySelector('.hero-bg-layer[data-layer="a"]');
-    const layerB    = hero.querySelector('.hero-bg-layer[data-layer="b"]');
-
-    let index = 0;
-    let useA = true;
-
-    const setBg = (i, instant = false) => {
-      const url = images[i];
-      if (!url) return;
-      const show = useA ? layerA : layerB;
-      const hide = useA ? layerB : layerA;
-      if (hide) hide.classList.remove('is-active');
-      if (show) {
-        show.style.backgroundImage = `url('${url}')`;
-        instant
-          ? show.classList.add('is-active')
-          : requestAnimationFrame(() => show.classList.add('is-active'));
-      }
-      useA = !useA;
-      if (pagination) {
-        pagination.querySelectorAll('.hero-dot').forEach((dot, idx) => {
-          dot.classList.toggle('hero-dot--active', idx === i);
-        });
-      }
-    };
-
-    const go = (i) => {
-      index = (i + images.length) % images.length;
-      setBg(index);
-    };
-
-    // 构建 dots
-    if (pagination) {
-      pagination.innerHTML = '';
-      images.forEach((_, i) => {
-        const d = document.createElement('button');
-        d.className = 'hero-dot' + (i === 0 ? ' hero-dot--active' : '');
-        d.type = 'button';
-        d.setAttribute('aria-label', `Go to slide ${i + 1}`);
-        d.addEventListener('click', () => go(i));
-        pagination.appendChild(d);
-      });
+    // Check if hero has video
+    const hasVideo = hero.getAttribute('data-has-video') === 'true';
+    
+    if (hasVideo) {
+      // Initialize video functionality
+      initHeroVideo(hero);
+    } else {
+      // Initialize image slider functionality
+      initHeroSlider(hero);
     }
-
-    // 初始化第一张
-    setBg(0, true);
-
-    // 控件绑定
-    if (prevBtn instanceof Element) prevBtn.addEventListener('click', () => go(index - 1));
-    if (nextBtn instanceof Element) nextBtn.addEventListener('click', () => go(index + 1));
-
-    // 自动播放 & 悬停暂停
-    const safeOn = (el, type, fn) => el && typeof el.addEventListener === 'function' && el.addEventListener(type, fn);
-    let timer = setInterval(() => go(index + 1), 6000);
-    const pause  = () => { if (timer) { clearInterval(timer); timer = null; } };
-    const resume = () => { if (!timer) timer = setInterval(() => go(index + 1), 6000); };
-    safeOn(hero, 'mouseenter', pause);
-    safeOn(hero, 'mouseleave', resume);
-    safeOn(document, 'visibilitychange', () => (document.hidden ? pause() : resume()));
   });
 } catch (err) {
   console.error('[hero] init failed:', err);
+}
+
+// Hero video initialization
+function initHeroVideo(hero) {
+  const videoContainer = hero.querySelector('.hero-video-container');
+  const youtubeContainer = hero.querySelector('.hero-youtube-video');
+  const video = hero.querySelector('.hero-video');
+  const toggleButton = hero.querySelector('.hero-video-toggle');
+  
+  if (youtubeContainer) {
+    initYouTubeVideo(youtubeContainer, toggleButton);
+  } else if (video) {
+    initUploadedVideo(video, toggleButton);
+  }
+}
+
+// YouTube video initialization
+function initYouTubeVideo(container, toggleButton) {
+  const youtubeUrl = container.getAttribute('data-youtube-url');
+  if (!youtubeUrl) return;
+  
+  // Extract video ID from YouTube URL
+  const videoId = extractYouTubeId(youtubeUrl);
+  if (!videoId) return;
+  
+  // Create iframe with autoplay and loop - 完全隐藏所有YouTube元素
+  const iframe = document.createElement('iframe');
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&mute=1&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&start=0&end=0&cc_load_policy=0&playsinline=1&origin=${window.location.origin}&enablejsapi=1&widget_referrer=${window.location.origin}&enablejsapi=1&version=3&playerapiid=ytplayer`;
+  iframe.setAttribute('frameborder', '0');
+  iframe.setAttribute('allow', 'autoplay; encrypted-media');
+  iframe.setAttribute('allowfullscreen', '');
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.id = 'hero-youtube-player';
+  iframe.style.pointerEvents = 'none'; // 禁用iframe交互
+  iframe.style.position = 'absolute';
+  iframe.style.top = '50%';
+  iframe.style.left = '50%';
+  iframe.style.transform = 'translate(-50%, -50%)';
+  iframe.style.zIndex = '1';
+  
+  container.appendChild(iframe);
+  
+  // Initialize YouTube player control
+  if (toggleButton) {
+    initYouTubePlayerControl(iframe, toggleButton, videoId);
+  }
+}
+
+// Extract YouTube video ID from various YouTube URL formats
+function extractYouTubeId(url) {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+    /youtube\.com\/v\/([^&\n?#]+)/,
+    /youtube\.com\/embed\/([^&\n?#]+)/
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  
+  return null;
+}
+
+// Uploaded video initialization
+function initUploadedVideo(video, toggleButton) {
+  if (!video) return;
+  
+  console.log('Initializing uploaded video:', video.src);
+  console.log('Video data attributes:', {
+    url: video.dataset.videoUrl,
+    autoplay: video.dataset.autoplay,
+    muted: video.dataset.muted,
+    loop: video.dataset.loop
+  });
+  
+  // Set video attributes based on data attributes and for autoplay
+  video.muted = video.dataset.muted === 'true' || true; // 确保静音以允许自动播放
+  video.loop = video.dataset.loop === 'true' || true;
+  video.playsInline = true;
+  video.autoplay = video.dataset.autoplay === 'true' || true; // 明确设置自动播放
+  
+  console.log('Video attributes set:', {
+    muted: video.muted,
+    loop: video.loop,
+    autoplay: video.autoplay,
+    playsInline: video.playsInline
+  });
+  
+  // 立即尝试播放
+  const tryPlay = () => {
+    console.log('Attempting to play video...');
+    video.play().then(() => {
+      console.log('Video started playing successfully');
+    }).catch(err => {
+      console.log('Video autoplay prevented:', err);
+    });
+  };
+  
+  // Handle video loading and error states
+  video.addEventListener('loadstart', () => {
+    console.log('Video load started');
+  });
+  
+  video.addEventListener('loadedmetadata', () => {
+    console.log('Video metadata loaded');
+    tryPlay();
+  });
+  
+  video.addEventListener('loadeddata', () => {
+    console.log('Hero video loaded successfully');
+    tryPlay();
+  });
+  
+  video.addEventListener('canplay', () => {
+    console.log('Video can play');
+    tryPlay();
+  });
+  
+  video.addEventListener('canplaythrough', () => {
+    console.log('Video can play through');
+    tryPlay();
+  });
+  
+  video.addEventListener('error', (e) => {
+    console.error('Hero video failed to load:', e);
+    console.error('Video error details:', video.error);
+    // Show fallback image if video fails
+    const fallback = video.querySelector('.hero-video-fallback');
+    if (fallback) {
+      fallback.style.display = 'block';
+    }
+  });
+  
+  // 添加用户交互后尝试播放
+  const userInteractionHandler = () => {
+    console.log('User interaction detected, attempting to play video');
+    if (video.paused) {
+      video.play().catch(err => {
+        console.log('Video play failed after user interaction:', err);
+      });
+    }
+    // 移除事件监听器，避免重复触发
+    document.removeEventListener('click', userInteractionHandler);
+    document.removeEventListener('touchstart', userInteractionHandler);
+  };
+  
+  document.addEventListener('click', userInteractionHandler);
+  document.addEventListener('touchstart', userInteractionHandler);
+  
+  // 如果视频已经可以播放，立即尝试
+  if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+    tryPlay();
+  }
+  
+  // 添加额外的调试信息
+  console.log('Video element details:', {
+    src: video.src,
+    currentSrc: video.currentSrc,
+    readyState: video.readyState,
+    networkState: video.networkState,
+    paused: video.paused,
+    ended: video.ended,
+    duration: video.duration,
+    videoWidth: video.videoWidth,
+    videoHeight: video.videoHeight
+  });
+  
+  // Initialize video control
+  if (toggleButton) {
+    initVideoControl(video, toggleButton);
+  }
+}
+
+// Video control for uploaded videos
+function initVideoControl(video, toggleButton) {
+  let isPlaying = !video.paused;
+  
+  // Update button state based on video state
+  function updateButtonState() {
+    isPlaying = !video.paused;
+    if (isPlaying) {
+      toggleButton.classList.remove('is-paused');
+    } else {
+      toggleButton.classList.add('is-paused');
+    }
+  }
+  
+  // Toggle video play/pause
+  toggleButton.addEventListener('click', () => {
+    if (video.paused) {
+      video.play().catch(err => {
+        console.log('Video play failed:', err);
+      });
+    } else {
+      video.pause();
+    }
+    updateButtonState();
+  });
+  
+  // Listen for video state changes
+  video.addEventListener('play', updateButtonState);
+  video.addEventListener('pause', updateButtonState);
+  video.addEventListener('ended', updateButtonState);
+  
+  // Initial state
+  updateButtonState();
+}
+
+// YouTube player control (simplified - YouTube API would be needed for full control)
+function initYouTubePlayerControl(iframe, toggleButton, videoId) {
+  let isPlaying = true; // YouTube videos start playing by default
+  const videoContainer = iframe.closest('.hero-video-container');
+  
+  // Update button state and container state
+  function updateButtonState() {
+    console.log('Updating button state, isPlaying:', isPlaying); // Debug log
+    if (isPlaying) {
+      toggleButton.classList.remove('is-paused');
+      if (videoContainer) {
+        videoContainer.classList.remove('is-paused');
+        videoContainer.classList.add('is-playing');
+      }
+    } else {
+      toggleButton.classList.add('is-paused');
+      if (videoContainer) {
+        videoContainer.classList.add('is-paused');
+        videoContainer.classList.remove('is-playing');
+      }
+    }
+  }
+  
+  // Toggle YouTube video with better control
+  toggleButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Toggle button clicked, current state:', isPlaying); // Debug log
+    
+    if (isPlaying) {
+      // Pause YouTube video by reloading with pause parameter
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=0&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&mute=1&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&start=0&end=0&cc_load_policy=0&playsinline=1&origin=${window.location.origin}&enablejsapi=1&widget_referrer=${window.location.origin}&enablejsapi=1&version=3&playerapiid=ytplayer`;
+      isPlaying = false;
+    } else {
+      // Play YouTube video by reloading with autoplay
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&mute=1&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&start=0&end=0&cc_load_policy=0&playsinline=1&origin=${window.location.origin}&enablejsapi=1&widget_referrer=${window.location.origin}&enablejsapi=1&version=3&playerapiid=ytplayer`;
+      isPlaying = true;
+    }
+    updateButtonState();
+  });
+  
+  // Initial state
+  updateButtonState();
+}
+
+// Hero slider initialization (existing functionality)
+function initHeroSlider(hero) {
+  // 读取 data-hero-images
+  let images = [];
+  try {
+    images = JSON.parse(hero.getAttribute('data-hero-images') || '[]');
+  } catch { images = []; }
+  if (!Array.isArray(images) || images.length === 0) return;
+
+  const pagination = hero.querySelector('.hero-pagination');
+  const prevBtn   = hero.querySelector('.hero-nav--prev');
+  const nextBtn   = hero.querySelector('.hero-nav--next');
+  const layerA    = hero.querySelector('.hero-bg-layer[data-layer="a"]');
+  const layerB    = hero.querySelector('.hero-bg-layer[data-layer="b"]');
+
+  let index = 0;
+  let useA = true;
+
+  const setBg = (i, instant = false) => {
+    const url = images[i];
+    if (!url) return;
+    const show = useA ? layerA : layerB;
+    const hide = useA ? layerB : layerA;
+    if (hide) hide.classList.remove('is-active');
+    if (show) {
+      show.style.backgroundImage = `url('${url}')`;
+      instant
+        ? show.classList.add('is-active')
+        : requestAnimationFrame(() => show.classList.add('is-active'));
+    }
+    useA = !useA;
+    if (pagination) {
+      pagination.querySelectorAll('.hero-dot').forEach((dot, idx) => {
+        dot.classList.toggle('hero-dot--active', idx === i);
+      });
+    }
+  };
+
+  const go = (i) => {
+    index = (i + images.length) % images.length;
+    setBg(index);
+  };
+
+  // 构建 dots
+  if (pagination) {
+    pagination.innerHTML = '';
+    images.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'hero-dot' + (i === 0 ? ' hero-dot--active' : '');
+      d.type = 'button';
+      d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      d.addEventListener('click', () => go(i));
+      pagination.appendChild(d);
+    });
+  }
+
+  // 初始化第一张
+  setBg(0, true);
+
+  // 控件绑定
+  if (prevBtn instanceof Element) prevBtn.addEventListener('click', () => go(index - 1));
+  if (nextBtn instanceof Element) nextBtn.addEventListener('click', () => go(index + 1));
+
+  // 自动播放 & 悬停暂停
+  const safeOn = (el, type, fn) => el && typeof el.addEventListener === 'function' && el.addEventListener(type, fn);
+  let timer = setInterval(() => go(index + 1), 6000);
+  const pause  = () => { if (timer) { clearInterval(timer); timer = null; } };
+  const resume = () => { if (!timer) timer = setInterval(() => go(index + 1), 6000); };
+  safeOn(hero, 'mouseenter', pause);
+  safeOn(hero, 'mouseleave', resume);
+  safeOn(document, 'visibilitychange', () => (document.hidden ? pause() : resume()));
 }
 
 // ========== Testimony slider ==========

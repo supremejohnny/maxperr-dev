@@ -81,6 +81,22 @@
       width: 511px;
       height: 577px;
       flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    #<?php echo esc_js($section_id); ?> .cc-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    #<?php echo esc_js($section_id); ?> .cc-card:visited {
+      color: inherit;
+      text-decoration: none;
     }
     #<?php echo esc_js($section_id); ?> .cc-media {
       position: relative;
@@ -145,8 +161,16 @@
         $price = isset($product['price']) ? $product['price'] : '';
         $img   = isset($product['image']) ? $product['image'] : '';
         $img   = $img ? esc_url($img) : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900"><rect width="100%" height="100%" fill="%23cfcfcf"/></svg>';
+        
+        // 检查是否是 12kW Eco 产品，如果是则添加链接
+        $is_eco_12kw = (stripos($name, 'Eco 12kW') !== false || stripos($name, '12kW') !== false);
+        $product_link = $is_eco_12kw ? home_url('/product-detail/') : '#';
       ?>
-        <div class="cc-card">
+        <?php if ($is_eco_12kw): ?>
+          <a href="<?php echo esc_url($product_link); ?>" class="cc-card">
+        <?php else: ?>
+          <div class="cc-card">
+        <?php endif; ?>
           <div class="cc-media">
             <img src="<?php echo $img; ?>" alt="<?php echo esc_attr($name); ?>">
           </div>
@@ -158,7 +182,11 @@
               <div class="cc-price"><?php echo esc_html($price); ?></div>
             <?php endif; ?>
           </div>
-        </div>
+        <?php if ($is_eco_12kw): ?>
+          </a>
+        <?php else: ?>
+          </div>
+        <?php endif; ?>
       <?php endforeach; ?>
     </div>
   </div>

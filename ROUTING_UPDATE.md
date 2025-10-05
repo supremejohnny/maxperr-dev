@@ -53,3 +53,21 @@ wp rewrite flush
 - ✅ `header.php`
 - ✅ `parts/news-paragraph/hero.php`
 - ✅ `inc/solutions.php`
+- ✅ `parts/products/charger-cards.php` - 添加产品链接到详情页
+
+## 新功能
+
+### 1. 产品卡片可点击
+所有产品卡片现在都可以点击，会链接到产品详情页：`/product-detail/`
+
+产品卡片包含悬停效果（上升和阴影）。
+
+### 2. 助手函数
+新增助手函数用于生成 URL：
+
+```php
+// 获取任意模板 URL
+figma_rebuild_get_template_url('products'); // /products/
+figma_rebuild_get_template_url('product-detail'); // /product-detail/
+figma_rebuild_get_template_url('news-paragraph'); // /news-paragraph/
+```

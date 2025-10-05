@@ -314,6 +314,84 @@ add_action('customize_register', function ($wp_customize) {
     'type'    => 'textarea',
   ]);
 
+  // Hero Video Settings
+  $wp_customize->add_setting('hero_video_type', [
+    'default'           => 'none',
+    'sanitize_callback' => 'sanitize_text_field',
+    'transport'         => 'postMessage',
+  ]);
+  $wp_customize->add_control('hero_video_type', [
+    'label'   => __('背景媒体类型', 'figma-rebuild'),
+    'section' => 'hero_section',
+    'type'    => 'select',
+    'choices' => [
+      'none'     => __('无视频（使用图片轮播）', 'figma-rebuild'),
+      'upload'   => __('上传视频文件', 'figma-rebuild'),
+      'youtube'  => __('YouTube 视频', 'figma-rebuild'),
+    ],
+  ]);
+
+  $wp_customize->add_setting('hero_video_file', [
+    'default'           => '',
+    'sanitize_callback' => 'absint', // 使用absint来确保是有效的媒体ID
+    'transport'         => 'postMessage',
+  ]);
+  $wp_customize->add_control(new WP_Customize_Media_Control(
+    $wp_customize,
+    'hero_video_file',
+    [
+      'label'       => __('上传视频文件', 'figma-rebuild'),
+      'section'     => 'hero_section',
+      'mime_type'   => 'video',
+      'description' => __('支持 MP4, WebM, OGG 格式。选择视频文件后，系统会自动设置为"上传视频文件"模式。', 'figma-rebuild'),
+    ]
+  ));
+
+  $wp_customize->add_setting('hero_video_youtube_url', [
+    'default'           => '',
+    'sanitize_callback' => 'esc_url_raw',
+    'transport'         => 'postMessage',
+  ]);
+  $wp_customize->add_control('hero_video_youtube_url', [
+    'label'       => __('YouTube 视频链接', 'figma-rebuild'),
+    'section'     => 'hero_section',
+    'type'        => 'url',
+    'description' => __('输入完整的 YouTube 视频链接，例如：https://www.youtube.com/watch?v=VIDEO_ID', 'figma-rebuild'),
+  ]);
+
+  $wp_customize->add_setting('hero_video_autoplay', [
+    'default'           => true,
+    'sanitize_callback' => 'wp_validate_boolean',
+    'transport'         => 'postMessage',
+  ]);
+  $wp_customize->add_control('hero_video_autoplay', [
+    'label'   => __('自动播放视频', 'figma-rebuild'),
+    'section' => 'hero_section',
+    'type'    => 'checkbox',
+  ]);
+
+  $wp_customize->add_setting('hero_video_loop', [
+    'default'           => true,
+    'sanitize_callback' => 'wp_validate_boolean',
+    'transport'         => 'postMessage',
+  ]);
+  $wp_customize->add_control('hero_video_loop', [
+    'label'   => __('循环播放视频', 'figma-rebuild'),
+    'section' => 'hero_section',
+    'type'    => 'checkbox',
+  ]);
+
+  $wp_customize->add_setting('hero_video_muted', [
+    'default'           => true,
+    'sanitize_callback' => 'wp_validate_boolean',
+    'transport'         => 'postMessage',
+  ]);
+  $wp_customize->add_control('hero_video_muted', [
+    'label'   => __('静音播放', 'figma-rebuild'),
+    'section' => 'hero_section',
+    'type'    => 'checkbox',
+  ]);
+
   $hero_background_defaults = [
     'hero_bg_image_1' => $template_uri . '/src/images/bg_house.jpg',
     'hero_bg_image_2' => $template_uri . '/src/images/bg_house2.jpg',
@@ -2394,6 +2472,59 @@ add_action('customize_controls_enqueue_scripts', function () {
     file_exists(get_template_directory() . '/assets/js/customizer-controls.js') ? filemtime(get_template_directory() . '/assets/js/customizer-controls.js') : null,
     true
   );
+
+  // Add inline script for video type auto-detection
+  wp_add_inline_script('figma-rebuild-customizer-controls', '
+    (function($) {
+      "use strict";
+      
+      wp.customize.bind("ready", function() {
+        // Auto-detect video file selection
+        wp.customize.control("hero_video_file", function(control) {
+          control.setting.bind(function(value) {
+            if (value && value !== "") {
+              // Automatically set video type to "upload" when a video file is selected
+              wp.customize.control("hero_video_type").setting.set("upload");
+            }
+          });
+        });
+        
+        // Auto-detect YouTube URL input
+        wp.customize.control("hero_video_youtube_url", function(control) {
+          control.setting.bind(function(value) {
+            if (value && value !== "" && (value.includes("youtube.com") || value.includes("youtu.be"))) {
+              // Automatically set video type to "youtube" when a YouTube URL is entered
+              wp.customize.control("hero_video_type").setting.set("youtube");
+            }
+          });
+        });
+        
+        // Show/hide relevant controls based on video type
+        function toggleVideoControls() {
+          var videoType = wp.customize.control("hero_video_type").setting.get();
+          var videoFileControl = wp.customize.control("hero_video_file");
+          var youtubeUrlControl = wp.customize.control("hero_video_youtube_url");
+          
+          if (videoType === "upload") {
+            videoFileControl.container.show();
+            youtubeUrlControl.container.hide();
+          } else if (videoType === "youtube") {
+            videoFileControl.container.hide();
+            youtubeUrlControl.container.show();
+          } else {
+            videoFileControl.container.hide();
+            youtubeUrlControl.container.hide();
+          }
+        }
+        
+        // Initial toggle
+        toggleVideoControls();
+        
+        // Toggle on video type change
+        wp.customize.control("hero_video_type").setting.bind(toggleVideoControls);
+      });
+    })(jQuery);
+  ');
 
   wp_enqueue_style(
     'figma-rebuild-customizer-controls',
