@@ -33,6 +33,25 @@
   background-color: #0847BF;
 }
 
+/* 响应式：保留桌面原尺寸，仅在小屏微调宽度与字号 */
+@media (max-width: 1024px) {
+  .One-Column-Learn-More-Button {
+    width: clamp(180px, 22vw, 255px);
+    font-size: clamp(0.95rem, 2.3vw, 1.125rem);
+    border-radius: clamp(8px, 1vw, 10px);
+  }
+}
+
+@media (max-width: 640px) {
+  .One-Column-Learn-More-Button {
+    width: clamp(100px, 45vw, 150px);
+    height: auto;
+    min-height: clamp(36px, 6vh, 40px);
+    font-size: clamp(0.9rem, 4.2vw, 1rem);
+    border-radius: clamp(8px, 2.5vw, 10px);
+  }
+}
+
 .One-Column-Shop-All-Button,
 .monitor__shop {
   background-color: #008FFF;

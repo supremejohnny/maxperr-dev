@@ -3,9 +3,17 @@
   $news_subtitle = get_theme_mod('news_subtitle', __('All about our company and the EV Charging Industry.', 'figma-rebuild'));
   $news_bg_image = get_theme_mod('news_bg_image', '');
   $news_section_style = '';
+  $styles = array();
 
   if ($news_bg_image) {
-    $news_section_style = sprintf(' style="background-image:url(%s);"', esc_url($news_bg_image));
+    $styles[] = sprintf('background-image:url(%s);', esc_url($news_bg_image));
+  }
+
+  // Responsive left margin targeting approximately 110px on large screens
+  $styles[] = 'margin-left:clamp(1rem, 5.73vw, 110px);';
+
+  if (!empty($styles)) {
+    $news_section_style = ' style="' . implode(' ', $styles) . '"';
   }
 
   $news_defaults = figma_rebuild_get_default_news_items();
@@ -33,13 +41,13 @@
   <div class="news-head">
     <div class="news-heading">
       <?php if ($news_title) : ?>
-        <h2 class="text-section text-gray-900"><?php echo esc_html($news_title); ?></h2>
+        <h2 class="H2-Black text-section text-gray-900"><?php echo esc_html($news_title); ?></h2>
       <?php endif; ?>
       <?php if ($news_subtitle) : ?>
-        <p class="news-sub"><?php echo wp_kses_post($news_subtitle); ?></p>
+        <p class="Body-1" style="margin-top: 10px;"><?php echo wp_kses_post($news_subtitle); ?></p>
       <?php endif; ?>
     </div>
-    <button class="CTA-medium">View All</button>
+    <button class="One-Column-Learn-More-Button">Read More</button>
   </div>
 
 

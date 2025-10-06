@@ -49,7 +49,7 @@
   }
 ?>
 
-<section class="hero-section relative flex items-center overflow-hidden w-full"
+<section class="hero-section relative flex items-start overflow-hidden w-full"
   data-hero-images='<?php echo esc_attr(wp_json_encode(array_map('esc_url', $hero_backgrounds))); ?>'
   data-has-video="<?php echo $has_video ? 'true' : 'false'; ?>">
   
@@ -101,7 +101,7 @@
   
   <!-- Gradient overlay above video/images -->
   <div class="hero-overlay"></div>
-    <div class="w-full px-4 md:px-6 relative z-40 max-w-7xl mx-auto">
+    <div class="w-full px-4 md:px-6 relative z-40 max-w-7xl mx-auto hero-content">
       <div class="max-w-full md:max-w-[775px] text-left">
         <?php if ($hero_title) : ?>
           <h1 class="text-white Hero-H1 mb-3 leading-tight">
@@ -114,7 +114,7 @@
           </p>
         <?php endif; ?>
         <?php if ($hero_paragraph) : ?>
-          <p class="Hero-Body text-gray-200 text-lg mb-3 leading-relaxed">
+          <p class="Body-1 text-gray-200 text-lg mb-3 leading-relaxed" style="margin-top: 30px; margin-bottom: 20px; color: #fff;">
             <?php echo wp_kses_post($hero_paragraph); ?>
           </p>
         <?php endif; ?>

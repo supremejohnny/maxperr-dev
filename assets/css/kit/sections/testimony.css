@@ -35,7 +35,8 @@
 /* ===== Testimony: Hero image area ===== */
 .testimony-hero {
   position: relative;
-  height: 520px;
+  /* 背景容器高度：目标 750px，保持响应式 */
+  height: clamp(520px, 78vh, 750px);
   overflow: hidden;
 }
 
@@ -62,14 +63,22 @@
 .testimony-hero__inner {
   position: relative;
   height: 100%;
+  /* 统一控制容器与浏览器左侧的距离 */
+  padding-left: clamp(16px, 6vw, 90px);
+  /* 取消通用容器的居中与最大宽度限制，使其基于视口定位 */
+  max-width: none;
+  margin: 0;
+  width: 100%;
 }
 
 .testimony-stack {
   position: absolute;
-  left: 24px;
-  top: 20%;
+  left: 90px; /* 与容器内边距对齐，避免双重偏移 */
+  /* 置于背景中部 */
+  top: 170px;
   transform: translateY(-50%);
-  width: min(540px, calc(100% - 48px));
+  /* 使卡片容器允许在大屏时达到 650px 宽度，为平板和移动端留出边距 */
+  width: min(650px, calc(100% - clamp(60px, 12vw, 120px)));
 }
 
 .testimony-card {
@@ -78,8 +87,11 @@
   top: 0;
   background: #fff;
   border-radius: 24px;
-  padding: 58px 78px 68px 44px;
-  min-height: 200px;
+  /* 左内边距响应式，目标约 80px；右/上/下保持视觉一致 */
+  padding: clamp(30px, 6vw, 50px) clamp(40px, 8vw, 80px) clamp(40px, 8vw, 60px) clamp(30px, 6vw, 80px);
+  /* 卡片尺寸响应式，最大约 650x400，为平板和移动端留出边距 */
+  width: clamp(280px, 45vw, 650px);
+  min-height: clamp(240px, 28vw, 400px);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
   transition: transform 0.36s cubic-bezier(0.22, 0.61, 0.36, 1),
     opacity 0.36s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -95,7 +107,7 @@
 
 .testimony-card.is-back {
   z-index: 1;
-  transform: translate(-36px, 16px) scale(0.985);
+  transform: translate(clamp(-28px, -3.3vw, -36px), 16px) scale(0.985);
   opacity: 0.55;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
 }
@@ -107,8 +119,8 @@
 
 /* quote mark */
 .testimony-quote {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
   background: #E9F2FF;
   color: #0B5FFF;
@@ -116,31 +128,45 @@
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  margin-bottom: 10px;
+  font-size: 18px;
+  margin-bottom: 8px;
+  margin-left: 0;
+}
+
+/* 针对testimony卡片中的H1类（quote）的样式 */
+.testimony-card .H1 {
+  margin-bottom: 0;
+  margin-top: 0;
+  display: inline-block;
 }
 
 .testimony-heading {
   font-weight: 800;
-  font-size: 22px;
-  margin: 8px 12px 8px;
+  font-size: clamp(18px, 2.5vw, 26px);
+  /* 取消额外左边距，让内容相对于卡片左侧约 120px */
+  margin: clamp(-12px, -2vw, -20px) clamp(10px, 3vw, 20px) 12px clamp(20px, 5vw, 40px);
   color: #0F0F0F;
 }
 
 .testimony-body {
   color: #374151;
   line-height: 1.7;
-  margin: 0 12px 34px;
+  font-size: clamp(14px, 2vw, 18px);
+  /* 取消左边距并限制描述宽度，最大约 520px */
+  margin: 0 clamp(10px, 3vw, 20px) 40px clamp(20px, 5vw, 40px);
+  max-width: clamp(300px, 40vw, 520px);
 }
 
 .testimony-author {
   font-weight: 800;
   color: #0B5FFF;
+  font-size: clamp(12px, 1.5vw, 16px);
 }
 
 /* single "Next" arrow — overlaps left侧，仅下一张 */
 .testimony-next {
   position: absolute;
-  left: -18px;
+  left: clamp(-12px, -1.8vw, -18px);
   top: 50%;
   transform: translateY(-50%);
   width: 36px;
@@ -229,7 +255,27 @@
   }
 
   .testimony-stack {
-    left: 24px;
+    left: clamp(20px, 4vw, 40px);
+    width: min(650px, calc(100% - clamp(40px, 8vw, 80px)));
+    top: clamp(120px, 15vh, 150px);
+  }
+  
+  .testimony-card {
+    width: clamp(260px, 40vw, 650px);
+  }
+  
+  /* 隐藏下一张卡片的预览，但保持DOM结构 */
+  .testimony-card.is-back {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* 桌面端固定精确 90px，以确保卡片左沿=浏览器左侧 90px */
+  .testimony-hero__inner {
+    padding-left: 90px;
   }
 }
 
@@ -238,17 +284,26 @@
     height: 460px;
   }
 
-  .testimony-card {
-    padding: 24px 22px 24px 42px;
+  .testimony-stack {
+    left: clamp(16px, 3vw, 24px);
+    width: min(650px, calc(100% - clamp(32px, 6vw, 48px)));
+    top: clamp(100px, 12vh, 130px);
   }
 
+  .testimony-card {
+    width: clamp(240px, 35vw, 650px);
+    padding: clamp(16px, 4vw, 20px) clamp(12px, 3vw, 16px) clamp(16px, 4vw, 20px) clamp(24px, 6vw, 32px);
+  }
+  
+  /* 隐藏下一张卡片的预览，但保持DOM结构 */
   .testimony-card.is-back {
-    left: -28px;
-    top: 12px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .testimony-next {
-    left: -14px;
+    left: clamp(-10px, -1.6vw, -14px);
   }
 
   .testimony-track {

@@ -5,7 +5,8 @@
 }
 
 .catalog__container {
-  max-width: 1280px;
+  max-width: 1500px;
+  width: min(100%, 1500px);
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -40,17 +41,37 @@
   line-height: 1.4;
 }
 
+/* 标题描述与卡片网格的分隔留白（外观 60px） */
+.catalog__head {
+  margin-bottom: clamp(24px, 6vw, 60px);
+}
+
+/* 桌面：将网格与卡片左对齐到标题左边 */
+@media (min-width: 1025px) {
+  .catalog__grid {
+    justify-items: start;
+  }
+
+  .catalog-card {
+    margin-left: 0;
+  }
+}
+
 /* 两列卡片 */
 .catalog__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px;
-  margin-top: 24px;
+  /* 标题描述 与 图片网格 的垂直间距：最大 60px，随屏缩放 */
+  margin-top: clamp(28px, 6vw, 60px);
+  justify-content: flex-start;
 }
 
 .catalog-card {
   position: relative;
-  min-height: 520px;
+  /* 控制卡片可视尺寸（图片容器）：目标 730x670，响应式上限 */
+  width: clamp(260px, 46vw, 730px);
+  min-height: clamp(360px, 42vw, 670px);
   overflow: hidden;
   border: 1px solid #E5E7EB;
   background: #111;
@@ -62,6 +83,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 /* 左上标题（黑色粗体） */
@@ -119,6 +141,19 @@
 
   .catalog__grid {
     gap: 36px;
+  }
+}
+
+/* 平板：改为单列并缩小卡片尺寸以适配视口 */
+@media (max-width: 1024px) {
+  .catalog__grid {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+
+  .catalog-card {
+    width: clamp(280px, 72vw, 640px);
+    min-height: clamp(360px, 54vw, 590px);
   }
 }
 

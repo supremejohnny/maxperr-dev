@@ -611,7 +611,28 @@ document.addEventListener('DOMContentLoaded', () => {
     render(back,  slides[(i + 1) % slides.length]);
 
     // 保证 next 按钮始终在前卡上
-    if (nextBtn && front !== nextBtn.parentElement) front.prepend(nextBtn);
+    if (nextBtn) {
+      // 确保按钮在正确的位置
+      if (nextBtn.parentElement) {
+        nextBtn.parentElement.removeChild(nextBtn);
+      }
+      front.prepend(nextBtn);
+    }
+
+    // 确保按钮始终在当前显示的卡片上
+    const ensureButtonOnCurrentCard = () => {
+      if (nextBtn) {
+        const currentCard = stack.querySelector('.testimony-card.is-front');
+        if (currentCard) {
+          // 强制移动按钮到当前卡片
+          if (nextBtn.parentElement) {
+            nextBtn.parentElement.removeChild(nextBtn);
+          }
+          currentCard.prepend(nextBtn);
+          console.log('Button moved to current card:', currentCard);
+        }
+      }
+    };
 
     const goNext = () => {
       if (busy) return;
@@ -639,10 +660,21 @@ document.addEventListener('DOMContentLoaded', () => {
         render(back, slides[(i + 1) % slides.length]);
 
         // 把按钮插回新的前卡
-        if (nextBtn && front !== nextBtn.parentElement) front.prepend(nextBtn);
+        if (nextBtn) {
+          // 确保按钮在正确的位置
+          if (nextBtn.parentElement) {
+            nextBtn.parentElement.removeChild(nextBtn);
+          }
+          front.prepend(nextBtn);
+        }
 
         busy = false;
         stack.classList.remove('is-animating');
+        
+        // 确保按钮在正确的卡片上 - 使用延迟确保DOM更新完成
+        setTimeout(() => {
+          ensureButtonOnCurrentCard();
+        }, 50);
       };
       back.addEventListener('transitionend', onDone);
     };
@@ -656,6 +688,16 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.addEventListener('click', goNext);
       }
     }
+    
+    // 初始化时确保按钮在正确位置
+    ensureButtonOnCurrentCard();
+    
+    // 监听窗口大小改变，确保按钮位置正确
+    window.addEventListener('resize', () => {
+      setTimeout(() => {
+        ensureButtonOnCurrentCard();
+      }, 100);
+    });
     // 支持点整个卡片上的 “下一页” 热区（可选）
     if (allowAdvance) {
       stack.addEventListener('click', (ev) => {

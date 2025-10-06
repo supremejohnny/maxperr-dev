@@ -17,10 +17,10 @@
     <!-- 居中内容 -->
     <div class="whyus-hero__content">
       <?php if ($whyus_title) : ?>
-        <h2 class="Hero-H2"><?php echo esc_html($whyus_title); ?></h2>
+        <h2 class="Hero-H2 H2-Black"><?php echo esc_html($whyus_title); ?></h2>
       <?php endif; ?>
       <?php if ($whyus_subtitle) : ?>
-        <p class="whyus-Hero-Body">
+        <p class="whyus-Hero-Body Body-1">
           <?php echo wp_kses_post($whyus_subtitle); ?>
         </p>
       <?php endif; ?>
@@ -46,7 +46,7 @@
       </div>
       <div>
         <?php if ($whyus_paragraph) : ?>
-          <p class="whyus-copy">
+          <p class="whyus-copy Body-1">
             <?php echo wp_kses_post($whyus_paragraph); ?>
           </p>
         <?php endif; ?>

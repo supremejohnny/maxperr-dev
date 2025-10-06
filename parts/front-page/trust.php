@@ -51,10 +51,10 @@
   <!-- Head -->
   <div class="testimony__container testimony__head">
     <?php if ($trust_title) : ?>
-      <h2 class="testimony__title"><?php echo esc_html($trust_title); ?></h2>
+      <h2 class="testimony__title H2-Black"><?php echo esc_html($trust_title); ?></h2>
     <?php endif; ?>
     <?php if ($trust_paragraph) : ?>
-      <p class="testimony__lead">
+      <p class="testimony__lead Body-1">
         <?php echo wp_kses_post($trust_paragraph); ?>
       </p>
     <?php endif; ?>
@@ -73,11 +73,11 @@
       <div class="testimony-stack" data-testimony>
         <!-- Back (上一张的预览) -->
         <article class="testimony-card is-back" data-role="back">
-          <div class="testimony-quote">“</div>
-          <div class="testimony-heading">
+          <div class="H1" style="color: #2970A7;">”</div>
+          <div class="H3 testimony-heading">
             <?php echo isset($back_testimonial['title']) ? esc_html($back_testimonial['title']) : ''; ?>
           </div>
-          <p class="testimony-body">
+          <p class="Body-1_Bold testimony-body" style="line-height: 1.2;">
             <?php echo isset($back_testimonial['body']) ? wp_kses_post($back_testimonial['body']) : ''; ?>
           </p>
           <div class="testimony-author" style="text-align: right;">
@@ -95,11 +95,11 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
           </button>
-          <div class="testimony-quote">”</div>
-          <div class="testimony-heading">
+          <div class="H1" style="color: #2970A7;">”</div>
+          <div class="H3 testimony-heading">
             <?php echo isset($front_testimonial['title']) ? esc_html($front_testimonial['title']) : ''; ?>
           </div>
-          <p class="testimony-body">
+          <p class="Body-1_Bold testimony-body" style="line-height: 1.2;">
             <?php echo isset($front_testimonial['body']) ? wp_kses_post($front_testimonial['body']) : ''; ?>
           </p>
           <div class="testimony-author" style="text-align: right;">

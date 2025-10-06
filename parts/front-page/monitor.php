@@ -16,10 +16,10 @@
     <div class="monitor__head">
       <div class="monitor__copy">
         <?php if ($monitor_title) : ?>
-          <h2 class="monitor__title"><?php echo esc_html($monitor_title); ?></h2>
+          <h2 class="monitor__title H2-Black"><?php echo esc_html($monitor_title); ?></h2>
         <?php endif; ?>
         <?php if ($monitor_paragraph) : ?>
-          <p class="monitor__desc">
+          <p class="monitor__desc Body-1">
             <?php echo wp_kses_post($monitor_paragraph); ?>
           </p>
         <?php endif; ?>
@@ -31,10 +31,10 @@
     <div class="monitor-row">
       <div class="monitor-copy">
         <?php if ($monitor_row1_title) : ?>
-          <h3><?php echo esc_html($monitor_row1_title); ?></h3>
+          <h3 class="H3"><?php echo esc_html($monitor_row1_title); ?></h3>
         <?php endif; ?>
         <?php if ($monitor_row1_paragraph) : ?>
-          <p>
+          <p class="Body-1">
             <?php echo wp_kses_post($monitor_row1_paragraph); ?>
           </p>
         <?php endif; ?>
@@ -47,17 +47,17 @@
     </div>
 
     <!-- 行 2：左图片 / 右文案 -->
-    <div class="monitor-row">
+    <div class="monitor-row monitor-row--reverse">
       <figure class="monitor-media">
         <img src="<?php echo esc_url($monitor_row2_image); ?>"
              alt="Driver app in car">
       </figure>
       <div class="monitor-copy">
         <?php if ($monitor_row2_title) : ?>
-          <h3><?php echo esc_html($monitor_row2_title); ?></h3>
+          <h3 class="H3"><?php echo esc_html($monitor_row2_title); ?></h3>
         <?php endif; ?>
         <?php if ($monitor_row2_paragraph) : ?>
-          <p>
+          <p class="Body-1">
             <?php echo wp_kses_post($monitor_row2_paragraph); ?>
           </p>
         <?php endif; ?>
