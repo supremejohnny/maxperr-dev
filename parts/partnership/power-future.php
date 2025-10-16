@@ -53,12 +53,12 @@ $section_id = 'power-future';
       box-shadow:0 10px 20px rgba(29,78,216,.25);
     }
 
-    /* 英雄图 full-bleed（100vw） */
+    /* 英雄图 full-bleed（100svw，避免滚动条影响视口单位） */
     #<?php echo esc_js($section_id); ?> .pf-bleed {
       position: relative;
-      width: 100vw; max-width: 100vw;
-      margin-left: calc(50% - 50vw);  /* 从容器“溢出”到两边 */
-      margin-right: calc(50% - 50vw);
+      width: 100svw; max-width: 100svw;
+      margin-left: calc(50% - 50svw);  /* 从容器“溢出”到两边 */
+      margin-right: calc(50% - 50svw);
       overflow: visible;
     }
     #<?php echo esc_js($section_id); ?> .pf-hero-img {

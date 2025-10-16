@@ -14,3 +14,9 @@
 @import url("kit/pages/news.css");
 @import url("kit/pages/news-paragraph.css");
 @import url("kit/pages/product-detail.css");
+
+/* Global fix: prevent unintended horizontal scrolling on subpages */
+html, body {
+  overflow-x: clip;
+  width: 100%;
+}

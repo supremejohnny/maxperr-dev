@@ -29,9 +29,29 @@ $hero_id = $hero_id ?? 'subpage-hero';
   <div class="hero-bg-layer is-active"<?php echo $hero_bg_image ? ' style="background-image:url(' . esc_url($hero_bg_image) . ');"' : ''; ?>></div>
   <div class="hero-overlay subpage-hero__overlay"></div>
 
+  <style>
+    /* 将标题区域向下移动100px */
+    .subpage-hero__inner {
+      margin-top: 100px;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+      .subpage-hero__inner {
+        margin-top: 80px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .subpage-hero__inner {
+        margin-top: 60px;
+      }
+    }
+  </style>
+
   <div class="subpage-hero__inner">
     <?php if (!empty($hero_title)) : ?>
-      <h1 class="Hero-H1 subpage-hero__headline">
+      <h1 class="H2-Black subpage-hero__headline">
         <?php echo esc_html($hero_title); ?>
       </h1>
     <?php endif; ?>

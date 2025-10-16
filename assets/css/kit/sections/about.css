@@ -23,7 +23,7 @@
   }
   
   .about-story__container{
-    width: 100vw;
+    width: 100svw;
     max-width: none;
     margin: 0;
     padding: 0;
@@ -35,9 +35,9 @@
   
   .blend-card{
     position: relative;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: 100svw;
+    margin-left: calc(50% - 50svw);
+    margin-right: calc(50% - 50svw);
   
     aspect-ratio: 21 / 7;
     min-height: 220px;

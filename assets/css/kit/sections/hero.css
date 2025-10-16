@@ -74,7 +74,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw;
+  width: 100svw;
   height: 56.25vw; /* 16:9 aspect ratio */
   min-height: 100vh;
   min-width: 177.77vh; /* 16:9 aspect ratio */
@@ -105,13 +105,13 @@
 @media (max-width: 768px) {
   .hero-video {
     /* On mobile, ensure video covers the full area */
-    min-width: 100vw;
+    min-width: 100svw;
     min-height: 100vh;
   }
   
   .hero-youtube-video iframe {
     /* Ensure YouTube videos are responsive on mobile */
-    width: 100vw;
+    width: 100svw;
     height: 56.25vw;
     min-height: 100vh;
     min-width: 177.77vh;
@@ -123,7 +123,7 @@
 /* 平板设备优化 */
 @media (min-width: 769px) and (max-width: 1024px) {
   .hero-youtube-video iframe {
-    width: 100vw;
+    width: 100svw;
     height: 56.25vw;
     min-height: 100vh;
     min-width: 177.77vh;
@@ -133,7 +133,7 @@
 /* 桌面设备优化 */
 @media (min-width: 1025px) {
   .hero-youtube-video iframe {
-    width: 100vw;
+    width: 100svw;
     height: 56.25vw;
     min-height: 100vh;
     min-width: 177.77vh;
@@ -419,7 +419,8 @@
   text-align: center;
   margin: 0 auto;
   color: #ffffff;
-  font-size: clamp(44px, 7.5vw, 92px);
+  /* 移除 font-size 覆盖，让 H2-Black 样式生效 */
+  /* font-size: clamp(44px, 7.5vw, 92px); */
   letter-spacing: -0.04em;
 }
 
@@ -491,7 +492,8 @@
   text-align: center;
   margin: 0 auto;
   color: #ffffff;
-  font-size: clamp(44px, 7.5vw, 92px);
+  /* 移除 font-size 覆盖，让 H2-Black 样式生效 */
+  /* font-size: clamp(44px, 7.5vw, 92px); */
   letter-spacing: -0.04em;
 }
 

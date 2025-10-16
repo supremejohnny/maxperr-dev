@@ -182,9 +182,30 @@
   color: #fff;
 }
 
+/* 子页面菜单按钮颜色 */
+.site-header--subpage #mobile-menu-button {
+  color: #192943;
+}
+
 /* Hide mobile menu button on tablet and up */
 @media (min-width: 768px) {
   #mobile-menu-button {
+    display: none;
+  }
+}
+
+/* 子页面在平板和移动设备上显示菜单按钮 */
+@media (max-width: 1023px) {
+  .site-header--subpage .subpage-header__nav {
+    display: none;
+  }
+  
+  .site-header--subpage .subpage-header__menu-toggle {
+    display: inline-flex;
+    color: #192943; /* 确保菜单按钮是黑色 */
+  }
+  
+  .site-header--subpage .subpage-header__icon {
     display: none;
   }
 }
@@ -199,7 +220,7 @@
 .subpage-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 1.25rem;
   width: 100%;
   padding: 0 clamp(0.75rem, 4vw, 2rem);
@@ -270,9 +291,12 @@
   align-items: center;
   justify-content: center;
   color: #192943;
+  margin-left: auto; /* 确保菜单按钮靠右 */
 }
 
-@media (min-width: 640px) {
+
+/* 桌面端显示导航和动作区图标 */
+@media (min-width: 1024px) {
   .subpage-header__nav {
     display: flex;
   }
@@ -280,9 +304,10 @@
   .subpage-header__menu-toggle {
     display: none;
   }
-  /* 桌面端显示动作区图标 */
-  .subpage-header__actions { display: flex; }
-  .subpage-header__icon { display: inline-flex; }
+  
+  .subpage-header__icon { 
+    display: inline-flex; 
+  }
 }
 
 @media (min-width: 1024px) {
@@ -337,15 +362,15 @@
   display: none;
 }
 
-/* Show mobile menu on mobile only */
-@media (max-width: 767px) {
+/* Show mobile menu on mobile and tablet for subpages */
+@media (max-width: 1023px) {
   .mobile-menu.show {
     display: block;
   }
 }
 
-/* Hide mobile menu on tablet and up */
-@media (min-width: 768px) {
+/* Hide mobile menu on desktop only */
+@media (min-width: 1024px) {
   .mobile-menu {
     display: none !important;
   }

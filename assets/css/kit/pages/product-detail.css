@@ -1,43 +1,47 @@
-/* 全局overflow控制 */
-html, body {
-  overflow-x: hidden !important;
-  max-width: 100vw !important;
-}
+/* 移除对 html/body 的强制约束，避免因 100vw 与滚动条宽度造成溢出 */
+/* 全局不在此处兜底，按模块修复各自溢出来源 */
 
 .product-detail-page {
   color: #0f172a;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden !important;
-  max-width: 100vw !important;
+  line-height: 1.2;
+  /* 使用 clip 而非 hidden + !important，防止生成内嵌滚动条 */
+  overflow-x: clip;
+  max-width: 100%;
   box-sizing: border-box;
-  width: 100% !important;
+  width: 100%;
 }
 
-/* 确保所有section都不会overflow */
+/* 仅在产品详情模板页兜底隐藏横向滚动条 */
+body.page-template-page-product-detail-php {
+  overflow-x: clip;
+  width: 100%;
+}
+
+/* 限定在本页面作用域，避免横向溢出 */
 .product-detail-page > section,
 .product-detail-page > * {
-  overflow-x: hidden !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
+  overflow-x: clip;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* 强制修复所有可能的overflow问题 */
+/* 组件级溢出收口 */
 .pd-hero,
 .product-detail-compare,
 .product-detail-cost,
 .product-detail-specs {
-  overflow-x: hidden !important;
-  box-sizing: border-box !important;
+  overflow-x: clip;
+  box-sizing: border-box;
 }
 
-/* 修复所有内部容器 - 只添加overflow控制，不覆盖margin */
+/* 修复所有内部容器 - 避免横向滚动条 */
 .pd-hero__inner,
 .product-detail-compare__inner,
 .product-detail-cost__inner,
 .product-detail-specs__inner {
-  overflow-x: hidden !important;
-  box-sizing: border-box !important;
+  overflow-x: clip;
+  box-sizing: border-box;
 }
 
 /* 修复所有网格和flex容器 */
@@ -47,9 +51,9 @@ html, body {
 .product-detail-cost__grid,
 .spec-group,
 .spec-table {
-  overflow-x: hidden !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
+  overflow-x: clip;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 
@@ -180,9 +184,9 @@ html, body {
 }
 
 .product-detail-cost__inner {
-  max-width: calc(1394px + 167px * 2);
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 167px;
+  padding: 0 clamp(1.5rem, 4vw, 167px);
   overflow-x: hidden;
   width: 100%;
   box-sizing: border-box;
@@ -190,7 +194,7 @@ html, body {
 
 .product-detail-cost__grid {
   display: grid;
-  grid-template-columns: 682px 682px;
+  grid-template-columns: repeat(2, minmax(0, 682px));
   grid-template-areas:
     "tall medium"
     "wide wide";
@@ -203,7 +207,7 @@ html, body {
 }
 
 .product-detail-cost__card--wide {
-  width: 1394px;
+  width: 100%;
   max-width: 100%;
   justify-self: center;
   box-sizing: border-box;
@@ -218,7 +222,7 @@ html, body {
 
 .product-detail-cost__card--tall {
   grid-area: tall;
-  width: 682px;
+  width: 100%;
   max-width: 100%;
   height: 768px;
   box-sizing: border-box;
@@ -226,7 +230,7 @@ html, body {
 
 .product-detail-cost__card--medium {
   grid-area: medium;
-  width: 682px;
+  width: 100%;
   max-width: 100%;
   height: 768px;
   box-sizing: border-box;
@@ -234,7 +238,7 @@ html, body {
 
 .product-detail-cost__card--wide {
   grid-area: wide;
-  width: 1394px;
+  width: 100%;
   max-width: 100%;
   height: 750px;
   box-sizing: border-box;
@@ -284,12 +288,12 @@ html, body {
 
 @media (max-width: 1728px) {
   .product-detail-cost__inner {
-    padding: 0 80px;
+    padding: 0 clamp(1.5rem, 3vw, 80px);
     overflow-x: hidden;
   }
   
   .product-detail-cost__grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
     overflow-x: hidden;
   }
@@ -314,7 +318,7 @@ html, body {
   }
 
   .product-detail-cost__inner {
-    padding: 0 40px;
+    padding: 0 clamp(1.5rem, 3vw, 2.5rem);
     overflow-x: hidden;
   }
 
@@ -348,7 +352,7 @@ html, body {
   }
 
   .product-detail-cost__inner {
-    padding: 0 20px;
+    padding: 0 clamp(1rem, 4vw, 1.5rem);
     overflow-x: hidden;
   }
 
@@ -421,11 +425,16 @@ html, body {
 
 /* 明细表：统一宽度 + 统一列宽，保证各组小类/数据对齐 */
 .spec-table {
+  /* 基准（桌面）单位，便于比例缩放 */
+  --spec-col-gap: 28px;
+  --spec-row-gap: 4px;
+  --spec-margin-block: 16px;
+
   display: grid;
   grid-template-columns: var(--label-col) 1fr; /* 左列固定，右列自适应 */
-  column-gap: 32px;
-  row-gap: 12px;
-  margin: 24px auto;
+  column-gap: var(--spec-col-gap);
+  row-gap: var(--spec-row-gap);
+  margin: var(--spec-margin-block) auto;
   inline-size: var(--table-w);
   max-width: 100%;
   overflow-x: hidden;
@@ -466,6 +475,10 @@ html, body {
   }
   
   .spec-table {
+    /* 1024px 断点按比例缩放（约 0.9x） */
+    --spec-col-gap: clamp(20px, 2.2vw, 26px);
+    --spec-row-gap: clamp(0.5px, 0.5vw, 2px);
+    --spec-margin-block: clamp(12px, 1.6vw, 16px);
     overflow-x: hidden;
     word-wrap: break-word;
   }
@@ -473,7 +486,7 @@ html, body {
 
 @media (max-width: 768px) {
   .product-detail-specs__inner {
-    padding: 8px 16px 32px;
+    padding: 8px 12px 28px;
     overflow-x: hidden;
     margin-left: auto !important;
     margin-right: auto !important;
@@ -481,14 +494,18 @@ html, body {
   
   .spec-group {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
     overflow-x: hidden;
   }
   
   .spec-table {
     grid-template-columns: 1fr;
     inline-size: 100%;
-    margin: 16px 0;
+    /* 手机进一步缩放（约 0.75x） */
+    --spec-col-gap: clamp(18px, 4vw, 22px);
+    --spec-row-gap: clamp(0.5px, 0.5vw, 2px);
+    --spec-margin-block: clamp(12px, 3.5vw, 14px);
+    margin: var(--spec-margin-block) 0;
     overflow-x: hidden;
     word-wrap: break-word;
   }
@@ -496,12 +513,101 @@ html, body {
   .spec-table dt {
     text-align: left;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     word-wrap: break-word;
   }
   
   .spec-table dd {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+  }
+}
+
+/* 更窄屏：<=720px 进一步收紧，适配 ~695px 视窗 */
+@media (max-width: 720px) {
+  .product-detail-specs__inner {
+    padding: 6px 10px 24px;
+  }
+  .spec-group { gap: 10px; }
+  .spec-table {
+    --spec-col-gap: clamp(14px, 3vw, 18px);
+    --spec-row-gap: clamp(0.5px, 0.5vw, 2px);
+    --spec-margin-block: clamp(10px, 3vw, 12px);
+  }
+  .spec-table dd { margin-bottom: 6px; }
+}
+
+/* 极窄屏：将前两个分组（Design、Input）在 ~430px 下排成 2 列 */
+@media (max-width: 480px) {
+  .product-detail-specs {
+    --label-col-s: 110px;
+  }
+
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table {
+    display: grid;
+    grid-template-columns: var(--label-col-s) 1fr var(--label-col-s) 1fr;
+    column-gap: var(--spec-col-gap);
+    row-gap: var(--spec-row-gap);
+  }
+
+  /* 两列布局下，左侧标签右对齐 */
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dt,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dt {
+    text-align: right;
+  }
+
+  /* 数值与单位同一行显示（例如 531 mm） */
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dd,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dd {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-wrap: normal;
+  }
+
+  /* Design/Input 都是四对键值，按两列两行放置 */
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dt:nth-child(1),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dt:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dd:nth-child(2),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dd:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dt:nth-child(3),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dt:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dd:nth-child(4),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dd:nth-child(4) { grid-column: 2; grid-row: 2; }
+
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dt:nth-child(5),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dt:nth-child(5) { grid-column: 3; grid-row: 1; }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dd:nth-child(6),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dd:nth-child(6) { grid-column: 4; grid-row: 1; }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dt:nth-child(7),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dt:nth-child(7) { grid-column: 3; grid-row: 2; }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dd:nth-child(8),
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dd:nth-child(8) { grid-column: 4; grid-row: 2; }
+}
+
+/* 超窄屏兜底：<=420px 回退为单列，防止信息被截断 */
+@media (max-width: 420px) {
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table {
+    grid-template-columns: 1fr;
+    column-gap: var(--spec-col-gap);
+    row-gap: var(--spec-row-gap);
+  }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dt,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dt {
+    text-align: left;
+  }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dt,
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dd,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dt,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dd {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .product-detail-specs .spec-group:nth-of-type(1) .spec-table dd,
+  .product-detail-specs .spec-group:nth-of-type(2) .spec-table dd {
+    white-space: normal;
+    overflow-wrap: anywhere;
     word-wrap: break-word;
   }
 }
