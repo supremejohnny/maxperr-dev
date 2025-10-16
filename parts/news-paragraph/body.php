@@ -2,6 +2,12 @@
 // 优先使用自定义字段，如果没有则使用页面内容作为后备
 $custom_content = get_theme_mod('news_paragraph_content', '');
 $page_content = get_query_var('news_paragraph_page_content', '');
+
+// Fallback to global variables if query vars are empty
+if (empty($page_content) && isset($GLOBALS['news_paragraph_data']['content'])) {
+  $page_content = $GLOBALS['news_paragraph_data']['content'];
+}
+
 $content = !empty($custom_content) ? $custom_content : $page_content;
 
 // 处理基本格式化

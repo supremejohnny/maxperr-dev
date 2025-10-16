@@ -102,25 +102,27 @@
   <!-- Gradient overlay above video/images -->
   <div class="hero-overlay"></div>
     <div class="w-full px-4 md:px-6 relative z-40 max-w-7xl mx-auto hero-content">
-      <div class="max-w-full md:max-w-[775px] text-left">
+      <div class="max-w-full md:max-w-[775px] text-left space-y-4">
         <?php if ($hero_title) : ?>
-          <h1 class="text-white Hero-H1 mb-3 leading-tight">
+          <h1 class="text-white Hero-H1">
             <?php echo esc_html($hero_title); ?>
           </h1>
         <?php endif; ?>
         <?php if (!empty($hero_subtitle)) : ?>
-          <p class="text-white/90 text-xl mb-3 leading-snug">
+          <p class="text-white/90 text-xl leading-snug">
             <?php echo esc_html($hero_subtitle); ?>
           </p>
         <?php endif; ?>
         <?php if ($hero_paragraph) : ?>
-          <p class="Body-1 text-gray-200 text-lg mb-3 leading-relaxed" style="margin-top: 30px; margin-bottom: 20px; color: #fff;">
+          <p class="Body-1 text-gray-200 text-lg leading-relaxed" style="color: #fff;">
             <?php echo wp_kses_post($hero_paragraph); ?>
           </p>
         <?php endif; ?>
-        <button class="One-Column-Learn-More-Button">
-          Learn More
-        </button>
+        <div class="pt-2">
+          <button class="One-Column-Learn-More-Button">
+            Learn More
+          </button>
+        </div>
       </div>
     </div>
     <!-- Slider controls (only show for image slideshow) -->

@@ -97,7 +97,7 @@
 
     #<?php echo esc_js($section_id); ?> .sh-panel{ padding:10px 0 18px; display:none; }
     #<?php echo esc_js($section_id); ?> .sh-panel.open{ display:block; }
-    #<?php echo esc_js($section_id); ?> .sh-panel p{ color:#334155; line-height:1.7; margin:0 0 14px; }
+    #<?php echo esc_js($section_id); ?> .sh-panel.open p{ color:#334155; line-height:1.2; margin:0 0 14px; }
 
     #<?php echo esc_js($section_id); ?> .sh-learn{
       display:inline-flex; align-items:center; justify-content:center; padding:2px 30px; border-radius:12px;

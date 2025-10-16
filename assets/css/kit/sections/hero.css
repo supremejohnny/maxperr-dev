@@ -1,9 +1,9 @@
 /* Hero Section */
 .hero-section {
-  height: 1117px;
+  height: 900px;
   flex-shrink: 0;
   position: relative;
-  padding-top: 140px;
+  padding-top: 100px;
 }
 
 .hero-bg-layer {
@@ -335,12 +335,13 @@
 .Hero-H1 {
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
-  font-size: clamp(40px, 8vw, 100px);
-  line-height: 100%;
+  font-size: clamp(36px, 6vw, 80px);
+  line-height: 1.1;
   letter-spacing: -0.05em;
   color: #fff;
   text-align: left;
   margin-left: 0;
+  margin-bottom: 1rem;
 }
 
 .Hero-Body {
@@ -350,29 +351,62 @@
   font-family: 'Manrope', sans-serif;
   margin-left: 5px;
   margin-right: 0;
-  line-height: 1.2;
+  line-height: 1.4;
 }
 
-/* 使首屏标题区上移，并以响应式单位控制顶部间距（最大不超过 410px） */
+/* Hero content spacing optimization */
+.hero-content .space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.hero-content .space-y-4 > h1 + p {
+  margin-top: 0.75rem;
+}
+
+.hero-content .space-y-4 > p + p {
+  margin-top: 0.75rem;
+}
+
+/* 使首屏标题区上移，并以响应式单位控制顶部间距（最大不超过 300px） */
 .hero-content {
-  margin-top: clamp(120px, 20vh, 410px);
+  margin-top: clamp(80px, 15vh, 300px);
 }
 
 @media (max-width: 1024px) {
   .hero-content {
-    margin-top: clamp(96px, 18vh, 320px);
+    margin-top: clamp(60px, 12vh, 240px);
   }
 }
 
 @media (max-width: 768px) {
   .hero-content {
-    margin-top: clamp(72px, 16vh, 260px);
+    margin-top: clamp(50px, 10vh, 200px);
+  }
+  
+  .hero-section {
+    height: 800px;
+    padding-top: 80px;
+  }
+  
+  .Hero-H1 {
+    font-size: clamp(32px, 7vw, 64px);
+    line-height: 1.1;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content {
-    margin-top: clamp(56px, 14vh, 220px);
+    margin-top: clamp(40px, 8vh, 160px);
+  }
+  
+  .hero-section {
+    height: 700px;
+    padding-top: 60px;
+  }
+  
+  .Hero-H1 {
+    font-size: clamp(28px, 8vw, 48px);
+    line-height: 1.15;
   }
 }
 

@@ -13,16 +13,27 @@ $hero_defaults = [
   'image_alt' => '',
 ];
 
-$hero_tag   = get_theme_mod('news_paragraph_hero_tag', $hero_defaults['tag']);
-$hero_title = get_theme_mod('news_paragraph_hero_title', '');
-if ('' === trim((string) $hero_title)) {
-  $hero_title = get_query_var('news_paragraph_page_title', $hero_defaults['title']);
-}
-
-$hero_image     = get_theme_mod('news_paragraph_hero_image', $hero_defaults['image']);
+// Get data from query vars (set by the template) with global fallback
+$hero_tag = get_query_var('news_paragraph_page_tag', $hero_defaults['tag']);
+$hero_title = get_query_var('news_paragraph_page_title', $hero_defaults['title']);
+$hero_image = get_query_var('news_paragraph_page_image', $hero_defaults['image']);
 $hero_image_alt = get_theme_mod('news_paragraph_hero_image_alt', $hero_defaults['image_alt']);
 
-$date_value = get_theme_mod('news_paragraph_hero_date', $hero_defaults['date']);
+$date_value = get_query_var('news_paragraph_page_date', $hero_defaults['date']);
+
+// Fallback to global variables if query vars are empty
+if (empty($hero_tag) && isset($GLOBALS['news_paragraph_data']['tag'])) {
+  $hero_tag = $GLOBALS['news_paragraph_data']['tag'];
+}
+if (empty($hero_title) && isset($GLOBALS['news_paragraph_data']['title'])) {
+  $hero_title = $GLOBALS['news_paragraph_data']['title'];
+}
+if (empty($hero_image) && isset($GLOBALS['news_paragraph_data']['image'])) {
+  $hero_image = $GLOBALS['news_paragraph_data']['image'];
+}
+if (empty($date_value) && isset($GLOBALS['news_paragraph_data']['date'])) {
+  $date_value = $GLOBALS['news_paragraph_data']['date'];
+}
 if ($date_value === '' && get_post()) {
   $date_value = get_the_date('Y-m-d');
 }
