@@ -62,7 +62,7 @@ $learn_link  = '#become-partner';
     #<?php echo esc_js($section_id); ?> .cm-container{ max-width:87.1875rem; margin:0 auto; padding:0 1.5rem; }
 
     /* 标题：居中 */
-    #<?php echo esc_js($section_id); ?> .cm-head{ text-align:center; margin-bottom:1.375rem; }
+    #<?php echo esc_js($section_id); ?> .cm-head{ text-align:center; margin-bottom:2.375rem; }
     #<?php echo esc_js($section_id); ?> .cm-head h2{
       margin:0 0 0.625rem; font-size:2.5rem; line-height:1.15; font-weight:800; color:#0f172a; letter-spacing:-.02em;
     }

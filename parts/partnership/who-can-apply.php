@@ -244,9 +244,9 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
   /* 顶部羽化：白到透明，保证字清晰 */
   background:linear-gradient(
     to bottom,
-    rgba(255,255,255,.94) 0%,
-    rgba(255,255,255,.82) 14%,
-    rgba(255,255,255,.48) 34%,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,.98) 14%,
+    rgba(255,255,255,.68) 34%,
     rgba(255,255,255,.20) 52%,
     rgba(255,255,255,0) 68%
   );

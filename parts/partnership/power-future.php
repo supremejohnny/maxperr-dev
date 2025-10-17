@@ -44,7 +44,7 @@ $section_id = 'power-future';
     #<?php echo esc_js($section_id); ?> .pf-container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 24px); }
 
     /* 头部：居中 */
-    #<?php echo esc_js($section_id); ?> .pf-head { text-align:center; margin-bottom: 18px; }
+    #<?php echo esc_js($section_id); ?> .pf-head { text-align:center; margin: 58px; }
     #<?php echo esc_js($section_id); ?> .pf-title { margin:0 0 10px; font-size:40px; line-height:1.15; font-weight:800; color:#0f172a; letter-spacing:-.02em; }
     #<?php echo esc_js($section_id); ?> .pf-desc  { margin:0 auto; max-width:840px; color:#374151; font-size:16px; line-height:1.7; }
     #<?php echo esc_js($section_id); ?> .pf-cta   {

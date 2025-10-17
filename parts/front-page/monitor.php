@@ -38,7 +38,7 @@
             <?php echo wp_kses_post($monitor_row1_paragraph); ?>
           </p>
         <?php endif; ?>
-        <a class="btn-outline" href="/solutions/charger-management">Learn More</a>
+        <a class="Two-Column-Learn-More-Button" href="/solutions/charger-management">Learn More</a>
       </div>
       <figure class="monitor-media">
         <img src="<?php echo esc_url($monitor_row1_image); ?>"
@@ -61,7 +61,7 @@
             <?php echo wp_kses_post($monitor_row2_paragraph); ?>
           </p>
         <?php endif; ?>
-        <a class="btn-outline" href="/solutions/driver-app">Learn More</a>
+        <a class="Two-Column-Learn-More-Button" href="/solutions/driver-app">Learn More</a>
       </div>
     </div>
 

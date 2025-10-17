@@ -118,7 +118,7 @@
 
   <!-- Partners slider -->
   <div class="testimony__container testimony-partners">
-    <h3 class="testimony-partners__title">Proud Partners</h3>
+    <h3 class="Body-1_Bold text-center" style="margin-bottom: 16px;">Proud Partners</h3>
 
     <div class="testimony-marquee">
       <!-- 轨道内重复两遍以实现无缝滚动 -->

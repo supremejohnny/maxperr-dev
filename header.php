@@ -14,7 +14,8 @@
   $partnership_page_url = home_url('/partnership/');
   $about_page_url = home_url('/about/');
   $news_page_url = home_url('/news/');
-  $nav_items          = [
+  // Get navigation items from customizer (with fallback to defaults)
+  $default_nav_items = [
     [
       'label' => __('Solutions', 'figma-rebuild'),
       'url'   => $solutions_page_url,
@@ -40,6 +41,17 @@
       'url'   => '#contact',
     ],
   ];
+
+  $nav_items_json = get_theme_mod('header_nav_items', json_encode($default_nav_items));
+  $nav_items = json_decode($nav_items_json, true);
+  
+  if (!is_array($nav_items) || empty($nav_items)) {
+    $nav_items = $default_nav_items;
+  }
+
+  // Get icon visibility settings
+  $show_profile = get_theme_mod('header_profile_show', true);
+  $show_cart    = get_theme_mod('header_cart_show', true);
 
   // Check which template is being used via custom query var
   $current_template = get_query_var('custom_template');
@@ -136,19 +148,23 @@
       </nav>
 
       <div class="subpage-header__actions">
-        <button type="button" class="subpage-header__icon" aria-label="<?php esc_attr_e('Profile placeholder', 'figma-rebuild'); ?>">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
-            <path d="M4 20a8 8 0 0 1 16 0" />
-          </svg>
-        </button>
-        <button type="button" class="subpage-header__icon" aria-label="<?php esc_attr_e('Shopping cart placeholder', 'figma-rebuild'); ?>">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="9" cy="20" r="1" />
-            <circle cx="17" cy="20" r="1" />
-            <path d="M3 4h2l2 12h10l2-8H6" />
-          </svg>
-        </button>
+        <?php if ($show_profile) : ?>
+          <button type="button" class="subpage-header__icon" aria-label="<?php esc_attr_e('Profile placeholder', 'figma-rebuild'); ?>">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
+              <path d="M4 20a8 8 0 0 1 16 0" />
+            </svg>
+          </button>
+        <?php endif; ?>
+        <?php if ($show_cart) : ?>
+          <button type="button" class="subpage-header__icon" aria-label="<?php esc_attr_e('Shopping cart placeholder', 'figma-rebuild'); ?>">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="20" r="1" />
+              <circle cx="17" cy="20" r="1" />
+              <path d="M3 4h2l2 12h10l2-8H6" />
+            </svg>
+          </button>
+        <?php endif; ?>
         <button id="mobile-menu-button" class="subpage-header__menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
           <span class="sr-only"><?php esc_html_e('Toggle navigation', 'figma-rebuild'); ?></span>
           <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

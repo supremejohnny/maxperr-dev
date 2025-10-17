@@ -413,7 +413,7 @@
 /* ===== 可复用的子页面Hero样式 ===== */
 .subpage-hero {
   height: auto;
-  min-height: 100vh;
+  min-height: 80vh;
   padding: 50px clamp(1.5rem, 6vw, 4rem) clamp(48px, 12vh, 160px);
   display: flex;
   flex-direction: column;

@@ -262,6 +262,113 @@ add_action('customize_register', function ($wp_customize) {
   $template_uri       = get_template_directory_uri();
   $solutions_defaults = function_exists('figma_rebuild_get_solutions_defaults') ? figma_rebuild_get_solutions_defaults() : [];
 
+  /* ------------------------------------------------------------------------ */
+  /* Header Settings                                                          */
+  /* ------------------------------------------------------------------------ */
+  $wp_customize->add_section('header_section', [
+    'title'       => __('Header 导航设置', 'figma-rebuild'),
+    'priority'    => 20,
+    'description' => __('配置网站头部导航菜单项和图标显示。', 'figma-rebuild'),
+  ]);
+
+  // Navigation Menu Items (Repeater)
+  $default_nav_items = json_encode([
+    [
+      'label' => 'Solutions',
+      'url'   => home_url('/solutions/'),
+    ],
+    [
+      'label' => 'Products',
+      'url'   => home_url('/products/'),
+    ],
+    [
+      'label' => 'Partnership',
+      'url'   => home_url('/partnership/'),
+    ],
+    [
+      'label' => 'About',
+      'url'   => home_url('/about/'),
+    ],
+    [
+      'label' => 'News',
+      'url'   => home_url('/news/'),
+    ],
+    [
+      'label' => 'Contact',
+      'url'   => '#contact',
+    ],
+  ]);
+
+  $wp_customize->add_setting('header_nav_items', [
+    'default'           => $default_nav_items,
+    'sanitize_callback' => function ($value) {
+      $items = json_decode($value, true);
+      if (!is_array($items)) return json_encode([]);
+      
+      $sanitized = [];
+      foreach ($items as $item) {
+        if (isset($item['label']) && isset($item['url'])) {
+          $sanitized[] = [
+            'label' => sanitize_text_field($item['label']),
+            'url'   => esc_url_raw($item['url']),
+          ];
+        }
+      }
+      return json_encode($sanitized);
+    },
+    'transport'         => 'refresh',
+  ]);
+
+  $wp_customize->add_control(new Figma_Rebuild_Repeater_Control(
+    $wp_customize,
+    'header_nav_items',
+    [
+      'label'            => __('导航菜单项', 'figma-rebuild'),
+      'description'      => __('添加、删除或编辑导航菜单项。可以自定义每个菜单项的名称和链接。', 'figma-rebuild'),
+      'section'          => 'header_section',
+      'add_button_label' => __('添加菜单项', 'figma-rebuild'),
+      'item_label'       => __('菜单项', 'figma-rebuild'),
+      'fields'           => [
+        [
+          'id'    => 'label',
+          'label' => __('菜单名称', 'figma-rebuild'),
+          'type'  => 'text',
+        ],
+        [
+          'id'    => 'url',
+          'label' => __('链接地址', 'figma-rebuild'),
+          'type'  => 'url',
+        ],
+      ],
+    ]
+  ));
+
+  // Profile Icon
+  $wp_customize->add_setting('header_profile_show', [
+    'default'           => true,
+    'sanitize_callback' => 'wp_validate_boolean',
+    'transport'         => 'refresh',
+  ]);
+  $wp_customize->add_control('header_profile_show', [
+    'label'       => __('显示个人资料图标', 'figma-rebuild'),
+    'description' => __('在子页面头部显示或隐藏个人资料图标', 'figma-rebuild'),
+    'section'     => 'header_section',
+    'type'        => 'checkbox',
+  ]);
+
+  // Shopping Cart Icon
+  $wp_customize->add_setting('header_cart_show', [
+    'default'           => true,
+    'sanitize_callback' => 'wp_validate_boolean',
+    'transport'         => 'refresh',
+  ]);
+  $wp_customize->add_control('header_cart_show', [
+    'label'       => __('显示购物车图标', 'figma-rebuild'),
+    'description' => __('在子页面头部显示或隐藏购物车图标', 'figma-rebuild'),
+    'section'     => 'header_section',
+    'type'        => 'checkbox',
+  ]);
+
   /**
    * NEW: Front Page master panel
    */

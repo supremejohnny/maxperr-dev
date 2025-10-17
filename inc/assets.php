@@ -19,13 +19,8 @@ add_action('wp_enqueue_scripts', function () {
     filemtime(get_template_directory() . '/style.css')
   );
 
-  // Custom kit styles (after Tailwind + style.css)
-  wp_enqueue_style(
-    'figma-rebuild-kit',
-    get_template_directory_uri() . '/assets/css/maxperr_kit.css',
-    ['figma-rebuild-tailwind', 'figma-rebuild-style'], // 依赖在后面加载
-    filemtime(get_template_directory() . '/assets/css/maxperr_kit.css')
-  );
+  // Note: maxperr_kit.css is now imported in tailwind.css and compiled into app.css
+  // No need to enqueue it separately
 
   // JavaScript
   wp_enqueue_script(

@@ -60,7 +60,7 @@
         <?php if ($services_ev_title) : ?>
           <h3 class="catalog-card__title"><?php echo esc_html($services_ev_title); ?></h3>
         <?php endif; ?>
-        <a href="<?php echo esc_url($services_defaults['ev']['link']); ?>" class="catalog-card__btn">Learn More</a>
+        <a href="<?php echo esc_url($services_defaults['ev']['link']); ?>" class="Two-Column-Learn-More-Button catalog-card__btn">Learn More</a>
       </article>
 
       <!-- Home Energy -->
@@ -73,7 +73,7 @@
         <?php if ($services_home_title) : ?>
           <h3 class="catalog-card__title"><?php echo esc_html($services_home_title); ?></h3>
         <?php endif; ?>
-        <a href="<?php echo esc_url($services_defaults['home']['link']); ?>" class="catalog-card__btn">Learn More</a>
+        <a href="<?php echo esc_url($services_defaults['home']['link']); ?>" class="Two-Column-Learn-More-Button catalog-card__btn">Learn More</a>
       </article>
     </div>
 

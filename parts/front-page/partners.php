@@ -1,7 +1,7 @@
 <!-- Partners Section -->
 <section class="py-16 bg-gray-50">
   <div class="container mx-auto px-6">
-    <h3 class="text-center text-xl text-gray-600 mb-12">Proud Partners</h3>
+    <p class="H3">Proud Partners</p>
     <div class="grid grid-cols-2 md:grid-cols-6 gap-8 opacity-60">
       <!-- Placeholder for partner logos -->
       <div class="partner-logo">
