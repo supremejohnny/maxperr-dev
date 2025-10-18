@@ -51,7 +51,7 @@
 }
 
 .news-page-hero__subtitle {
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.85);
 }
@@ -76,7 +76,7 @@
 }
 
 .news-page-body__description {
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.7;
   color: #475569;
 }
@@ -91,8 +91,8 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(2.25rem, 4vw, 3rem);
-  margin-left: 160px;
-  margin-right: 160px;
+  margin-left: clamp(2rem, 8.33vw, 160px);
+  margin-right: clamp(2rem, 8.33vw, 160px);
 }
 
 .news-grid__card {
@@ -150,8 +150,8 @@
 .news-grid__body {
   display: flex;
   flex-direction: column;
-  gap: 1.875rem;
-  padding: 1.75rem 2rem 2.25rem;
+  gap: clamp(1.25rem, 2.5vw, 1.875rem);
+  padding: clamp(1.5rem, 2.5vw, 1.75rem) clamp(1.5rem, 3vw, 2rem) clamp(1.75rem, 3vw, 2.25rem);
   flex: 1 1 auto;
   overflow: hidden;
 }
@@ -160,31 +160,46 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
 }
 
 .news-grid__tag {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.35rem 1.25rem;
+  padding: clamp(0.25rem, 0.5vw, 0.35rem) clamp(0.75rem, 1.5vw, 1.25rem);
   border-radius: 999px;
   background: rgba(59, 130, 246, 0.12);
   color: #1d4ed8;
   font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.9375rem);
   letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
+/* news-card__tag 样式（与front page保持一致） */
+.news-page-body .news-card__tag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(20px, 2.5vw, 24px);
+  padding: 0 clamp(8px, 1.2vw, 10px);
+  font-size: clamp(11px, 1.2vw, 12px);
+  font-weight: 500;
+  background-color: #f1f5f9;
+  color: #475569;
+  border-radius: clamp(10px, 1.5vw, 12px);
+}
+
 .news-grid__date {
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
   font-weight: 600;
   color: #0f172a;
 }
 
 .news-grid__title {
-  font-size: 1.375rem;
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
   font-weight: 800;
   line-height: 1.35;
   color: #0f172a;
@@ -201,7 +216,7 @@
 }
 
 .news-grid__actions [data-news-load-more] {
-  min-width: 200px;
+  min-width: clamp(160px, 20vw, 200px);
 }
 
 [data-news-grid] [hidden] {
@@ -211,23 +226,23 @@
 @media (max-width: 1024px) {
   .news-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.25rem;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
     margin-left: clamp(2rem, 8vw, 160px);
     margin-right: clamp(2rem, 8vw, 160px);
   }
 
   .news-grid__card {
-    border-radius: 24px;
+    border-radius: clamp(16px, 2.5vw, 24px);
   }
 }
 
 @media (max-width: 768px) {
   .news-page-hero {
-    padding: 5rem 0;
+    padding: clamp(3rem, 8vw, 5rem) 0;
   }
 
   .news-page-body {
-    padding: 4rem 0 5rem;
+    padding: clamp(3rem, 6vw, 4rem) 0 clamp(4rem, 8vw, 5rem);
   }
 
   .news-grid {
@@ -237,7 +252,13 @@
   }
 
   .news-grid__body {
-    padding: 1.5rem 1.75rem 2rem;
+    padding: clamp(1.25rem, 3vw, 1.5rem) clamp(1.5rem, 3vw, 1.75rem) clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .news-page-body .news-card__tag {
+    height: clamp(18px, 2.5vw, 20px);
+    padding: 0 clamp(6px, 1.5vw, 8px);
+    font-size: clamp(10px, 1.5vw, 11px);
   }
 }
 

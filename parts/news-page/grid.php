@@ -78,7 +78,7 @@
             <div class="news-grid__body">
               <div class="news-grid__meta">
                 <?php if ($tag) : ?>
-                  <span class="knowledge-tag"><?php echo esc_html($tag); ?></span>
+                  <span class="news-card__tag"><?php echo esc_html($tag); ?></span>
                 <?php endif; ?>
                 <?php if ($date) :
                   $timestamp = strtotime($date);

@@ -1,25 +1,68 @@
 <?php
   // 从自定义器获取标题和图片
-  $news_title = get_theme_mod('news_page_hero_title', __('News', 'figma-rebuild'));
+  $hero_title = get_theme_mod('news_page_hero_title', __('News', 'figma-rebuild'));
   $news_img = get_theme_mod('news_page_hero_bg_image', '');
   $fallback = get_template_directory_uri() . '/src/images/Maxperr-news.png';
-  $hero_src = $news_img ?: $fallback;
+  $hero_bg_image = $news_img ?: $fallback;
+  
+  // 清空 description 和 button，只显示标题
+  $hero_description = '';
+  $hero_button_text = '';
+  $hero_button_link = '';
+  $hero_id = 'news-hero';
+  
+  // 包含hero template
+  include get_template_directory() . '/parts/hero-template.php';
 ?>
 
-<section class="news-hero">
-  <div class="container mx-auto px-6">
-    <h1 class="H2-Black" style="margin-left: 160px; margin-bottom: -30px;"><?php echo esc_html($news_title); ?></h1>
-  </div>
-</section>
-
-<section class="news-hero-image">
-  <figure class="news-hero__figure">
-    <img
-      src="<?php echo esc_url($hero_src); ?>"
-      alt="<?php esc_attr_e('Maxperr Energy hero', 'figma-rebuild'); ?>"
-      class="news-hero__image"
-      loading="eager"
-      decoding="async"
-    />
-  </figure>
-</section>
+<style>
+  /* News page hero 特别定制 */
+  #news-hero.subpage-hero {
+    height: clamp(80px, 12vh, 100px);
+    min-height: auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #news-hero .hero-bg-layer {
+    background-size: cover; /* 图片覆盖整个区域 */
+    background-position: center;
+    width: 100%;
+  }
+  
+  #news-hero .subpage-hero__inner {
+    margin-top: 0;
+    margin-left: clamp(160px, 4vw, 160px);
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+  }
+  
+  #news-hero .subpage-hero__headline {
+    text-align: left;
+    margin: 0;
+    color: #000000;
+  }
+  
+  /* 平板设备 */
+  @media (max-width: 1024px) {
+    #news-hero.subpage-hero {
+      height: clamp(70px, 10vh, 90px);
+    }
+  }
+  
+  /* 移动设备 */
+  @media (max-width: 768px) {
+    #news-hero.subpage-hero {
+      height: clamp(60px, 8vh, 80px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #news-hero.subpage-hero {
+      height: clamp(50px, 7vh, 70px);
+    }
+  }
+</style>
