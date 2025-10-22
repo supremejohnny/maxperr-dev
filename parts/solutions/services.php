@@ -64,31 +64,57 @@
       }
     }
     #solutions-services .svc-card{ position:relative; overflow:hidden; border-radius:24px; box-shadow:0 12px 40px rgba(2,6,23,.08); width: 100%; max-width: 483px; height: auto; aspect-ratio: 483/509; }
-    #solutions-services .svc-card img{ display:block; width:100%; height:100%; object-fit:cover; transform:scale(1); transition:transform .5s ease;}
+    #solutions-services .svc-card img{ display:block; width:100%; height:100%; object-fit:cover; object-position: top center; transform:scale(1); transition:transform .5s ease;}
     #solutions-services .svc-card:hover img{ transform:scale(1.05); }
-    #solutions-services .svc-link{ position:absolute; inset:0; }
+    #solutions-services .svc-link{ position:absolute; inset:0; z-index:2; }
+    #solutions-services .svc-overlay{ position:absolute; top:0; left:0; right:0; padding:2rem 1.5rem; background:linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 40%, transparent 100%); opacity:0; transition:opacity 0.3s ease; pointer-events:none; z-index:1; }
+    #solutions-services .svc-overlay-title{ color:#fff; font-size:1.5rem; font-weight:700; margin:0; text-shadow:0 2px 12px rgba(0,0,0,0.5); line-height:1.3; }
     
     /* 响应式设计 */
     @media (max-width: 1200px) {
       #solutions-services { margin: 0 5rem; }
     }
     
-    @media (max-width: 768px) {
-      #solutions-services { margin: 0 2rem; padding: 2rem 0; }
-      #solutions-services .svc-head { flex-direction: column; gap: 1rem; align-items: flex-start; }
-      #solutions-services .svc-sub { max-width: 100%; }
-      #solutions-services .svc-grid { gap: 20px; }
+    @media (max-width: 1024px) {
+      #solutions-services { margin: 0 3rem; }
     }
     
-    @media (max-width: 1024px) {
+    @media (max-width: 768px) {
+      #solutions-services { margin: 0 1.5rem; padding: 2rem 0; }
+      #solutions-services .svc-head { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      #solutions-services .svc-sub { max-width: 100%; }
       #solutions-services .svc-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+      }
+      #solutions-services .svc-card {
+        max-width: 100%;
+        aspect-ratio: 1/1;
+      }
+      #solutions-services .svc-overlay {
+        opacity: 1;
+        padding: 1rem 0.75rem;
+      }
+      #solutions-services .svc-overlay-title {
+        font-size: 0.75rem;
+        line-height: 1.2;
       }
     }
     
     @media (max-width: 480px) {
       #solutions-services { margin: 0 1rem; }
+      #solutions-services .svc-grid {
+        gap: 0.5rem;
+      }
+      #solutions-services .svc-card {
+        aspect-ratio: 1/0.95;
+      }
+      #solutions-services .svc-overlay {
+        padding: 0.75rem 0.5rem;
+      }
+      #solutions-services .svc-overlay-title {
+        font-size: 0.625rem;
+      }
     }
   </style>
 
@@ -109,18 +135,27 @@
       <!-- Left Card -->
       <a href="<?php echo home_url('/solutions/home'); ?>" class="svc-card">
         <img src="<?php echo get_template_directory_uri(); ?>/src/images/solution-Left-Card.png" alt="Home solutions">
+        <div class="svc-overlay">
+          <h3 class="svc-overlay-title">I need<br>Home solutions.</h3>
+        </div>
         <span class="svc-link" aria-hidden="true"></span>
       </a>
 
       <!-- Centre Card -->
       <a href="<?php echo home_url('/solutions/commercial'); ?>" class="svc-card">
         <img src="<?php echo get_template_directory_uri(); ?>/src/images/solution-Centre-Card.png" alt="Commercial solutions">
+        <div class="svc-overlay">
+          <h3 class="svc-overlay-title">I need<br>Commercial solutions.</h3>
+        </div>
         <span class="svc-link" aria-hidden="true"></span>
       </a>
 
       <!-- Right Card -->
       <a href="<?php echo home_url('/solutions/fleet'); ?>" class="svc-card">
         <img src="<?php echo get_template_directory_uri(); ?>/src/images/solution-Right-Card-Image.png" alt="Fleet solutions">
+        <div class="svc-overlay">
+          <h3 class="svc-overlay-title">I need<br>Fleet solutions.</h3>
+        </div>
         <span class="svc-link" aria-hidden="true"></span>
       </a>
     </div>

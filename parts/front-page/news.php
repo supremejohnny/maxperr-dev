@@ -76,7 +76,7 @@
               </div>
               <div class="p-6">
                 <?php if ($title) : ?>
-                  <h3 class="news-title"><?php echo esc_html($title); ?></h3>
+                  <h3 class="H3"><?php echo esc_html($title); ?></h3>
                 <?php endif; ?>
                 <?php if ($tag) : ?>
                   <span class="news-card__tag"><?php echo esc_html($tag); ?></span>

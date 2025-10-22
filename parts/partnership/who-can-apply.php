@@ -214,57 +214,128 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
   margin: 0;
 }
 
-/* 固定 450×450，并让网格两侧各有 160px 边距 */
+/* 网格布局 - 紧凑型卡片，桌面端显示更多 */
 .who-can-apply__grid--fixed{
-  padding-left:160px;
-  padding-right:160px;
-  display:grid;
-  grid-template-columns:repeat(3, 450px);
-  gap:24px;
-  justify-content:center;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2vw;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* 卡片覆盖式：图片满铺，文字叠在上方，顶部羽化提亮文字 */
+/* 卡片覆盖式：图片满铺，只显示标题 */
 .who-can-apply__card--overlay{
-  position:relative;
-  width:450px;
-  height:450px;
-  overflow:hidden;
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%; /* 调整为4:3宽高比，使卡片更紧凑 */
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.who-can-apply__card--overlay:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
 .who-can-apply__card--overlay .who-can-apply__img{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:cover;
-  z-index:1;
-  transition:transform .25s ease;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transition: transform .3s ease, filter .3s ease;
 }
+
+.who-can-apply__card--overlay:hover .who-can-apply__img{ 
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* 轻微的渐变遮罩，保持图片明亮同时确保文字可读 */
 .who-can-apply__card--overlay::before{
-  content:"";
-  position:absolute; inset:0; z-index:2; pointer-events:none;
-  /* 顶部羽化：白到透明，保证字清晰 */
-  background:linear-gradient(
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
     to bottom,
-    rgba(255,255,255,1) 0%,
-    rgba(255,255,255,.98) 14%,
-    rgba(255,255,255,.68) 34%,
-    rgba(255,255,255,.20) 52%,
-    rgba(255,255,255,0) 68%
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.35) 100%
   );
 }
-.who-can-apply__card--overlay .who-can-apply__card-content{
-  position:absolute; z-index:3;
-  top:20px; left:40px; right:20px;
-  padding:0; /* 覆盖原 padding */
-  color:#111827;
-}
-.who-can-apply__card--overlay:hover .who-can-apply__img{ transform:scale(1.03); }
 
-/* 自适应降列：视口不足时从 3 列降为 2/1 列 */
-@media (max-width: calc(3 * 450px + 2 * 24px + 2 * 160px)){
-  .who-can-apply__grid--fixed{ grid-template-columns:repeat(2, 450px); }
+.who-can-apply__card--overlay .who-can-apply__card-content{
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1vw;
+  color: #ffffff;
+  text-align: center;
 }
-@media (max-width: calc(2 * 450px + 1 * 24px + 2 * 160px)){
-  .who-can-apply__grid--fixed{ grid-template-columns:repeat(1, 450px); }
+
+.who-can-apply__card--overlay .who-can-apply__card-content h3 {
+  max-width: none;
+  font-size: clamp(0.875rem, 1vw, 1.125rem);
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 隐藏描述文字 */
+.who-can-apply__card--overlay .who-can-apply__card-content p {
+  display: none;
+}
+
+/* 平板尺寸 - 三列布局 */
+@media (max-width: 1024px) {
+  .who-can-apply__grid--fixed {
+    grid-template-columns: repeat(3, 1fr);
+    padding-left: 5vw;
+    padding-right: 5vw;
+    gap: 1.5vw;
+  }
+  
+  .who-can-apply__card--overlay {
+    padding-bottom: 80%;
+  }
+  
+  .who-can-apply__card--overlay .who-can-apply__card-content h3 {
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  }
+}
+
+/* 移动设备 - 两列布局 */
+@media (max-width: 640px) {
+  .who-can-apply__grid--fixed {
+    grid-template-columns: repeat(2, 1fr);
+    padding-left: 4vw;
+    padding-right: 4vw;
+    gap: 2vw;
+  }
+  
+  .who-can-apply__card--overlay {
+    padding-bottom: 90%;
+  }
+  
+  .who-can-apply__card--overlay .who-can-apply__card-content {
+    padding: 2vw;
+  }
+  
+  .who-can-apply__card--overlay .who-can-apply__card-content h3 {
+    font-size: clamp(0.75rem, 3vw, 1rem);
+  }
 }
 
 

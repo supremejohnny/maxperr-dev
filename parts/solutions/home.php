@@ -119,7 +119,7 @@
         <h2 class="H2-Black"><?php echo esc_html($section['heading']); ?></h2>
       <?php endif; ?>
       <?php if (!empty($section['intro'])): ?>
-        <p class="Body-1"><?php echo wp_kses_post($section['intro']); ?></p>
+        <p class="Body-1" style="line-height: 1.15;"><?php echo wp_kses_post($section['intro']); ?></p>
       <?php endif; ?>
     </div>
 

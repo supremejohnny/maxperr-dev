@@ -46,7 +46,7 @@
       </div>
       <div>
         <?php if ($whyus_paragraph) : ?>
-          <p class="whyus-copy Body-1">
+          <p class="Body-1" style="line-height: 1.5;">
             <?php echo wp_kses_post($whyus_paragraph); ?>
           </p>
         <?php endif; ?>

@@ -24,7 +24,7 @@
 .Body-1_Bold {
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(14px, 1.6vw, 17px);
   line-height: 120%;
   letter-spacing: 0%;
   color: #000;
@@ -54,7 +54,7 @@
 .Navigation {
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
-  font-size: 13px;
+  font-size: clamp(12px, 1.2vw, 13px);
   line-height: auto;
   letter-spacing: -0.02em;
   color: #000;
@@ -73,8 +73,159 @@
 /* Body-1 - 正文样式 */
 .Body-1 {
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(14px, 1.6vw, 17px);
   font-weight: 400;
   line-height: 120%;
   letter-spacing: 0%;
+}
+
+/* 平板和中等屏幕优化 (768px - 1024px) */
+@media (max-width: 1024px) {
+  .H1 {
+    font-size: clamp(48px, 7vw, 80px);
+    letter-spacing: -0.04em;
+  }
+
+  .H2-Black {
+    font-size: clamp(28px, 4.5vw, 45px);
+    letter-spacing: -0.04em;
+  }
+
+  .H3 {
+    font-size: clamp(18px, 3vw, 28px);
+  }
+
+  .News_Subhead {
+    font-size: clamp(18px, 2.8vw, 23px);
+  }
+
+  .Body-1 {
+    font-size: clamp(13px, 1.8vw, 15px);
+    line-height: 130%;
+  }
+
+  .Body-1_Bold {
+    font-size: clamp(13px, 1.8vw, 15px);
+  }
+
+  .Paragraph-Body {
+    font-size: clamp(15px, 2.2vw, 18px);
+    line-height: 130%;
+  }
+}
+
+/* 移动端优化 (最大 768px) */
+@media (max-width: 768px) {
+  .H1 {
+    font-size: clamp(36px, 9vw, 60px);
+    letter-spacing: -0.03em;
+    line-height: 105%;
+  }
+
+  .H2-Black {
+    font-size: clamp(24px, 6vw, 40px);
+    letter-spacing: -0.03em;
+    line-height: 105%;
+  }
+
+  .H3 {
+    font-size: clamp(18px, 4.5vw, 24px);
+    line-height: 115%;
+  }
+
+  .News_Subhead {
+    font-size: clamp(17px, 4vw, 22px);
+    line-height: 125%;
+  }
+
+  .Body-1 {
+    font-size: clamp(12px, 3vw, 14px);
+    line-height: 145%;
+  }
+
+  .Body-1_Bold {
+    font-size: clamp(12px, 3vw, 14px);
+    line-height: 125%;
+  }
+
+  .Paragraph-Body {
+    font-size: clamp(14px, 3.5vw, 17px);
+    line-height: 145%;
+  }
+
+  .Navigation {
+    font-size: clamp(11px, 2.8vw, 12px);
+  }
+}
+
+/* 小移动设备优化 (最大 480px) */
+@media (max-width: 480px) {
+  .H1 {
+    font-size: clamp(28px, 10vw, 48px);
+    letter-spacing: -0.02em;
+    line-height: 110%;
+  }
+
+  .H2-Black {
+    font-size: clamp(22px, 7vw, 32px);
+    letter-spacing: -0.02em;
+    line-height: 110%;
+  }
+
+  .H3 {
+    font-size: clamp(16px, 5vw, 20px);
+    line-height: 118%;
+  }
+
+  .News_Subhead {
+    font-size: clamp(16px, 4.5vw, 19px);
+    line-height: 130%;
+  }
+
+  .Body-1 {
+    font-size: clamp(12px, 3.5vw, 14px);
+    line-height: 150%;
+  }
+
+  .Body-1_Bold {
+    font-size: clamp(12px, 3.5vw, 14px);
+    line-height: 130%;
+  }
+
+  .Paragraph-Body {
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 150%;
+  }
+
+  .Navigation {
+    font-size: clamp(11px, 3vw, 12px);
+  }
+}
+
+/* 超小设备优化 (最大 360px) */
+@media (max-width: 360px) {
+  .H1 {
+    font-size: clamp(24px, 11vw, 36px);
+  }
+
+  .H2-Black {
+    font-size: clamp(20px, 8vw, 28px);
+  }
+
+  .H3 {
+    font-size: clamp(16px, 5.5vw, 18px);
+  }
+
+  .News_Subhead {
+    font-size: clamp(15px, 5vw, 17px);
+  }
+
+  .Body-1,
+  .Body-1_Bold {
+    font-size: clamp(11px, 4vw, 13px);
+  }
+
+  .Paragraph-Body {
+    font-size: clamp(13px, 4.5vw, 15px);
+  }
 }

@@ -3,14 +3,14 @@
 .One-Column-Book-Consultation-Button {
   background-color: #008FFF;
   color: #FFF;
-  border-radius: 10px;
-  font-size: 1.125rem;
+  border-radius: clamp(6px, 0.8vw, 8px);
+  font-size: clamp(0.75rem, 1.2vw, 0.938rem);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 255px;
-  height: 43px;
+  width: clamp(140px, 16vw, 200px);
+  height: clamp(32px, 3.5vw, 38px);
   padding: 0;
   transition: background-color 0.2s ease-in-out;
 }
@@ -23,9 +23,10 @@
 .CTA-medium {
   background-color: #0B5FFF;
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  padding: clamp(0.375rem, 0.8vw, 0.563rem) clamp(0.75rem, 1.5vw, 1.125rem);
+  border-radius: clamp(5px, 0.6vw, 7px);
   font-weight: 600;
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
   transition: background-color 0.2s ease-in-out;
 }
 
@@ -35,20 +36,22 @@
 
 /* 响应式：保留桌面原尺寸，仅在小屏微调宽度与字号 */
 @media (max-width: 1024px) {
-  .One-Column-Learn-More-Button {
-    width: clamp(180px, 22vw, 255px);
-    font-size: clamp(0.95rem, 2.3vw, 1.125rem);
-    border-radius: clamp(8px, 1vw, 10px);
+  .One-Column-Learn-More-Button,
+  .One-Column-Book-Consultation-Button {
+    width: clamp(130px, 17vw, 190px);
+    font-size: clamp(0.813rem, 1.8vw, 0.938rem);
+    border-radius: clamp(6px, 0.8vw, 8px);
   }
 }
 
 @media (max-width: 640px) {
-  .One-Column-Learn-More-Button {
-    width: clamp(100px, 45vw, 150px);
+  .One-Column-Learn-More-Button,
+  .One-Column-Book-Consultation-Button {
+    width: clamp(90px, 40vw, 130px);
     height: auto;
-    min-height: clamp(36px, 6vh, 40px);
-    font-size: clamp(0.9rem, 4.2vw, 1rem);
-    border-radius: clamp(8px, 2.5vw, 10px);
+    min-height: clamp(30px, 5.5vh, 34px);
+    font-size: clamp(0.75rem, 3.8vw, 0.875rem);
+    border-radius: clamp(6px, 2vw, 8px);
   }
 }
 
@@ -56,9 +59,10 @@
 .monitor__shop {
   background-color: #008FFF;
   color: #fff;
-  border-radius: 10px;
-  padding: 12px 20px;
+  border-radius: clamp(6px, 0.8vw, 8px);
+  padding: clamp(8px, 1vw, 10px) clamp(12px, 1.5vw, 16px);
   font-weight: 700;
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
   line-height: 1;
   display: inline-flex;
   align-items: center;
@@ -68,7 +72,7 @@
 }
 
 .One-Column-Shop-All-Button {
-  width: 180px;
+  width: clamp(120px, 12vw, 150px);
 }
 
 .One-Column-Shop-All-Button:hover,
@@ -80,9 +84,10 @@
   background: rgba(255, 255, 255, 0.92);
   color: #111;
   border: 2px solid rgba(0, 0, 0, 0.55);
-  border-radius: 12px;
-  padding: 12px 43px;
+  border-radius: clamp(8px, 1vw, 10px);
+  padding: clamp(8px, 1vw, 10px) clamp(20px, 2.8vw, 35px);
   font-weight: 700;
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
   line-height: 1;
   transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -98,14 +103,14 @@
 .Two-Column-Learn-More-Button {
   color: #000;
   border: 1px solid #000;
-  border-radius: 10px;
-  font-size: 1.125rem;
+  border-radius: clamp(6px, 0.8vw, 8px);
+  font-size: clamp(0.75rem, 1.2vw, 0.938rem);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(180px, 15vw, 210px);
-  height: 43px;
+  width: clamp(120px, 14vw, 170px);
+  height: clamp(32px, 3.5vw, 36px);
   padding: 0;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -122,17 +127,17 @@
 .knowledge-tag {
   box-sizing: border-box;
   position: relative;
-  width: 158px;
-  height: 36.98px;
+  width: clamp(100px, 10vw, 130px);
+  height: clamp(28px, 3vw, 32px);
   border: 1px solid #2970A7;
-  border-radius: 30px;
+  border-radius: clamp(20px, 2.5vw, 25px);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Manrope', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: clamp(14px, 1.4vw, 17px);
   line-height: 120%;
   color: #2970A7;
   text-align: center;
@@ -147,7 +152,80 @@
   font-family: 'Manrope', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: clamp(14px, 1.4vw, 17px);
   line-height: 120%;
   color: #2970A7;
+}
+
+/* 移动端额外优化 */
+@media (max-width: 768px) {
+  .One-Column-Shop-All-Button,
+  .monitor__shop {
+    width: 100%;
+    max-width: clamp(110px, 35vw, 140px);
+    padding: clamp(6px, 2vw, 8px) clamp(10px, 3.5vw, 12px);
+    font-size: clamp(0.688rem, 3vw, 0.75rem);
+  }
+
+  .CTA-medium {
+    padding: clamp(0.375rem, 1.5vw, 0.5rem) clamp(0.625rem, 2.5vw, 0.875rem);
+    font-size: clamp(0.688rem, 3vw, 0.75rem);
+  }
+
+  .btn-outline {
+    padding: clamp(6px, 2vw, 8px) clamp(16px, 5vw, 20px);
+    font-size: clamp(0.688rem, 3vw, 0.75rem);
+  }
+
+  .Two-Column-Learn-More-Button {
+    width: clamp(100px, 32vw, 130px);
+    height: clamp(28px, 7vw, 32px);
+    font-size: clamp(0.688rem, 3vw, 0.75rem);
+  }
+
+  .knowledge-tag {
+    width: clamp(85px, 26vw, 100px);
+    height: clamp(24px, 6vw, 28px);
+    font-size: clamp(12px, 3.5vw, 14px);
+  }
+
+  .knowledge-tag__text {
+    font-size: clamp(12px, 3.5vw, 14px);
+  }
+}
+
+/* 小移动设备优化 */
+@media (max-width: 480px) {
+  .One-Column-Learn-More-Button,
+  .One-Column-Book-Consultation-Button {
+    width: 100%;
+    max-width: 160px;
+    height: clamp(30px, 8vw, 34px);
+    font-size: clamp(0.688rem, 3.5vw, 0.75rem);
+  }
+
+  .One-Column-Shop-All-Button,
+  .monitor__shop {
+    width: 100%;
+    max-width: 130px;
+    font-size: clamp(0.625rem, 3.5vw, 0.688rem);
+  }
+
+  .CTA-medium {
+    width: 100%;
+    max-width: 180px;
+    font-size: clamp(0.625rem, 3.5vw, 0.688rem);
+  }
+
+  .btn-outline {
+    padding: clamp(6px, 2.5vw, 8px) clamp(12px, 6vw, 16px);
+    font-size: clamp(0.625rem, 3.5vw, 0.688rem);
+  }
+
+  .Two-Column-Learn-More-Button {
+    width: 100%;
+    max-width: 115px;
+    height: clamp(28px, 8vw, 30px);
+    font-size: clamp(0.625rem, 3.5vw, 0.688rem);
+  }
 }

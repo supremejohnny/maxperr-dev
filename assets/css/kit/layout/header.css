@@ -351,15 +351,16 @@
 
 /* Mobile menu */
 .mobile-menu {
-  background-color: rgba(31, 41, 55, 0.95);
+  background-color: #ffffff;
   backdrop-filter: blur(4px);
   width: 100%;
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 40;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   display: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Show mobile menu on mobile and tablet for subpages */
@@ -379,15 +380,15 @@
 .mobile-menu .nav-link {
   display: block;
   padding: 12px 0;
-  color: #2170b9;
+  color: #192943;
   font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   transition: color 0.2s ease-in-out;
 }
 
 .mobile-menu .nav-link:hover {
-  color: #a7a8ac;
+  color: #0b74d0;
 }
 
 .mobile-menu .nav-link:last-child {
