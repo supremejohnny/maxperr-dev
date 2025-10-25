@@ -55,37 +55,97 @@
 
     #<?php echo esc_js($section_id); ?> .hec-grid {
       display: flex;
-      gap: 48px;
+      gap: 20px;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      padding: 0 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    @media (max-width: 1400px) {
+      #<?php echo esc_js($section_id); ?> .hec-grid {
+        gap: 16px;
+        padding: 0 15px;
+      }
     }
     
     @media (max-width: 1200px) {
       #<?php echo esc_js($section_id); ?> .hec-grid {
-        gap: 24px;
+        gap: 12px;
+        padding: 0 10px;
+      }
+    }
+    
+    @media (max-width: 1000px) {
+      #<?php echo esc_js($section_id); ?> .hec-grid {
+        gap: 8px;
+        padding: 0 5px;
       }
     }
     
     @media (max-width: 768px) {
       #<?php echo esc_js($section_id); ?> .hec-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 32px;
+        gap: 6px;
+        padding: 0 5px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      #<?php echo esc_js($section_id); ?> .hec-grid {
+        gap: 4px;
+        padding: 0 2px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      #<?php echo esc_js($section_id); ?> .hec-grid {
+        gap: 2px;
+        padding: 0 1px;
       }
     }
 
     #<?php echo esc_js($section_id); ?> .hec-card { 
       display: flex;
       flex-direction: column;
-      width: 511px;
-      height: 577px;
-      flex-shrink: 0;
+      width: 100%;
+      max-width: 400px;
+      height: 420px;
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    #<?php echo esc_js($section_id); ?> .hec-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* 禁用第三个产品的hover效果和交互 */
+    #<?php echo esc_js($section_id); ?> .hec-card:nth-child(3) {
+      cursor: default !important;
+      pointer-events: none;
+    }
+    
+    #<?php echo esc_js($section_id); ?> .hec-card:nth-child(3):hover {
+      transform: none;
+      box-shadow: none;
+    }
+    
+    #<?php echo esc_js($section_id); ?> .hec-card:visited {
+      color: inherit;
+      text-decoration: none;
     }
     #<?php echo esc_js($section_id); ?> .hec-media {
       position: relative;
       width: 100%;
-      height: 520px;
+      height: 360px;
       background: #cfcfcf;
       display: flex; 
       align-items: center; 
@@ -93,24 +153,57 @@
       flex-shrink: 0;
     }
     
-    @media (max-width: 1200px) {
+    @media (max-width: 1400px) {
       #<?php echo esc_js($section_id); ?> .hec-card {
-        width: 400px;
-        height: 450px;
+        height: 380px;
       }
       #<?php echo esc_js($section_id); ?> .hec-media { 
-        height: 380px; 
+        height: 320px; 
+      }
+    }
+    
+    @media (max-width: 1200px) {
+      #<?php echo esc_js($section_id); ?> .hec-card {
+        height: 360px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-media { 
+        height: 300px; 
+      }
+    }
+    
+    @media (max-width: 1000px) {
+      #<?php echo esc_js($section_id); ?> .hec-card {
+        height: 340px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-media { 
+        height: 280px; 
       }
     }
     
     @media (max-width: 768px) {
       #<?php echo esc_js($section_id); ?> .hec-card {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
+        height: 280px;
       }
       #<?php echo esc_js($section_id); ?> .hec-media { 
-        height: 300px; 
+        height: 220px; 
+      }
+    }
+    
+    @media (max-width: 600px) {
+      #<?php echo esc_js($section_id); ?> .hec-card {
+        height: 260px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-media { 
+        height: 200px; 
+      }
+    }
+    
+    @media (max-width: 480px) {
+      #<?php echo esc_js($section_id); ?> .hec-card {
+        height: 240px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-media { 
+        height: 180px; 
       }
     }
     #<?php echo esc_js($section_id); ?> .hec-media img {
@@ -130,11 +223,65 @@
 
     #<?php echo esc_js($section_id); ?> .hec-name {
       margin: 0 0 6px;
-      font-size: 28px; line-height: 1.2;
+      font-size: 22px; line-height: 1.2;
       color: #111; font-weight: 700; letter-spacing: -0.01em;
     }
     #<?php echo esc_js($section_id); ?> .hec-price {
-      font-size: 26px; font-weight: 800; color: #111;
+      font-size: 20px; font-weight: 800; color: #111;
+    }
+    
+    @media (max-width: 1400px) {
+      #<?php echo esc_js($section_id); ?> .hec-name {
+        font-size: 20px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-price {
+        font-size: 18px;
+      }
+    }
+    
+    @media (max-width: 1200px) {
+      #<?php echo esc_js($section_id); ?> .hec-name {
+        font-size: 18px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-price {
+        font-size: 16px;
+      }
+    }
+    
+    @media (max-width: 1000px) {
+      #<?php echo esc_js($section_id); ?> .hec-name {
+        font-size: 16px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-price {
+        font-size: 14px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      #<?php echo esc_js($section_id); ?> .hec-name {
+        font-size: 14px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-price {
+        font-size: 12px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      #<?php echo esc_js($section_id); ?> .hec-name {
+        font-size: 12px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-price {
+        font-size: 10px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      #<?php echo esc_js($section_id); ?> .hec-name {
+        font-size: 10px;
+      }
+      #<?php echo esc_js($section_id); ?> .hec-price {
+        font-size: 9px;
+      }
     }
 
 

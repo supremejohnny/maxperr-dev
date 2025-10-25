@@ -214,19 +214,19 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
   margin: 0;
 }
 
-/* 网格布局 - 紧凑型卡片，桌面端显示更多 */
+/* 网格布局 - 桌面端显示3列，显示描述 */
 .who-can-apply__grid--fixed{
   padding-left: 8vw;
   padding-right: 8vw;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.2vw;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2vw;
   justify-content: center;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* 卡片覆盖式：图片满铺，只显示标题 */
+/* 卡片覆盖式：桌面端显示描述，移动端只显示标题 */
 .who-can-apply__card--overlay{
   position: relative;
   width: 100%;
@@ -276,6 +276,7 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
   z-index: 3;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1vw;
@@ -293,9 +294,25 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* 隐藏描述文字 */
+/* 桌面端显示描述文字，移动端隐藏 */
 .who-can-apply__card--overlay .who-can-apply__card-content p {
   display: none;
+  font-size: clamp(0.75rem, 0.8vw, 0.9rem);
+  margin: 0.5vw 0 0 0;
+  line-height: 1.4;
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* 桌面端显示描述 */
+@media (min-width: 1024px) {
+  .who-can-apply__card--overlay {
+    padding-bottom: 85%; /* 增加高度以容纳描述文字 */
+  }
+  
+  .who-can-apply__card--overlay .who-can-apply__card-content p {
+    display: block;
+  }
 }
 
 /* 平板尺寸 - 三列布局 */

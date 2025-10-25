@@ -1,9 +1,9 @@
 /* Hero Section */
 .hero-section {
-  height: 900px;
+  height: 800px;
   flex-shrink: 0;
   position: relative;
-  padding-top: 100px;
+  padding-top: 90px;
 }
 
 .hero-bg-layer {
@@ -370,22 +370,25 @@
 /* 使首屏标题区上移，并以响应式单位控制顶部间距（最大不超过 300px） */
 .hero-content {
   margin-top: clamp(80px, 15vh, 300px);
+  margin-left: 50px;
 }
 
 @media (max-width: 1024px) {
   .hero-content {
     margin-top: clamp(60px, 12vh, 240px);
+    margin-left: 50px;
   }
 }
 
 @media (max-width: 768px) {
   .hero-content {
     margin-top: clamp(50px, 10vh, 200px);
+    margin-left: 30px;
   }
   
   .hero-section {
-    height: 800px;
-    padding-top: 80px;
+    height: 700px;
+    padding-top: 70px;
   }
   
   .Hero-H1 {
@@ -397,10 +400,11 @@
 @media (max-width: 480px) {
   .hero-content {
     margin-top: clamp(40px, 8vh, 160px);
+    margin-left: 20px;
   }
   
   .hero-section {
-    height: 700px;
+    height: 600px;
     padding-top: 60px;
   }
   

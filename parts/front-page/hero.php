@@ -102,7 +102,7 @@
   <!-- Gradient overlay above video/images -->
   <div class="hero-overlay"></div>
     <div class="w-full px-4 md:px-6 relative z-40 max-w-7xl mx-auto hero-content">
-      <div class="max-w-full md:max-w-[775px] text-left space-y-4">
+      <div class="max-w-full md:max-w-[775px] text-left space-y-4" style="margin-left: 10px;">
         <?php if ($hero_title) : ?>
           <h1 class="text-white Hero-H1">
             <?php echo esc_html($hero_title); ?>

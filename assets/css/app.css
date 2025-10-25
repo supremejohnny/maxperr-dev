@@ -1273,10 +1273,10 @@ video {
 /* Hero Section */
 
 .hero-section {
-  height: 900px;
+  height: 800px;
   flex-shrink: 0;
   position: relative;
-  padding-top: 100px;
+  padding-top: 90px;
 }
 
 .hero-bg-layer {
@@ -1660,22 +1660,25 @@ video {
 
 .hero-content {
   margin-top: clamp(80px, 15vh, 300px);
+  margin-left: 50px;
 }
 
 @media (max-width: 1024px) {
   .hero-content {
     margin-top: clamp(60px, 12vh, 240px);
+    margin-left: 50px;
   }
 }
 
 @media (max-width: 768px) {
   .hero-content {
     margin-top: clamp(50px, 10vh, 200px);
+    margin-left: 30px;
   }
   
   .hero-section {
-    height: 800px;
-    padding-top: 80px;
+    height: 700px;
+    padding-top: 70px;
   }
   
   .Hero-H1 {
@@ -1687,10 +1690,11 @@ video {
 @media (max-width: 480px) {
   .hero-content {
     margin-top: clamp(40px, 8vh, 160px);
+    margin-left: 20px;
   }
   
   .hero-section {
-    height: 700px;
+    height: 600px;
     padding-top: 60px;
   }
   
@@ -1867,7 +1871,7 @@ video {
   flex-shrink: 0;
   background: linear-gradient(180deg, #2D415C 10.19%, rgba(45, 65, 92, 0.00) 100%);
   position: absolute;
-  top: 0;
+  top: -30px;
   left: 0;
   z-index: 50;
   width: 100%;
@@ -1890,7 +1894,7 @@ video {
   .site-header:not(.site-header--subpage) {
     height: 80px !important;
     width: auto !important;
-    top: 20px !important;
+    top: 10px !important;
     right: 20px !important;
     left: auto !important;
     border-radius: 12px !important;
@@ -1922,7 +1926,7 @@ video {
   .site-header:not(.site-header--subpage) {
     height: 180px;
     width: 100%;
-    top: 0;
+    top: -30px;
     left: 0;
     right: auto;
     border-radius: 0;
