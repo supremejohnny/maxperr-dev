@@ -1,0 +1,582 @@
+/* Header - Navigation gradient background (首页) */
+.site-header:not(.site-header--subpage) {
+  height: 80px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #2D415C 10.19%, rgba(45, 65, 92, 0.00) 100%);
+  position: absolute;
+  top: -30px;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+/* 子页面导航样式 */
+.site-header--subpage {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(25, 41, 67, 0.08);
+  height: auto;
+}
+
+/* Tablet - Move to top right corner (仅首页) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .site-header:not(.site-header--subpage) {
+    height: 80px !important;
+    width: auto !important;
+    top: 10px !important;
+    right: 20px !important;
+    left: auto !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    position: absolute !important;
+    z-index: 999 !important;
+  }
+}
+
+/* Alternative tablet breakpoint for testing */
+@media (min-width: 768px) {
+  .site-header.tablet-corner {
+    height: 80px !important;
+    width: auto !important;
+    top: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    position: absolute !important;
+    z-index: 999 !important;
+  }
+}
+
+/* Desktop - 首页保持原始高度 */
+@media (min-width: 1024px) {
+  .site-header:not(.site-header--subpage) {
+    height: 180px;
+    width: 100%;
+    top: -20px;
+    left: 0;
+    right: auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  
+  /* 子页面桌面端高度 */
+  .site-header--subpage {
+    height: 51px;
+  }
+}
+
+.header-container {
+  width: 100%;
+  height: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tablet - Adjust for corner placement */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    max-width: none !important;
+    margin: 0 !important;
+    width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .header-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+}
+
+.logo-container {
+  display: flex;
+  width: 180px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Tablet - Smaller logo for corner placement */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .logo-container {
+    width: 160px;
+    height: 28px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .logo-container {
+    width: 254.578px;
+    height: 44px;
+  }
+}
+
+/* Header center navigation and right spacer */
+.main-navigation {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Tablet - Show navigation inline for corner placement */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-navigation {
+    display: inline-flex;
+    gap: 12px;
+    position: static;
+    left: auto;
+    transform: none;
+    margin-left: 16px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .main-navigation {
+    display: inline-flex;
+    gap: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+  }
+}
+
+.header-spacer {
+  width: 180px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Mobile menu button */
+#mobile-menu-button {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #fff;
+}
+
+/* 子页面菜单按钮颜色 */
+.site-header--subpage #mobile-menu-button {
+  color: #192943;
+}
+
+/* Hide mobile menu button on tablet and up */
+@media (min-width: 768px) {
+  #mobile-menu-button {
+    display: none;
+  }
+}
+
+/* 子页面在平板和移动设备上显示菜单按钮 */
+@media (max-width: 1023px) {
+  .site-header--subpage .subpage-header__nav {
+    display: none;
+  }
+  
+  .site-header--subpage .subpage-header__menu-toggle {
+    display: inline-flex;
+    color: #192943; /* 确保菜单按钮是黑色 */
+  }
+  
+  .site-header--subpage .subpage-header__icon {
+    display: none;
+  }
+}
+
+/* ===== Solutions subpage header ===== */
+
+.site-header--subpage .mobile-menu {
+  background: #ffffff;
+}
+
+
+.subpage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  width: 100%;
+  padding: 0 clamp(0.75rem, 4vw, 2rem);
+  min-height: 51px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(15, 27, 45, 0.08);
+  box-shadow: 0 4px 18px rgba(12, 34, 64, 0.08);
+}
+
+.subpage-header__logo {
+  display: flex;
+  width: 100px;
+  height: 22px;
+  align-items: center;
+}
+
+.subpage-header__nav {
+  display: none;
+  align-items: center;
+  gap: 1.25rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+}
+
+/* 让导航靠右 */
+.subpage-header__nav { margin-left: auto; }
+
+.subpage-header__link {
+  color: #192943;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.subpage-header__link:hover,
+.subpage-header__link:focus {
+  color: #0b74d0;
+}
+
+.subpage-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* 隐藏右侧占位图标 */
+.subpage-header__icon {
+  border: none;
+  background: rgba(11, 116, 208, 0.08);
+  border-radius: 9999px;
+  width: 28px;
+  height: 28px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #0b74d0;
+}
+
+.subpage-header__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.subpage-header__menu-toggle {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #192943;
+  margin-left: auto; /* 确保菜单按钮靠右 */
+}
+
+
+/* 桌面端显示导航和动作区图标 */
+@media (min-width: 1024px) {
+  .subpage-header__nav {
+    display: flex;
+  }
+
+  .subpage-header__menu-toggle {
+    display: none;
+  }
+  
+  .subpage-header__icon { 
+    display: inline-flex; 
+  }
+}
+
+@media (min-width: 1024px) {
+  .subpage-header {
+    gap: 2rem;
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+  }
+
+  .subpage-header__logo {
+    width: 120px;
+    height: 26px;
+  }
+}
+
+/* Tablet - Remove spacer for corner placement */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header-spacer {
+    display: none;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .header-spacer {
+    width: 254.578px;
+    display: flex;
+  }
+}
+
+/* Nav */
+.nav-link {
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #0B5FFF;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  background-color: #ffffff;
+  backdrop-filter: blur(4px);
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 40;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Show mobile menu on mobile and tablet for subpages */
+@media (max-width: 1023px) {
+  .mobile-menu.show {
+    display: block;
+  }
+}
+
+/* Hide mobile menu on desktop only */
+@media (min-width: 1024px) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
+
+.mobile-menu .nav-link {
+  display: block;
+  padding: 12px 0;
+  color: #192943;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: color 0.2s ease-in-out;
+}
+
+.mobile-menu .nav-link:hover {
+  color: #0b74d0;
+}
+
+.mobile-menu .nav-link:last-child {
+  border-bottom: none;
+}
+
+/* ===== Dropdown Menu Styles ===== */
+
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link--dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  z-index: 1000;
+  margin-top: 8px;
+  min-width: 400px;
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.is-active .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-content {
+  padding: 24px;
+}
+
+.dropdown-content--columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  min-width: 500px;
+}
+
+.dropdown-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dropdown-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dropdown-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #192943;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown-link {
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+  padding: 4px 0;
+}
+
+.dropdown-link:hover {
+  color: #0b74d0;
+}
+
+.dropdown-images {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dropdown-image-placeholder {
+  flex: 1;
+  height: 80px;
+  background: #f7fafc;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-text {
+  font-size: 12px;
+  color: #a0aec0;
+  font-weight: 500;
+}
+
+/* Solutions dropdown specific styles */
+.dropdown-menu--solutions {
+  min-width: 450px;
+}
+
+.dropdown-menu--solutions .dropdown-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dropdown-menu--solutions .dropdown-section {
+  flex: 1;
+}
+
+.dropdown-menu--solutions .dropdown-images {
+  margin-top: 0;
+}
+
+/* About dropdown specific styles */
+.dropdown-menu--about {
+  min-width: 600px;
+}
+
+/* Subpage header dropdown styles */
+.subpage-header .nav-dropdown {
+  position: relative;
+}
+
+.subpage-header .dropdown-menu {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1023px) {
+  .dropdown-menu {
+    display: none !important;
+  }
+  
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown.is-active .dropdown-menu {
+    display: none !important;
+  }
+  
+}
+
+/* Tablet specific adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dropdown-menu {
+    display: none !important;
+  }
+  
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown.is-active .dropdown-menu {
+    display: none !important;
+  }
+}
+
+/* Ensure dropdowns work on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .nav-dropdown:hover .dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .nav-dropdown.is-active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+  }
+}

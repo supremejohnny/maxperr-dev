@@ -1,0 +1,151 @@
+/* Products Page Styles */
+
+/* Products Hero Section - 使用可复用的subpage-hero样式 */
+.products-hero__cta {
+  align-self: center;
+  display: inline-block;
+  background: #3B82F6;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.products-hero__cta:hover {
+  background: #2563EB;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+/* Charger Cards Section */
+.charger-cards-section {
+  background-color: #F3F4F6;
+}
+
+.charger-card {
+  transition: all 0.3s ease;
+}
+
+.charger-card__image-container {
+  position: relative;
+}
+
+.charger-card__image-container img {
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.charger-card__image-container img:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.charger-card__name {
+  color: #1F2937;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.charger-card__price {
+  color: #3B82F6;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Home Energy Hero Section - 使用可复用的subpage-hero样式 */
+.home-energy-hero__cta {
+  align-self: center;
+  display: inline-block;
+  background: #3B82F6;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.home-energy-hero__cta:hover {
+  background: #2563EB;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+/* Home Energy Cards Section */
+.home-energy-cards-section {
+  background-color: #F3F4F6;
+}
+
+.home-energy-card {
+  transition: all 0.3s ease;
+  border: 1px solid #E5E7EB;
+}
+
+.home-energy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.home-energy-card__image-container {
+  overflow: hidden;
+}
+
+.home-energy-card__image-container img {
+  transition: transform 0.3s ease;
+}
+
+.home-energy-card:hover .home-energy-card__image-container img {
+  transform: scale(1.05);
+}
+
+.home-energy-card__name {
+  color: #1F2937;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.home-energy-card__description {
+  color: #6B7280;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.home-energy-card__price {
+  color: #3B82F6;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .charger-card__name,
+  .home-energy-card__name {
+    font-size: 1.125rem;
+  }
+  
+  .charger-card__price,
+  .home-energy-card__price {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .charger-cards-section,
+  .home-energy-cards-section {
+    padding: 2rem 0;
+  }
+  
+  .charger-card__content,
+  .home-energy-card__content {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,178 @@
+/* ===== Why Us Page ===== */
+.whyus {
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Hero 区域 */
+.whyus-hero {
+  position: relative;
+  min-height: 720px;
+}
+
+.whyus-hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.whyus-hero__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.20) 35%,
+    rgba(0, 0, 0, 0.10) 60%,
+    rgba(255, 255, 255, 0.92) 90%,
+    #ffffff 100%
+  );
+}
+
+/* 居中内容：标题/文案/按钮（略上移以贴近设计稿） */
+.whyus-hero__content {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: min(560px, 88%);
+  z-index: 1;
+}
+
+.Hero-H2 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+}
+
+.whyus-Hero-Body {
+  color: #E5F0E5;
+  font-size: 16px;
+  line-height: 1.4;
+  margin-top: 14px;
+  max-width: 452px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 条状分页（置于大图底部中间，位于渐变之上） */
+.whyus-hero__bars {
+  position: absolute;
+  left: 50%;
+  bottom: 160px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 358px;
+  z-index: 1;
+}
+
+.whyus-bar {
+  width: 120px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.30);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.whyus-bar.is-active {
+  background: #2970A7;
+  transform: scale(1.04);
+}
+
+/* 下方内容区（“20% + 文案”） */
+.whyus-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+  position: relative;
+}
+
+.whyus-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 56px;
+}
+
+.whyus-accent {
+  width: 110px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #0B5FFF;
+  margin-bottom: 22px;
+}
+
+.whyus-kpi {
+  color: #2D415C;
+  font-weight: 800;
+  font-size: 96px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.whyus-copy {
+  color: #374151;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* 响应式微调 */
+@media (max-width: 1024px) {
+  .Hero-H2 {
+    font-size: 40px;
+  }
+
+  .whyus-hero__bars {
+    bottom: 140px;
+  }
+
+  .whyus-kpi {
+    font-size: 72px;
+  }
+}
+
+@media (max-width: 768px) {
+  .whyus-hero {
+    min-height: 600px;
+  }
+
+  .whyus-hero__content {
+    top: 16%;
+    width: min(540px, 94%);
+  }
+
+  .Hero-H2 {
+    font-size: 34px;
+  }
+
+  .Hero-Body {
+    font-size: 16px;
+  }
+
+  .whyus-hero__bars {
+    bottom: 120px;
+    gap: 20px;
+  }
+
+  .whyus-bar {
+    width: 72px;
+  }
+
+  .whyus-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .whyus-kpi {
+    font-size: 56px;
+  }
+}

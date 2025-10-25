@@ -1,0 +1,330 @@
+/* ===================================
+   Responsive Landing Page Styles
+   =================================== */
+
+.landing-page {
+  background-color: #ffffff;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* ===================================
+   Container and Layout
+   =================================== */
+
+.landing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.landing-section {
+  padding: 60px 0;
+  width: 100%;
+}
+
+/* Alternating background colors for visual contrast */
+.landing-section:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.landing-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  min-height: 500px;
+}
+
+/* Reverse layout for alternating sections */
+.landing-content-wrapper--reverse {
+  flex-direction: row-reverse;
+}
+
+/* Special layout for team section */
+.landing-content-wrapper--team {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ===================================
+   Image Containers and Styling
+   =================================== */
+
+.landing-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.landing-image-wrapper:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.landing-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+  display: block;
+  aspect-ratio: 4/3;
+}
+
+/* ===================================
+   Text Content Styling
+   =================================== */
+
+.landing-text-content {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.landing-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #007bff;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.landing-main-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+}
+
+/* Responsive font sizes */
+@media (max-width: 1024px) {
+  .landing-main-heading {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-main-heading {
+    font-size: 24px;
+  }
+}
+
+.landing-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  max-width: 600px;
+}
+
+/* ===================================
+   Team Grid Layout
+   =================================== */
+
+.landing-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 600px;
+}
+
+.landing-team-member {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #f8f9fa;
+}
+
+.landing-team-member:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.landing-team-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.landing-team-member:hover .landing-team-image {
+  transform: scale(1.05);
+}
+
+/* ===================================
+   Section-specific Styling
+   =================================== */
+
+.landing-section--our-value {
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.landing-section--our-promise {
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(249, 249, 249, 1) 100%);
+}
+
+.landing-section--solutions {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.landing-section--our-team {
+  background: linear-gradient(135deg, rgba(108, 117, 125, 0.05) 0%, rgba(249, 249, 249, 1) 100%);
+  padding: 80px 0;
+}
+
+/* ===================================
+   Responsive Design - Tablet
+   =================================== */
+
+@media (max-width: 1024px) {
+  .landing-container {
+    padding: 0 30px;
+  }
+  
+  .landing-content-wrapper {
+    gap: 40px;
+    min-height: 400px;
+  }
+  
+  .landing-content-wrapper--team {
+    gap: 40px;
+  }
+  
+  .landing-team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+  }
+  
+  .landing-team-image {
+    height: 160px;
+  }
+}
+
+/* ===================================
+   Responsive Design - Mobile
+   =================================== */
+
+@media (max-width: 768px) {
+  .landing-section {
+    padding: 40px 0;
+  }
+  
+  .landing-container {
+    padding: 0 20px;
+  }
+  
+  /* Stack vertically on mobile - image on top, text below */
+  .landing-content-wrapper,
+  .landing-content-wrapper--reverse {
+    flex-direction: column;
+    gap: 30px;
+    min-height: auto;
+  }
+  
+  /* Team section also stacks vertically */
+  .landing-content-wrapper--team {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .landing-image-wrapper {
+    max-width: 100%;
+  }
+  
+  .landing-section-title {
+    font-size: 20px;
+  }
+  
+  
+  .landing-description {
+    font-size: 16px;
+  }
+  
+  .landing-team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    max-width: 100%;
+  }
+  
+  .landing-team-image {
+    height: 140px;
+  }
+  
+  .landing-section--our-team {
+    padding: 60px 0;
+  }
+}
+
+/* ===================================
+   Additional Hover Effects
+   =================================== */
+
+.landing-text-content {
+  transition: transform 0.2s ease;
+}
+
+/* Only apply hover effects on larger screens */
+@media (min-width: 769px) {
+  .landing-section:hover .landing-text-content {
+    transform: translateY(-2px);
+  }
+}
+
+/* Focus states for accessibility */
+.landing-image-wrapper:focus-within,
+.landing-team-member:focus-within {
+  outline: 2px solid #007bff;
+  outline-offset: 4px;
+}
+
+/* Loading state for images */
+.landing-image,
+.landing-team-image {
+  background-color: #f8f9fa;
+  background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                    linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                    linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                    linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* ===================================
+   Print Styles
+   =================================== */
+
+@media print {
+  .landing-section {
+    padding: 20px 0;
+    break-inside: avoid;
+  }
+  
+  .landing-image-wrapper,
+  .landing-team-member {
+    box-shadow: none;
+  }
+  
+  .landing-content-wrapper,
+  .landing-content-wrapper--reverse,
+  .landing-content-wrapper--team {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
