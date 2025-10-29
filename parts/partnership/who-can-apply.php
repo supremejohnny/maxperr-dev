@@ -75,10 +75,10 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
             class="who-can-apply__img"
           >
           <div class="who-can-apply__card-content">
-            <h3 class="H3" style="max-width:230px;margin-bottom:10px;">
+            <h3 class="H3">
               <?php echo esc_html($professional['title']); ?>
             </h3>
-            <p class="Body-1" style="max-width:340px; color: #000;">
+            <p class="Body-1 who-can-apply__description-text">
               <?php echo esc_html($professional['description']); ?>
             </p>
           </div>
@@ -162,174 +162,131 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
   .who-can-apply__grid {
     grid-template-columns: repeat(3, 1fr);
   }
-
 }
 
-.who-can-apply__card {
-  background: #ffffff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.who-can-apply__card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.who-can-apply__card-image {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-}
-
-.who-can-apply__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s ease;
-}
-
-.who-can-apply__card:hover .who-can-apply__img {
-  transform: scale(1.05);
-}
-
-.who-can-apply__card-content {
-  padding: 24px;
-}
-
-.who-can-apply__card-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 12px;
-  line-height: 1.3;
-}
-
-.who-can-apply__card-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #475569;
-  margin: 0;
-}
-
-/* 网格布局 - 桌面端显示3列，显示描述 */
-.who-can-apply__grid--fixed{
-  padding-left: 8vw;
-  padding-right: 8vw;
+/* 网格布局 - 桌面端显示3列 */
+.who-can-apply__grid--fixed {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2vw;
+  gap: clamp(16px, 2vw, 24px);
   justify-content: center;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 48px);
 }
 
-/* 卡片覆盖式：桌面端显示描述，移动端只显示标题 */
-.who-can-apply__card--overlay{
+/* 卡片样式 - 图片占据整个卡片，文字覆盖在上方 */
+.who-can-apply__card--overlay {
   position: relative;
   width: 100%;
-  padding-bottom: 75%; /* 调整为4:3宽高比，使卡片更紧凑 */
-  overflow: hidden;
+  background: #ffffff;
   border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+  aspect-ratio: 1 / 1;
+}
+
+/* Desktop: 固定 450x450px，响应式 */
+@media (min-width: 1024px) {
+  .who-can-apply__card--overlay {
+    width: clamp(300px, 28vw, 450px);
+    height: clamp(300px, 28vw, 450px);
+    max-width: 450px;
+    max-height: 450px;
+    margin: 0 auto;
+  }
 }
 
 .who-can-apply__card--overlay:hover {
-  transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.who-can-apply__card--overlay .who-can-apply__img{
+/* 图片占据整个卡片 */
+.who-can-apply__img {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
   z-index: 1;
-  transition: transform .3s ease, filter .3s ease;
 }
 
-.who-can-apply__card--overlay:hover .who-can-apply__img{ 
+.who-can-apply__card--overlay:hover .who-can-apply__img {
   transform: scale(1.05);
-  filter: brightness(1.1);
 }
 
-/* 轻微的渐变遮罩，保持图片明亮同时确保文字可读 */
-.who-can-apply__card--overlay::before{
+/* 图片上半部分羽化效果 - 白色到透明的渐变，增强白色区域 */
+.who-can-apply__card--overlay::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
   z-index: 2;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.35) 100%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 25%,
+    rgba(255, 255, 255, 0.95) 35%,
+    rgba(255, 255, 255, 0.8) 45%,
+    rgba(255, 255, 255, 0.5) 55%,
+    rgba(255, 255, 255, 0.2) 65%,
+    rgba(255, 255, 255, 0) 100%
   );
 }
 
-.who-can-apply__card--overlay .who-can-apply__card-content{
+/* 文字内容区域 - 覆盖在图片上方，左上对齐，左右和上边距为40px */
+.who-can-apply__card--overlay .who-can-apply__card-content {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 3;
-  inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1vw;
-  color: #ffffff;
-  text-align: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px) clamp(16px, 2vw, 24px) clamp(20px, 3vw, 40px);
+  pointer-events: none;
 }
 
-.who-can-apply__card--overlay .who-can-apply__card-content h3 {
-  max-width: none;
-  font-size: clamp(0.875rem, 1vw, 1.125rem);
+.who-can-apply__card--overlay .who-can-apply__card-content .H3 {
+  margin: 0 0 clamp(8px, 1vw, 12px) 0;
+  color: #000;
+  text-align: left;
+  max-width: 85%;
+}
+
+.who-can-apply__card--overlay .who-can-apply__card-content .Body-1 {
   margin: 0;
-  font-weight: 700;
-  line-height: 1.3;
-  color: #ffffff !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #000;
+  text-align: left;
+  max-width: 85%;
 }
 
-/* 桌面端显示描述文字，移动端隐藏 */
-.who-can-apply__card--overlay .who-can-apply__card-content p {
-  display: none;
-  font-size: clamp(0.75rem, 0.8vw, 0.9rem);
-  margin: 0.5vw 0 0 0;
-  line-height: 1.4;
-  color: #ffffff !important;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-/* 桌面端显示描述 */
-@media (min-width: 1024px) {
-  .who-can-apply__card--overlay {
-    padding-bottom: 85%; /* 增加高度以容纳描述文字 */
-  }
-  
-  .who-can-apply__card--overlay .who-can-apply__card-content p {
-    display: block;
+/* 小于768px时隐藏描述 */
+@media (max-width: 767px) {
+  .who-can-apply__description-text {
+    display: none !important;
   }
 }
 
-/* 平板尺寸 - 三列布局 */
-@media (max-width: 1024px) {
+/* 平板尺寸 */
+@media (max-width: 1023px) {
   .who-can-apply__grid--fixed {
     grid-template-columns: repeat(3, 1fr);
-    padding-left: 5vw;
-    padding-right: 5vw;
-    gap: 1.5vw;
+    gap: clamp(12px, 1.5vw, 20px);
+    padding: 0 clamp(12px, 3vw, 32px);
   }
   
   .who-can-apply__card--overlay {
-    padding-bottom: 80%;
-  }
-  
-  .who-can-apply__card--overlay .who-can-apply__card-content h3 {
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    aspect-ratio: 1 / 1;
   }
 }
 
@@ -337,24 +294,18 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
 @media (max-width: 640px) {
   .who-can-apply__grid--fixed {
     grid-template-columns: repeat(2, 1fr);
-    padding-left: 4vw;
-    padding-right: 4vw;
-    gap: 2vw;
+    gap: clamp(8px, 2vw, 16px);
+    padding: 0 clamp(8px, 2vw, 16px);
   }
   
   .who-can-apply__card--overlay {
-    padding-bottom: 90%;
+    aspect-ratio: 1 / 1;
   }
   
   .who-can-apply__card--overlay .who-can-apply__card-content {
-    padding: 2vw;
-  }
-  
-  .who-can-apply__card--overlay .who-can-apply__card-content h3 {
-    font-size: clamp(0.75rem, 3vw, 1rem);
+    padding: clamp(16px, 2.5vw, 30px) clamp(16px, 2.5vw, 30px) clamp(12px, 1.5vw, 16px) clamp(16px, 2.5vw, 30px);
   }
 }
-
 
 @media (max-width: 768px) {
   .who-can-apply-section {
@@ -375,18 +326,6 @@ $button_link = get_theme_mod('who_can_apply_button_link', '#become-partner');
   
   .who-can-apply__description {
     font-size: 16px;
-  }
-  
-  .who-can-apply__card-content {
-    padding: 20px;
-  }
-  
-  .who-can-apply__card-title {
-    font-size: 18px;
-  }
-  
-  .who-can-apply__card-description {
-    font-size: 14px;
   }
 }
 </style>
