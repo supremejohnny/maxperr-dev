@@ -101,8 +101,8 @@
   
   <!-- Gradient overlay above video/images -->
   <div class="hero-overlay"></div>
-    <div class="w-full px-4 md:px-6 relative z-40 max-w-7xl mx-auto hero-content">
-      <div class="max-w-full md:max-w-[775px] text-left space-y-4" style="margin-left: 10px;">
+    <div class="w-full relative z-40 hero-content" style="padding-left: clamp(20px, 8vw, 160px); padding-right: clamp(20px, 4vw, 60px); padding-top: 1rem; padding-bottom: 1.5rem;">
+      <div class="max-w-full md:max-w-[775px] text-left space-y-4">
         <?php if ($hero_title) : ?>
           <h1 class="text-white Hero-H1">
             <?php echo esc_html($hero_title); ?>
@@ -120,7 +120,7 @@
         <?php endif; ?>
         <div class="pt-2">
           <button class="One-Column-Learn-More-Button">
-            Learn More?
+            Learn More
           </button>
         </div>
       </div>
