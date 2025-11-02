@@ -55,11 +55,11 @@ if ($author_custom !== '') {
   
   <div class="news-article-hero__container">
     <?php 
-    // Get the news page URL
-    $news_page_url = home_url('/news/');
+    // Read More button URL - Edit this URL to change where the button redirects
+    $read_more_url = home_url('/reliant/?page_id=847');
     ?>
     <div class="news-article-hero__actions">
-      <a href="<?php echo esc_url($news_page_url); ?>" class="news-article-hero__back-link">
+      <a href="<?php echo esc_url($read_more_url); ?>" class="news-article-hero__back-link">
         < <?php echo esc_html__('Read More', 'figma-rebuild'); ?>
       </a>
     </div>

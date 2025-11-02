@@ -18,16 +18,19 @@
         'name'  => 'Eco 12kW AC',
         'price' => '$799',
         'image' => $template_uri . '/src/images/products/Eco 12kW AC.png',
+        'url'   => home_url('/product-detail/'),
       ],
       [
         'name'  => 'Smart 30kW DC',
         'price' => '$0000',
         'image' => $template_uri . '/src/images/products/Smart 30kW DC.png',
+        'url'   => '',
       ],
       [
         'name'  => 'Pro Series DC',
         'price' => '$0000',
         'image' => $template_uri . '/src/images/products/Pro Series DC.png',
+        'url'   => '',
       ],
     ];
   }
@@ -280,14 +283,14 @@
         $name  = isset($product['name'])  ? $product['name']  : '';
         $price = isset($product['price']) ? $product['price'] : '';
         $img   = isset($product['image']) ? $product['image'] : '';
+        $url   = isset($product['url']) ? trim($product['url']) : '';
         $img   = $img ? esc_url($img) : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900"><rect width="100%" height="100%" fill="%23cfcfcf"/></svg>';
         
-        // 检查是否是 12kW Eco 产品，如果是则添加链接
-        $is_eco_12kw = (stripos($name, 'Eco 12kW') !== false || stripos($name, '12kW') !== false);
-        $product_link = $is_eco_12kw ? home_url('/product-detail/') : '#';
+        // 如果有URL，则使用链接，否则使用div
+        $has_link = !empty($url);
       ?>
-        <?php if ($is_eco_12kw): ?>
-          <a href="<?php echo esc_url($product_link); ?>" class="cc-card">
+        <?php if ($has_link): ?>
+          <a href="<?php echo esc_url($url); ?>" class="cc-card">
         <?php else: ?>
           <div class="cc-card">
         <?php endif; ?>
@@ -302,7 +305,7 @@
               <div class="cc-price"><?php echo esc_html($price); ?></div>
             <?php endif; ?>
           </div>
-        <?php if ($is_eco_12kw): ?>
+        <?php if ($has_link): ?>
           </a>
         <?php else: ?>
           </div>

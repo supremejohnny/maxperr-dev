@@ -18,16 +18,19 @@
         'name'  => 'Split Phase Hybrid Inverter 10kW',
         'price' => '$3999',
         'image' => $template_uri . '/src/images/products/Split Phase Hybrid Inverter 10kW.png',
+        'url'   => '',
       ],
       [
         'name'  => 'Battery Storage System',
         'price' => '$2599 - $7299',
         'image' => $template_uri . '/src/images/products/Battery Storage System.png',
+        'url'   => '',
       ],
       [
         'name'  => '',
         'price' => '',
         'image' => '',
+        'url'   => '',
       ],
     ];
   }
@@ -127,13 +130,13 @@
       color: inherit;
     }
     
-    /* 禁用第三个产品的hover效果和交互 */
-    #<?php echo esc_js($section_id); ?> .hec-card:nth-child(3) {
+    /* 禁用空产品的hover效果和交互 */
+    #<?php echo esc_js($section_id); ?> .hec-card:not([href]) {
       cursor: default !important;
       pointer-events: none;
     }
     
-    #<?php echo esc_js($section_id); ?> .hec-card:nth-child(3):hover {
+    #<?php echo esc_js($section_id); ?> .hec-card:not([href]):hover {
       transform: none;
       box-shadow: none;
     }
@@ -293,9 +296,15 @@
         $name  = isset($product['name'])  ? $product['name']  : '';
         $price = isset($product['price']) ? $product['price'] : '';
         $img   = isset($product['image']) ? $product['image'] : '';
+        $url   = isset($product['url']) ? trim($product['url']) : '';
         $is_empty = empty($name) && empty($price) && empty($img);
+        $has_link = !empty($url) && !$is_empty;
       ?>
-        <div class="hec-card">
+        <?php if ($has_link): ?>
+          <a href="<?php echo esc_url($url); ?>" class="hec-card">
+        <?php else: ?>
+          <div class="hec-card">
+        <?php endif; ?>
           <?php if (!$is_empty): ?>
             <?php 
               $img = $img ? esc_url($img) : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900"><rect width="100%" height="100%" fill="%23cfcfcf"/></svg>';
@@ -312,7 +321,11 @@
               <?php endif; ?>
             </div>
           <?php endif; ?>
-        </div>
+        <?php if ($has_link): ?>
+          </a>
+        <?php else: ?>
+          </div>
+        <?php endif; ?>
       <?php endforeach; ?>
     </div>
   </div>

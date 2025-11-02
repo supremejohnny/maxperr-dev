@@ -1598,6 +1598,7 @@ add_action('customize_register', function ($wp_customize) {
     ['id' => 'name',  'label' => __('Product Name', 'figma-rebuild'), 'type' => 'text'],
     ['id' => 'price', 'label' => __('Price', 'figma-rebuild'), 'type' => 'text'],
     ['id' => 'image', 'label' => __('Product Image URL', 'figma-rebuild'), 'type' => 'url'],
+    ['id' => 'url', 'label' => __('Redirect URL', 'figma-rebuild'), 'type' => 'url'],
   ];
   
   $wp_customize->add_setting('charger_products', [
@@ -1606,16 +1607,19 @@ add_action('customize_register', function ($wp_customize) {
         'name'  => 'Eco 12kW AC',
         'price' => '$799',
         'image' => $template_uri . '/src/images/products/Eco 12kW AC.png',
+        'url'   => home_url('/product-detail/'),
       ],
       [
         'name'  => 'Smart 30kW DC',
         'price' => '$0000',
         'image' => $template_uri . '/src/images/products/Smart 30kW DC.png',
+        'url'   => '',
       ],
       [
         'name'  => 'Pro Series DC',
         'price' => '$0000',
         'image' => $template_uri . '/src/images/products/Pro Series DC.png',
+        'url'   => '',
       ],
     ]),
     'sanitize_callback' => function ($input) use ($charger_product_fields) {
@@ -1703,6 +1707,7 @@ add_action('customize_register', function ($wp_customize) {
     ['id' => 'name',  'label' => __('Product Name', 'figma-rebuild'), 'type' => 'text'],
     ['id' => 'price', 'label' => __('Price', 'figma-rebuild'), 'type' => 'text'],
     ['id' => 'image', 'label' => __('Product Image URL', 'figma-rebuild'), 'type' => 'url'],
+    ['id' => 'url', 'label' => __('Redirect URL', 'figma-rebuild'), 'type' => 'url'],
   ];
   
   $wp_customize->add_setting('home_energy_products', [
@@ -1711,16 +1716,19 @@ add_action('customize_register', function ($wp_customize) {
         'name'  => 'Split Phase Hybrid Inverter 10kW',
         'price' => '$3999',
         'image' => $template_uri . '/src/images/products/Split Phase Hybrid Inverter 10kW.png',
+        'url'   => '',
       ],
       [
         'name'  => 'Battery Storage System',
         'price' => '$2599 - $7299',
         'image' => $template_uri . '/src/images/products/Battery Storage System.png',
+        'url'   => '',
       ],
       [
         'name'  => '',
         'price' => '',
         'image' => '',
+        'url'   => '',
       ],
     ]),
     'sanitize_callback' => function ($input) use ($home_energy_product_fields) {
