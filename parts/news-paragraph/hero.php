@@ -56,7 +56,7 @@ if ($author_custom !== '') {
   <div class="news-article-hero__container">
     <?php 
     // Read More button URL - Edit this URL to change where the button redirects
-    $read_more_url = home_url('/reliant/?page_id=847');
+    $read_more_url = home_url('/?page_id=843');
     ?>
     <div class="news-article-hero__actions">
       <a href="<?php echo esc_url($read_more_url); ?>" class="news-article-hero__back-link">
